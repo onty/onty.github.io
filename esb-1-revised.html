@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>ESB #1 (Revised)</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">JPrasojo's blog </a></h1>
+                <nav><ul>
+                    <li><a href="/pages/hello-world.html">Hello world...!</a></li>
+                    <li class="active"><a href="/category/blog.html">blog</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/esb-1-revised.html" rel="bookmark"
+           title="Permalink to ESB #1 (Revised)">ESB #1 (Revised)</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2007-06-03T00:00:00+02:00">
+                Published: Sun 03 June 2007
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
+        </address>
+<p>In <a href="/category/blog.html">blog</a>. </p>
+<p>tags: <a href="/tag/.html"></a> </p>
+</footer><!-- /.post-info -->      <p>Baru dapet chm tentang ESB(Enterprise Service Bus), karangan Dave Chappel dari <a href="http://arih.wordpress.com">mas Ari</a>. Nih ulasan bab pertamanya :</p>
+<p>Bab pertama ngejelasin tentang apa itu ESB(Enterprise Service Bus). Tahun-tahun sebelumnya kita mengenal istilah Service Oriented Architecture (SOA), Enterprise Application Integration (EAI), Business-to-Business (B2B), dan web services. Semua teknologi ini intinya sama, yaitu improvisasi hasil bisnis dari integrasi sistem-sistem yang telah ada sebelumnya. Sedangkan konsep ESB lebih kepada "..loosely coupled, highly distributed integration network that can scale beyond the limits of a hub-and-spoke EAI broker" . Jadi ketika bicara tentang ESB, maka didalamnya akan meliputi :</p>
+<p>1. Messaging</p>
+<p>2. Web Services</p>
+<p>3. Transformasi data</p>
+<p>4. Intelligent Routing yang mampu meneruskan message dari node satu ke yang lain tanpa melalui mekanisme broadcast.</p>
+<p>Lebih lanjut dijelaskan dalam halaman berikutnya, tentang konsep-konsep apa saja yang telah diakomodir oleh generasi integrasi sebelumnya (SOA, EAI, B2B) sebagai berikut :</p>
+<p>1.It must adapt to suit the needs of general-purpose integration projects across a variety of integration situations, large and small. Adaptability includes providing a durable architecture that is capable of withstanding evolutions in protocols, interface technology, and even process modeling trends.</p>
+<p>2.It must link together applications that span the extended enterprise using a single unified approach and a common infrastructure.</p>
+<p>3.It must extend beyond the boundaries of a single corporate IT data center and into automating partner relationships such as B2B and supply-chain scenarios.</p>
+<p>4.It must have simplicity of design and low barriers to entry, enabling the everyday IT professional to become a self-empowered integration architect.</p>
+<p>5.It must provide an SOA across the pervasive integration that enables integration architects to have a broad, abstract view of corporate application assets and automated business processes.</p>
+<p>6.It needs the flexibility and ability to react to and meet the needs of changing business requirements and competitive pressures.</p>
+<p>Gambar berikut menunjukkan lebih jelas tentang posisi ESB dan teknologi integrasi pendahulunya.</p>
+<p><img alt="" src="http://jroller.com/resources/j/JPrasojo/Clipboard01.jpg" /></p>
+<p>1. Traditional EAI Brokers.
+Arsitektur EAI Broker seperti ini memiliki keunggulan dimana semua fungsi-fungsi yang disediakannya (termasuk manajemen routing dan bisnis rule) dapat diatur secara terpusat. Tetapi buku ini mengatakan bahwa arsitektur ini kurang cocok untuk level integrasi antar departemen atau unit bisnis yang berbeda. Lebih lanjut dijelaskan dalam bab 2 mengenai ini.</p>
+<p>2. Application Server.
+Application server dapat menghubungkan protokol-protokol yang berbeda dengan baik, namun hasilnya adalah sebuah aplikasi yang saling bergantung satu sama lain, yaitu antara integration logic dan application logic.</p>
+<p>3. Message Oriented Middleware.
+Menyediakan konektivitas yang baik, loosely coupled, dengan gaya asinkron, antar aplikasi. Hal ini memungkinkan beberapa aplikasi yang kecepatan responsenya berbeda, menjadi tidak saling menunggu satu sama lain. Namun, arsitektur MOM ini membutuhkan pemrograman low-level yang cukup lumayan, sehingga bisa jadi waktu development akan lama. Belum lagi masalah perbedaan fisik network yang menyebabkan beberapa infrastruktur MOM tertentu menjadi tidak bisa diandalkan.</p>
+<p>4. Yang terakhir, ESB.
+Disini, kita tidak lagi bicara tentang pemrograman, tetapi lebih ke arah bagaimana sebuah service di konfigurasi. Di ESB juga terdapat pemisahan arsitektur yang jelas antara business logic(proses bisnis aplikasi) dengan integration logic(routing dan transformasi format data).</p>
+<p><img alt="" src="http://jroller.com/resources/j/JPrasojo/Clipboard02.jpg" /></p>
+<p><strong>Traditional Integration Broker Architecture</strong></p>
+<p><img alt="" src="http://jroller.com/resources/j/JPrasojo/Clipboard03.jpg" /></p>
+<p><strong>ESB Architecture</strong></p>
+<p>Berikut karakteristik dari ESB :</p>
+<p><strong>Pervasiveness. </strong></p>
+<p>An ESB can be adapted to suit the needs of general-purpose integration projects across a variety of integration situations. It is capable of building out integration projects that can span an entire organization and its business partners.</p>
+<p><strong>Highly distributed, event-driven SOA. </strong></p>
+<p>Loosely coupled integration components can be deployed on the bus across widely distributed geographic deployment topologies, yet are accessible as shared services from anywhere on the bus.</p>
+<p><strong>Selective deployment of integration components. </strong></p>
+<p>Adapters, distributed data transformation services, and content-based routing services can be selectively deployed when and where they are needed, and can be independently scaled.</p>
+<p><strong>
+Security and reliability. </strong></p>
+<p>All components that communicate through the bus can take advantage of reliable messaging, transactional integrity, and secure authenticated communications.</p>
+<p><strong>
+Orchestration and process flow. </strong></p>
+<p>An ESB allows data to flow across any applications and services that are plugged into the bus, whether local or remote.</p>
+<p><strong>
+Autonomous yet federated managed environment. </strong></p>
+<p>An ESB supports local autonomy at a departmental and business unit level, and is still able to integrate in a larger managed integration environment.</p>
+<p><strong>
+Incremental adoption. An ESB can be used for small projects. </strong></p>
+<p>Each individual project can build into a much larger integration network, which can be remotely managed from anywhere on the bus.</p>
+<p><strong>
+XML support. </strong></p>
+<p>An ESB can take advantage of XML as its "native" datatype.</p>
+<p>originally posted 7/4/06</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

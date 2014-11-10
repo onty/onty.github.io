@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>JPrasojo's blog</title><link href="http://blog.theprasojos.web.id/" rel="alternate"></link><link href="http://blog.theprasojos.web.id/feeds/blog.atom.xml" rel="self"></link><id>http://blog.theprasojos.web.id/</id><updated>2009-12-26T00:00:00+00:00</updated><entry><title>Verifying your wordpress.com blog on google webmaster central</title><link href="http://blog.theprasojos.web.id/verifying-your-wordpresscom-blog-on-google-webmaster-central.html" rel="alternate"></link><updated>2009-12-26T00:00:00+00:00</updated><author><name>Lintang JP</name></author><id>tag:blog.theprasojos.web.id,2009-12-26:verifying-your-wordpresscom-blog-on-google-webmaster-central.html</id><summary type="html">&lt;p&gt;Google webmaster is one of google's great application for every webmaster's to dig more on their on websites. Especially if the webmaster wanted to know how google bot sees their website. There we can see what does most people on our websites query for. Also, we can see which other websites that provide links to our website. Want to see it more clearly ? just open webmaster.google.com and type in your gmail's account to log in.&lt;/p&gt;
+&lt;p&gt;In google webmaster, first you need to register your own site, and then verifies that the site belongs to you. Google provides 2 mechanism for verifying your site. The first method asked the webmaster to add a new html page with some random name provided by google. We must upload it into our site directory and then ask google to verify it. The second method is to add meta tag in your website. If you're using free blog from wordpress, using wordpress.com domain, you will not be able to do the first verification method. Your best bet is to use the second one, which will be explained below.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="http://1.bp.blogspot.com/_02IFrF9Xz98/SzaUBp9a_8I/AAAAAAAADQM/ip9c_cwducc/s320/gwm.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;After you add new site to google webmaster, it then brings you to a verification screen. Here, you choose Meta-tag for verification method.&lt;/p&gt;
+&lt;p&gt;Copy paste the meta-tag provided by google, and then go to your admin page of your wordpress.com blog.&lt;/p&gt;
+&lt;p&gt;In your admin dashboard for wordpress.com, go to menu Tools located on left bottom of your page. There should be a page written Webmaster tools Verification on center pane. Paste your Meta-tag there, and dont forget to Save changes.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="http://1.bp.blogspot.com/_02IFrF9Xz98/SzaWJ9fR_DI/AAAAAAAADQU/T3Kuu2Fj_QI/s320/gwm2.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;Back to your google webmaster page, click Verify. After 10-15 minutes, check back to see if it's already verified.&lt;/p&gt;
+&lt;p&gt;Simple isn't ? First time I try this tools, I spent several hour to find the best verification methods in my wordpress.com, and suddenly when I click the Tools link in my admin dashboard, I found the one I looking for, google webmaster verification, and there it is :)&lt;/p&gt;
+&lt;p&gt;My other blog is at http://theprasojos.wordpress.com , how about you ?&lt;/p&gt;</summary><category term="wordpress verify google webmaster Internet"></category></entry><entry><title>Welcome to billing world....</title><link href="http://blog.theprasojos.web.id/welcome-to-billing-world.html" rel="alternate"></link><updated>2008-03-27T00:00:00+00:00</updated><author><name>Lintang JP</name></author><id>tag:blog.theprasojos.web.id,2008-03-27:welcome-to-billing-world.html</id><summary type="html">&lt;p&gt;Every event counts....
+Outthinking. Outdoing....&lt;/p&gt;
+&lt;p&gt;Familiar with those words ? Well yes you're right. Those are the slogans for 2 billing company in telco industries.&lt;/p&gt;
+&lt;p&gt;Yes, it's been 3 weeks since I quit from my previos job in J University(some of you must have been familiar with this abbreviation) as one of Development team member. Currently I work for one of telecommunication company, CDMA450 based, in Indonesia (easy guess, there's just only 1 company using this technology in Indonesia). I join here as Interconnect Billing Specialist.&lt;/p&gt;
+&lt;p&gt;It's been almost 3 years since I decided to move on to my next career path. Hard decision I guess. Well, of course there's a reason and hope. Also, there's a prayer and faith why I decided to resign. It's the billing world that makes me fall in love with telco.&lt;/p&gt;
+&lt;p&gt;I remember my first chance in billing world was in 2006, when I sent my CV, apply to a company as a Billing staff, got accepted, but the situation was a little bit difficult that day, my wife will gave birth soon, and I thought that this wasnt the right time to move, so I stayed.&lt;/p&gt;
+&lt;p&gt;My second chance in billing world, came during a project in Indosat. Also, got recommended by one of my campus senior. Again, the time seems didnt fit. I got weblogic training to Hong Kong at the same month, it's a hard choice, but at least I still got my loyalty. It was the first time I got trained abroad, never miss those moment, I was more than happy that day, so I decided to stay.&lt;/p&gt;
+&lt;p&gt;My third chance, here in my current company. I thought this is the right time to move. I doubt those chances would come back again for the fourth time. I always thought that joining telco industries right at it's heart was a very strategic decision for my next career path. Some colleagues told me that life will felt so stuck and slowly if I took this chance, well I heard them and I really appreciate them, but still... life is a path full of choice, right ? :)&lt;/p&gt;
+&lt;p&gt;My current job title here is Interconnect Billing and Retail Tariff management. Basically, billing solution can be divided into two major parts, Retail and Interconnect. Retail billing is the part where it deals with direct customers for their current balance, charging, and so on. It;s more like daily operational task. While Interconnect Billing relates to another operator. We deal with any kind of event that involved other licensed operator (OLO). While Retail Billing's usually done daily, Interconnect's cycle is only once in a month. Dispute solving, Volume Compare, Tariff Management, is our monthly tasks. We work together with the Retail Billing team, we share the CDR data, but we work in a different way.&lt;/p&gt;
+&lt;p&gt;Ok, that's it. Time to go to bed, tomorrow, there's still CDR waiting to be rated.&lt;/p&gt;</summary><category term="Telco Billing"></category></entry><entry><title>Perjalanan Ke Barat....</title><link href="http://blog.theprasojos.web.id/perjalanan-ke-barat.html" rel="alternate"></link><updated>2007-08-09T00:00:00+01:00</updated><author><name>Lintang JP</name></author><id>tag:blog.theprasojos.web.id,2007-08-09:perjalanan-ke-barat.html</id><summary type="html">&lt;p&gt;Besok, ke Jakarta, first flight, mengadu nasib, mengubah sejarah :p
+Rencananya besok nginep di masjid, sambil semoga bisa nginep di tempat mas Yono98, di tempat mas Heri Surahman katanya ada iparnya dua dateng, jadi agak rame, gak enak juga sih. Opsinya : masjid UI Salemba, sama kosnya mas Yono98.&lt;/p&gt;
+&lt;p&gt;Dear blog, gak tau kapan aku bisa kembali mengisimu lagi.....
+Semoga aja  di tempat kerja nanti ada internetnya ya ? :)&lt;/p&gt;
+&lt;p&gt;baydeway, aku jadi teringat beberapa taun lalu, ....seseorang mengutarakan idenya dan mengajakku untuk membuat situs..bukan psychotazkia lho, ada lagi yang laen, namanya funkids.com, domainnya terlanjur dibeli sama orang.....&lt;/p&gt;
+&lt;p&gt;Situs itu, rencananya dia, tentang situs pendidikan anak-anak islami. Dia seneng banget sama anak-2 kecil kali ya ?
+Tapi kesibukan kuliah membuat semuanya tergilas oleh waktu.&lt;/p&gt;
+&lt;p&gt;Teringat ucapan Ustadz Rofi' ...... "BERSAMA ALLOH KITA BISA !" :) so...let's fight for a better tomorrow .... :)&lt;/p&gt;
+&lt;p&gt;Originally posted : 14/09/04 12:38&lt;/p&gt;</summary><category term=""></category></entry><entry><title>Tora(Toolkit for Oracle) Installation</title><link href="http://blog.theprasojos.web.id/toratoolkit-for-oracle-installation.html" rel="alternate"></link><updated>2007-06-01T00:00:00+01:00</updated><author><name>Lintang JP</name></author><id>tag:blog.theprasojos.web.id,2007-06-01:toratoolkit-for-oracle-installation.html</id><summary type="html">&lt;p&gt;Yesterday I managed to install my laptop with Tora. I'm using Kubuntu Feisty Fawn.For you who doesnt have any idea what kind of animal Tora is, let me give you some hint. If you used to use Toad in M$-Windows to do your oracle database-related jobs, well, you can say that Tora has similar usage.It can runs on Linux, make your life simpler, and easier, he he. Hey, it's your laptop that should work for you, not you're the one that has to work for your laptop, right ?
+Ok, here's the step I saved from my installation adventure :&lt;/p&gt;
+&lt;p&gt;1. get Oracle instant client
+You can get it here :
+http://download.oracle.com/otn/linux/instantclient/instantclient-basic-linux32-10.2.0.3-20061115.zip
+http://download.oracle.com/otn/linux/instantclient/instantclient-sdk-linux32-10.2.0.3-20061115.zip&lt;/p&gt;
+&lt;p&gt;2. Unzip it at some directory, e.g : /opt/instantclient_10_2&lt;/p&gt;
+&lt;p&gt;3. Add the directory to /etc/ld.so.conf, dont forget run /sbin/ldconfig.
+Here's the sample from my laptop :
+------------------
+onty@phoenix:~$ cat /etc/ld.so.conf
+/lib
+/usr/lib
+/usr/lib/firefox/plugins
+/opt/instantclient_10_2
+------------------&lt;/p&gt;
+&lt;p&gt;4. Install libqscintilla.
+Thank God, I'm using Kubuntu,and having great internet connection in my office. So just simply run apt-get.
+root@phoenix:/opt# apt-get install libqscintilla6 libqscintilla-dev&lt;/p&gt;
+&lt;p&gt;5. Download and Unzip tora
+You can get it &lt;a href="http://sourceforge.net/projects/tora"&gt;here&lt;/a&gt;. I'm using version 1.3.21.&lt;/p&gt;
+&lt;p&gt;6. compile start
+oracle@phoenix:/opt/tora-1.3.21$ ./configure --with-qt-dir=/usr/lib/qt3 --with-oracle-libraries=/opt/instantclient_10_2 --with-oracle-includes=/opt/instantclient_10_2/sdk/include --with-oci-version=10G --with-instant-client
+oracle@phoenix:/opt/tora-1.3.21$ make
+oracle@phoenix:/opt/tora-1.3.21$ make install&lt;/p&gt;
+&lt;p&gt;7. In the midde of make, I'm getting error says that toThreadStartWrapper has not been declared. I googled around to find the solution, and found out that I have to edit a file named tothread.cpp around line 157 like below.&lt;/p&gt;
+&lt;h1&gt;define THREAD_ASSERT(x) if((x)!=0) {&lt;/h1&gt;
+&lt;p&gt;throw (qApp-&amp;gt;translate("toThread","Thread function "%1" failed.").arg(QString::fromLatin1( #x ))); }&lt;/p&gt;
+&lt;p&gt;/&lt;em&gt; new added start &lt;/em&gt;/
+void &lt;em&gt;toThreadStartWrapper(void &lt;/em&gt;t);
+/&lt;em&gt; new added end &lt;/em&gt;/&lt;/p&gt;
+&lt;p&gt;void toThread::initAttr()&lt;/p&gt;
+&lt;p&gt;After that, I continued with make, and make install.&lt;/p&gt;
+&lt;p&gt;And finally, run ./tora and you can see ORACLE option in your connection. That connection refers to wherever you put our TNSNAMES.ORA in your ORACLE_HOME.&lt;/p&gt;
+&lt;p&gt;OK, that's for today's tip.&lt;/p&gt;</summary><category term="Linux stuff"></category></entry></feed>

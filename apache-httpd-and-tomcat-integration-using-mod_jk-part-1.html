@@ -8,35 +8,45 @@
 
 	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
 	<!--[if lt IE 9]>
-		<script src="/theme/html5.js"></script>
+		<script src="http://blog.theprasojos.web.id/theme/html5.js"></script>
 	<![endif]-->
 
 	<!-- Styles -->
-	<link href="/theme/bootstrap.min.css" rel="stylesheet">
-	<link href="/theme/local.css" rel="stylesheet">
-	<link href="/theme/pygments.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/bootstrap.min.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/local.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/pygments.css" rel="stylesheet">
 
 	<!-- Feeds -->
+	<link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Atom Feed" />
 
 
 
 
+<script>var _gaq=[['_setAccount','UA-56589451-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<script type="text/javascript">
+	var disqus_identifier = "apache-httpd-and-tomcat-integration-using-mod_jk-part-1.html";
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://jprasojos.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
 </head>
 <body>
 	<div class="topbar">
 	  <div class="topbar-inner">
 		<div class="container-fluid">
-		  <a class="brand" href="/">JPrasojo's blog</a>
+		  <a class="brand" href="http://blog.theprasojos.web.id/">JPrasojo's blog</a>
 			<ul class="nav">
-						<li><a href="/pages/hello-world.html">About</a></li>
-					<li ><a href="/category/blog.html">Blog</a></li>
-					<li ><a href="/category/java.html">Java</a></li>
-					<li ><a href="/category/renungan.html">Renungan</a></li>
-					<li ><a href="/category/telco.html">Telco</a></li>
-					<li ><a href="/category/travelling.html">Travelling</a></li>
-					<li class="active"><a href="/category/unixlinux.html">Unix/Linux</a></li>
+						<li><a href="http://blog.theprasojos.web.id/pages/hello-world.html">About</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/blog.html">Blog</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
+					<li class="active"><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
 			</ul>
-			<p class="pull-right"><a href="/archives.html">[archives]</a> <a href="/tags.html">[tags]</a></p>
+			<p class="pull-right"><a href="http://blog.theprasojos.web.id/archives.html">[archives]</a> <a href="http://blog.theprasojos.web.id/tags.html">[tags]</a></p>
 		</div>
 	  </div>
 	</div>
@@ -63,10 +73,10 @@
 	  <div class="content">
 	<div class='article'>
 		<div class="page-header"><h1>Apache Httpd and Tomcat integration using mod_jk, part 1</h1></div>
-		<div class="well small">Permalink: <a class="more" href="/apache-httpd-and-tomcat-integration-using-mod_jk-part-1.html">2007-06-03 00:00:00+01:00</a>
-by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/unixlinux.html">Unix/Linux</a>
-tags: <a href="/tag/.html"></a> </div>
+		<div class="well small">Permalink: <a class="more" href="http://blog.theprasojos.web.id/apache-httpd-and-tomcat-integration-using-mod_jk-part-1.html">2007-06-03 00:00:00+01:00</a>
+by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
+ in <a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a>
+tags: <a href="http://blog.theprasojos.web.id/tag/.html"></a> </div>
 		<div><p>In my other blog, I've wrote about howto use mod_jk2 to integrate httpd and tomcat. The article can be accesed <a href="http://www.jroller.com/page/JPrasojo/?anchor=setup_tomcat_clustering_and_load">here</a> and <a href="http://www.jroller.com/page/JPrasojo/?anchor=setup_tomcat_clustering_and_load1">here</a>.
 Now, since mod_jk2 has not supported again by apache-tomcat-connector developers, so in this article I will use mod_jk. I'm using :</p>
 <ul>
@@ -113,6 +123,9 @@ The logger level will be INFO.
 We will map /tomcat-docs/ request in httpd to be handled by tomcat, so make sure that this webapp exist in tomcat. By default if you download tomcat, this webapp is already exist. Later you can change it to your own webapp. And this request will be handled by a worker named 'router'.
 Last one is for jkmanager monitoring tools. There will be new context path named /jkmanager/ that will show us status for our jk_module. This context path only allowed to be accessed from 127.0.0.1 (localhost).</p>
 <p>Ok, now we need to create workers.properties in conf/ directory. See part 2 of this post.</p></div>
+		<div>
+			<h2>Comments</h2>
+<div id="disqus_thread"></div>		<div>
 	</div>
 		<footer>
 		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>

@@ -1,82 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>JPrasojo's blog</title>
-	<meta name="description" content="">
-	<meta name="author" content="Lintang JP">
+        <meta charset="utf-8" />
+        <title>JPrasojo's blog - jumpstart Unix Linux stuff solaris</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
 
-	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
-	<!--[if lt IE 9]>
-		<script src="/theme/html5.js"></script>
-	<![endif]-->
-
-	<!-- Styles -->
-	<link href="/theme/bootstrap.min.css" rel="stylesheet">
-	<link href="/theme/local.css" rel="stylesheet">
-	<link href="/theme/pygments.css" rel="stylesheet">
-
-	<!-- Feeds -->
-
-
-
-
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 </head>
-<body>
-	<div class="topbar">
-	  <div class="topbar-inner">
-		<div class="container-fluid">
-		  <a class="brand" href="/">JPrasojo's blog</a>
-			<ul class="nav">
-						<li><a href="/pages/hello-world.html">Hello world...!</a></li>
-					<li ><a href="/category/blog.html">blog</a></li>
-			</ul>
-			<p class="pull-right"><a href="/archives.html">[archives]</a> <a href="/tags.html">[tags]</a></p>
-		</div>
-	  </div>
-	</div>
 
-	<div class="container-fluid">
-	  <div class="sidebar">
-		<div class="well">
-			<h3>Blogroll</h3>
-			<ul>
-				<li><a href="http://getpelican.com/">Pelican</a></li>
-				<li><a href="http://python.org/">Python.org</a></li>
-				<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-				<li><a href="#">You can modify those links in your config file</a></li>
-			</ul>
-			<div class="social">
-			<h3>Social</h3>
-			<ul>
-				<li><a href="#">You can add links in your config file</a></li>
-				<li><a href="#">Another social link</a></li>
-			</ul>
-			</div>
-		</div>
-	  </div>
-	  <div class="content">
-<div class="page-header"><h1>JPrasojo's blog <small>jumpstart Unix Linux stuff solaris</small></h1></div>
-<div class='article'>
-	<h2>Solaris Jumpstart on Linux</h2>
-	<div class="well small">Permalink: <a class="more" href="/solaris-jumpstart-on-linux.html">2010-08-10 00:00:00+02:00</a>
-by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
-tags: <a href="/tag/jumpstart-unix-linux-stuff-solaris.html">jumpstart Unix Linux stuff solaris</a> </div>
-	<div class="summary"><p><strong><em>Intro :</em></strong>
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">JPrasojo's blog </a></h1>
+                <nav><ul>
+                    <li><a href="/pages/hello-world.html">About</a></li>
+                    <li><a href="/category/blog.html">blog</a></li>
+                    <li><a href="/category/telco.html">Telco</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/solaris-jumpstart-on-linux.html">Solaris Jumpstart on Linux</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2010-08-10T00:00:00+02:00">
+                Published: Tue 10 August 2010
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
+        </address>
+<p>In <a href="/category/blog.html">blog</a>. </p>
+<p>tags: <a href="/tag/jumpstart-unix-linux-stuff-solaris.html">jumpstart Unix Linux stuff solaris</a> </p>
+</footer><!-- /.post-info --><p><strong><em>Intro :</em></strong>
 - Linux, Debian based (mine: Lenny), hostname : pegasus, act as the Solaris jumpstart server.
 - Solaris, Solaris 10, hostname: solclient, will be the machine to be installed.
-- IP addresses range 192.168.10.x (class C), make sure you use standard network class IP, this is where the standard broadcast address ...</p> <a class="btn primary xsmall" href="/solaris-jumpstart-on-linux.html">more…</a>
-	</div>
-</div>	
+- IP addresses range 192.168.10.x (class C), make sure you use standard network class IP, this is where the standard broadcast address (192.168.10.255) comes into play during arp broadcast.
+- solclient will broadcast arp request, replied by pegasus's rarpd, and then and IP address will be assigned. solclient will then download the minimum kernel using tftp. The kernel file name will be the ip address of the solclient. For example, if the assigned IP is 192.168.10.5, and then the kernel name will be C0A80A05. Another way is to use this command:</p>
+<p>elinpra@pegasus &gt; printf "XXXXn" 192 168 10 5
+C0A80A05</p>
+<p>This file should be stored inside the root directory of tftp. Check the tftp setting on <strong>/etc/inetd.conf</strong>. Here is mine:</p>
+<p>elinpra@pegasus &gt; cat /etc/inetd.conf
+tftp dgram udp4 wait nobody /usr/sbin/tcpd /usr/sbin/in.tftpd /srv/tftp/</p>
+<p>Then, the file C0A80A05 should be put in<strong> /srv/tftp</strong>.</p>
+<p>Steps :</p>
+<p>1. Install bootparamd, rarpd, tftpd and nfs-kernel-server in Linux server (pegasus)
+root@pegasus &gt; apt-get install bootparamd rarpd tftpd nfs-kernel-server
+2. Run iptables -F, make sure no firewall in Linux server
+root@pegasus &gt; iptables -F
+3. Check the mac address of the solaris client.
+Try boot from {ok}, see the mac address during booting (if the system is currently up, go to init 0 mode) :
+ok boot net</p>
+<p>Resetting ...
+LOM event: 56d 21h39m43s host reset</p>
+<p>þ
+Sun Fire V120 (UltraSPARC-IIe 648MHz), No Keyboard
+OpenBoot 4.0, 1024 MB memory installed, Serial #61911409.
+Ethernet address 0:3:ba:b0:b1:71, Host ID: 83b0b171.</p>
+<p>Back to lom&gt; or sc&gt; using 'break' command.</p>
+<p>4. Set <strong>/etc/ethers</strong> and <strong>/etc/hosts</strong> in Linux server with the mac address and hostname of the solaris client.</p>
+<p>elinpra@pegasus &gt; echo "0:3:ba:b0:b1:71 solclient" &gt;&gt; /etc/ethers
+elinpra@pegasus &gt; echo "192.168.10.5 solclient" &gt;&gt; /etc/hosts</p>
+<p>5. Start the rarpd if has not started yet.( I’m using debian based linux here )
+root@pegasus &gt; /etc/init.d/rarpd start</p>
+<p>6. If you're installing using Solaris iso file, mount the iso file to a directory using the following command, otherwise if using Solaris CD/DVD, directly go to step 8:
+root@pegasus &gt; mkdir -p /mnt/sol10
+root@pegasus &gt; mount -o loop solaris_iso_file.iso /mnt/sol10
+root@pegasus &gt; cd /mnt/sol10</p>
+<p>7. If you have the Solaris 10 CD, insert it on pegasus, do the following steps :
+root@pegasus &gt; cd /mnt/cdrom/ (to your solaris cdrom directory)</p>
+<p>8. Find the suitable kernel for your machine type. Mine is SunFire v120, so it will be sun4u type. If your hardware is T5220, T2000 etc then you need sun4v kernel.
+Locate the kernel on directory Solaris_10/Tools/Boot/platform/sun4u/inetboot for sun4u, or Solaris_10/Tools/Boot/platform/sun4v/inetboot for sun4v.
+Copy it to <strong>/srv/tftp</strong> and make symbolic link to that file into C0A80A05.</p>
+<p>root@pegasus &gt; cp inetboot /srv/tftp
+root@pegasus &gt; ln -s /srv/tftp/inetboot /srv/tftp/C0A80A05</p>
+<p>9. Start tftpd daemon in pegasus :
+root@pegasus &gt; /etc/init.d/openbsd-inetd restart</p>
+<p>10. start nfs service in pegasus :
+root@pegasus &gt; /etc/init.d/nfs-kernel-server start</p>
+<p>11. Prepare nfs mount so that solclient later on can download the entire installation package using nfs mount. Set the mount root into where the cdrom or iso files are mounted. Make sure that the nfs mount root from solclient is /sol10.</p>
+<p>root@pegasus &gt; exportfs <em>:/mnt/cdrom -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync exportfs </em>:/mnt -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync Check if the nfs shares can be mounted correctly.</p>                </article>
+<p class="paginator">
+    Page 1 / 1
+</p>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
 
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
 
-		<footer>
-		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>
-		  <p>&copy; Lintang JP</p>
-		</footer>
-	  </div>
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
 
-	</div>
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
 </body>
 </html>

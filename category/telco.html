@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>Telco Billing #2, Interconnect that matters...</title>
+        <title>JPrasojo's blog - Telco</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
         <!--[if IE]>
@@ -19,15 +19,10 @@
                     <li class="active"><a href="/category/telco.html">Telco</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="/telco-billing-2-interconnect-that-matters.html" rel="bookmark"
-           title="Permalink to Telco Billing #2, Interconnect that matters...">Telco Billing #2, Interconnect that matters...</a></h1>
-    </header>
 
-    <div class="entry-content">
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/telco-billing-2-interconnect-that-matters.html">Telco Billing #2, Interconnect that matters...</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2009-01-13T00:00:00+01:00">
                 Published: Tue 13 January 2009
@@ -38,7 +33,7 @@
         </address>
 <p>In <a href="/category/telco.html">Telco</a>. </p>
 <p>tags: <a href="/tag/.html"></a> </p>
-</footer><!-- /.post-info -->      <p>Ok, sekarang penentuan tarif interkoneksi.
+</footer><!-- /.post-info --><p>Ok, sekarang penentuan tarif interkoneksi.
 Sejak tahun 2007, Indonesia menganut sistem Cost Based Interconnection (kalau di dunia lebih dikenal dengan Bottom Up-Long Run Incremental Cost, dan saat ini konsultan nya buat negara kita yaitu Ovum, yang merekomendasikan sistem Cost Based ini di Indonesia ). Ilustrasi di paragraf ketiga akan mencoba menjelaskan dengan bahasa manusial normal, tentang bagaimana sistem ini bekerja. Intinya adalah, semua variable yang berpengaruh dalam pembuatan sebuah panggilan, akan diperhitungkan di dalamnya. Seperti kita ketahui, ketika kita membuat suatu panggilan suara ( baca: nelpon ), di dalamnya kita melibatkan BTS, BSC, MSC, dan IN dari operator. Dan begitu juga ketika panggilan kita disampaikan ke nomer tujuan, komponen yang terlibat kurang lebih sama. Nah, semua komponen tersebut memiliki biaya produksi, termasuk diperhitungkan juga biaya penyusutannya. Hasilnya adalah tariff interkoneksi, lokal, SLJJ, dan Internasional, per menit, untuk durasi yang lebih dari 5 detik. Artinya, call yang melibatkan interkoneksi kurang dari 5 detik, tidak akan di charge. Kenapa 5 detik ? karena nilai ini dianggap sebagai waktu maksimum yang dibutuhkan agar perangkat-perangkat interkoneksi antar operator dapat berbicara satu sama lain. Kalau bisa kurang dari itu ya bagus, kalau tidak, kemungkinan besar anda akan dapat drop call.</p>
 <p>Lalu apa untungnya memakai sistem Cost Based ini ? Syahdan pada jaman dahulu kala, terdapat duopoli sektor telekomunikasi di Indonesia, yep, Telkom dan Indosat. Seluruh traffik interkoneksi antar operator, haruslah transit melalui kedua operator ini, baik lokal, SLJJ, maupun internasional. Karena cuma dua operator ini, maka yang menentukan harga ya terserah yang jualan, ya tho ? Sampai akhirnya pada tahun 2006, muncullah peraturan menkominfo tentang pemberlakuan sistem interkoneksi yang baru. Peraturan ini memungkinkan operator untuk membuat interkoneksinya sendiri, atau tetap transit lewat dua operator tadi. Efeknya ? biaya interkoneksi jadi bisa bersaing ( baca: turun ). Kok bisa ? ya karena kalau ada dua operator membuat interkoneksi satu sama lain, dan ternyata cost nya lebih murah daripada transit ke dua operator duopolist diatas, ya kenapa tidak ? Sebaliknya, operator duopolist tentu akan pikir-pikir lagi kalau memasang tariff, kalau interkoneksi direct lebih murah, maka dagangan mereka nggak ada lagi yang beli dong, ya kan ? Imbas turunnya tariff interkoneksi ini juga sampai ke pelanggan seperti kita. Karena tariff interkoneksi turun, akibatnya tariff retail juga turun deh. Seperti judul diatas, kalau tidak ada interkoneksi, kita akan kuper, apalagi kalau kita operator baru.</p>
 <p>Seperti uraian diatas, di dalam billing interkoneksi, juga dikenal istilah sambungan lokal, dan sambungan jarak jauh (SLJJ) seperti di billing retail. Bedanya, kalau di billing retail, penentuan lokal dan SLJJ didasarkan pada POC pemanggil dan penerima. Kalau POC nya sama, maka dihitung tariff lokal, dan kalau berbeda maka dihitung tariff SLJJ. Misal, kalau kita telpon dari Bandung yang POC nya 022 (Ingat, POC kira-kira sama dengan kode area, well...more or less) ke Bandung juga, maka tariffnya adalah lokal. Kalau dari Bandung ke Jakarta ( 021 ) maka tariffnya adalah interlokal (SLJJ), karena POC nya berbeda.
@@ -50,11 +45,83 @@ Billing interkoneksi ( billing antar operator ) :
 1. Lokal, jika POI A = POC B
 2. SLJJ, jika POI A != POC B</p>
 <p>Lalu bagaimana dengan tariff interkoneksi untuk internasional call ( SLI ) ? Seperti yang kita ketahui, kini ada 3 operator yang memiliki lisensi untuk SLI ini, Telkom, Indosat, dan BTel. Artinya, mau tidak mau, operator yang ada haruslah memiliki perjanjian transit dengan salah satu dari 3 operator ini. Dari sini, tariffnya adalah tariff per-negara. Dan biasanya, operator-operator yang lain tinggal membundling tariff SLI dari operator pemilik lisensi SLI ini, ke dalam tariff retail mereka, dan sistemnya adalah komisi. Biaya interkoneksi dibayarkan penuh, namun untuk tiap panggilan yang melewati sistem interkoneksi operator pemilik lisensi SLI tadi, operator pemanggil akan mendapatkan komisi, yang besarnya tentu saja tergantung dari volume traffik yang dilewatkan. Begitu juga dengan panggilan masuk dari luar negeri. Trafficnya juga hanya bisa melalui 3 operator SLI tadi, dan tariffnya tergantung perjanjian antara operator SLI dengan operator penerima panggilan yang sebenarnya.</p>
-<p>Kira-kira demikianlah proses interkoneksi. Mungkin di lain kesempatan akan dibahas tentang billing retail. Any comments ? please wrote it down.</p>
-    </div><!-- /.entry-content -->
+<p>Kira-kira demikianlah proses interkoneksi. Mungkin di lain kesempatan akan dibahas tentang billing retail. Any comments ? please wrote it down.</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
 
-  </article>
-</section>
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/telco-billing-1-interconnect-that-matters.html" rel="bookmark"
+                           title="Permalink to Telco Billing #1, Interconnect that matters...">Telco Billing #1, Interconnect that matters...</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2009-01-10T00:00:00+01:00">
+                Published: Sat 10 January 2009
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
+        </address>
+<p>In <a href="/category/telco.html">Telco</a>. </p>
+<p>tags: <a href="/tag/interconnect-telekomunikasi-telco-billing-interkoneksi.html">Interconnect Telekomunikasi Telco Billing Interkoneksi</a> </p>
+</footer><!-- /.post-info -->                <p>Seperti disebutkan dalam judul diatas, bidang interkoneksi adalah bidang yang sangat berpengaruh dalam kelangsungan operasional sebuah operator, terutama buat operator non incumbent. Bagaimana tidak, bagi operator baru, tidak ada interkoneksi berarti tidak terhubung ke jaringan lain, pelanggan tidak akan bisa bertelpon/ber-sms ke operator lain ( terutama jika operator itu incumbent ...</p>
+                <a class="readmore" href="/telco-billing-1-interconnect-that-matters.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/popular-telco-billing-terms-1.html" rel="bookmark"
+                           title="Permalink to Popular telco billing terms #1">Popular telco billing terms #1</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2008-06-20T00:00:00+02:00">
+                Published: Fri 20 June 2008
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
+        </address>
+<p>In <a href="/category/telco.html">Telco</a>. </p>
+<p>tags: <a href="/tag/telco-billing.html">Telco Billing</a> </p>
+</footer><!-- /.post-info -->                <p>I wrote this post in case if someone got interested on Telco Billing but they dont familiar with it's basic common glosarry in a telco billing environment. These cheat words will come in handy when you're in the middle of an interview :D for a billing position. At ...</p>
+                <a class="readmore" href="/popular-telco-billing-terms-1.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/why-telco-narsis.html" rel="bookmark"
+                           title="Permalink to Why Telco? *Narsis">Why Telco? *Narsis</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2007-06-03T00:00:00+02:00">
+                Published: Sun 03 June 2007
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
+        </address>
+<p>In <a href="/category/telco.html">Telco</a>. </p>
+<p>tags: <a href="/tag/.html"></a> </p>
+</footer><!-- /.post-info -->                <p>Kalo ditanya, kenapa bahagia di industry telco. Simply karena di sektor ini kayaknya teknologi berkembang terus, hampir tiap waktu (terlepas dari..apakah teknologinya sekarang akan kepake ato nggak, e.g: 3G ). Alasan lain, karena kayaknya di sektor inilah, orang-orang IT bener-bener <em>dianggap</em>. Industri lainnya mungkin adalah perbankan sama perminyakan. Sedangkan ...</p>
+                <a class="readmore" href="/why-telco-narsis.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+<p class="paginator">
+    Page 1 / 1
+</p>
+                </section><!-- /#content -->
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>

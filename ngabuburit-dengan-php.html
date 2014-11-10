@@ -1,80 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>JPrasojo's blog</title>
-	<meta name="description" content="">
-	<meta name="author" content="Lintang JP">
+        <meta charset="utf-8" />
+        <title>Ngabuburit dengan PHP</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
 
-	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
-	<!--[if lt IE 9]>
-		<script src="/theme/html5.js"></script>
-	<![endif]-->
-
-	<!-- Styles -->
-	<link href="/theme/bootstrap.min.css" rel="stylesheet">
-	<link href="/theme/local.css" rel="stylesheet">
-	<link href="/theme/pygments.css" rel="stylesheet">
-
-	<!-- Feeds -->
-
-
-
-
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 </head>
-<body>
-	<div class="topbar">
-	  <div class="topbar-inner">
-		<div class="container-fluid">
-		  <a class="brand" href="/">JPrasojo's blog</a>
-			<ul class="nav">
-						<li><a href="/pages/hello-world.html">Hello world...!</a></li>
-					<li class="active"><a href="/category/blog.html">blog</a></li>
-			</ul>
-			<p class="pull-right"><a href="/archives.html">[archives]</a> <a href="/tags.html">[tags]</a></p>
-		</div>
-	  </div>
-	</div>
 
-	<div class="container-fluid">
-	  <div class="sidebar">
-		<div class="well">
-			<h3>Blogroll</h3>
-			<ul>
-				<li><a href="http://getpelican.com/">Pelican</a></li>
-				<li><a href="http://python.org/">Python.org</a></li>
-				<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-				<li><a href="#">You can modify those links in your config file</a></li>
-			</ul>
-			<div class="social">
-			<h3>Social</h3>
-			<ul>
-				<li><a href="#">You can add links in your config file</a></li>
-				<li><a href="#">Another social link</a></li>
-			</ul>
-			</div>
-		</div>
-	  </div>
-	  <div class="content">
-	<div class='article'>
-		<div class="page-header"><h1>Ngabuburit dengan PHP</h1></div>
-		<div class="well small">Permalink: <a class="more" href="/ngabuburit-dengan-php.html">2007-08-09 00:00:00+02:00</a>
-by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
-tags: <a href="/tag/.html"></a> </div>
-		<div><p>Assalamu'alaikum ...</p>
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">JPrasojo's blog </a></h1>
+                <nav><ul>
+                    <li><a href="/pages/hello-world.html">About</a></li>
+                    <li class="active"><a href="/category/blog.html">blog</a></li>
+                    <li><a href="/category/telco.html">Telco</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/ngabuburit-dengan-php.html" rel="bookmark"
+           title="Permalink to Ngabuburit dengan PHP">Ngabuburit dengan PHP</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2007-08-09T00:00:00+02:00">
+                Published: Thu 09 August 2007
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
+        </address>
+<p>In <a href="/category/blog.html">blog</a>. </p>
+<p>tags: <a href="/tag/.html"></a> </p>
+</footer><!-- /.post-info -->      <p>Assalamu'alaikum ...</p>
 <p>hari minggu, lagi nunggu buka di kantor, sambil nunggu burning suse ma xandros desktop, bosan mau ngapain, jadi ngisi blog deh. mau cerita tentang PHP, one of the most powerfull programming language in the web environments.di project yg sekarang, aku make php dan xml (ini sih mungkin biasa ya),mbikin monitoring tools(baca:kulit) buat aplikasi sms gateway nya kannel.benernya kannel dah nyediain sih, interface cgi mereka, namun biar bisa dijual, kayaknya interface yg mereka sediain gak cukup "menarik", makanya php datang sebagai pahlawan bertopeng :p. Tau kan, di kannel mereka nge bind port tertentu buat monitoring sms gateway mereka, kalo disini sih port 13000, tergantug settingan adminport di kannel.conf nya.Nah, tantangannya adalah bagaimana informasi status gateway yg update tiap detik tuh bisa diterima langsung di klien tanpa halaman web yg dibangun tuh "berkedip", you know, blinking, kalo kita ngerefresh halamannya kan jelek, masak tiap detik refresh. Nah, untuk yg satu ini, salut deh buat microsoft, yg, harus diakui, bener bener paling bagus ngimplementasiin XML di browser mereka. Dengan javascript timer, dan microsoft XMLHTTP, it's done, jadi deh. Jadi ceritanya tuh, kita tetep ngupdate info, narik ke client lewat browser, tapi nggak dengan cara ngerefresh satu halaman. Untuk monitoring seperti ini, kan informasinya harus realtime, berarti butuh koneksi terus menerus antara klien dengan server kannel. Kalo lewat web, setiap kita minta koneksi ke server, kan selanjutnya udah, putus, walaupun masih ada objek session, tapi gak ada gunanya, soalnya kita bener bener minta info yg terbaru dari server. Jadi, konsepnya, kita tetep minta info ke server tiap detik, via javascript timer dan XMLHTTP tadi, tapi lewat "jalan belakang, dimana user juga gak tau bahwa web browsernya sedang ngerequest halaman terus menerus ke server, yg mereka tau ada tulisan berisi status yg keupdate terus di layar mereka. Kalo di mozilla, entahlah, belum tau. YG jelas, implementasi XML Data Island di Mozilla gak sebagus dan semudah punya Microsoft (omongan jujur dari pecinta linux :p ).</p>
 <p>Selain itu, aku juga make php buat generate report dengan format excel dan pdf, bikin chart juga dengan library jpgraph. Agar php support format pdf, harus download dulu library dari pdflib, setelah itu, untuk memulai, ada library/class php bagus milik fpdf di http://www.fpdf.org, cool, kita bisa masukin gambar juga di pdf kita.</p>
 <p>Masalah lain ada pada waktu generate pdf.Kan di aplikasi web itu aku juga bikin graph chart dari library jpgraph gd, file yg terbentuk kan berasal dari php, jadi nggak murni file grafik, cuman di set content-type nya berupa grafik. Ehh, si fpdf nggak mau, errornya bilang, bahwa file grafik hasil generate dari php itu nggak ditemukan. Hmm, pusing juga, padahal path nya bener loh. Akhirnya aku ngoprek lagi tuh jpgraph, sampai pada settingan dimana jpgraph mendukung cache, jadi file hasil generate tadi bisa disimpan sebagai cache berbentuk FILE ASLI bertipe...macem macem sih, kebetulan punyaku berformat png, ya udah deh, tinggal set pdfnya supaya ngambil gambar dari file asli di direktori cache tadi, beres...</p>
 <p>eh, dah dulu yak, dah buka nih....mau cari minum dulu di pantry, bye,.....</p>
-<p>Originally posted : 31/10/04 5:49</p></div>
-	</div>
-		<footer>
-		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>
-		  <p>&copy; Lintang JP</p>
-		</footer>
-	  </div>
+<p>Originally posted : 31/10/04 5:49</p>
+    </div><!-- /.entry-content -->
 
-	</div>
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
 </body>
 </html>

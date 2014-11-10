@@ -29,8 +29,12 @@
 		  <a class="brand" href="/">JPrasojo's blog</a>
 			<ul class="nav">
 						<li><a href="/pages/hello-world.html">About</a></li>
-					<li class="active"><a href="/category/blog.html">blog</a></li>
+					<li ><a href="/category/blog.html">Blog</a></li>
+					<li ><a href="/category/java.html">Java</a></li>
+					<li ><a href="/category/renungan.html">Renungan</a></li>
 					<li ><a href="/category/telco.html">Telco</a></li>
+					<li ><a href="/category/travelling.html">Travelling</a></li>
+					<li class="active"><a href="/category/unixlinux.html">Unix/Linux</a></li>
 			</ul>
 			<p class="pull-right"><a href="/archives.html">[archives]</a> <a href="/tags.html">[tags]</a></p>
 		</div>
@@ -61,7 +65,7 @@
 		<div class="page-header"><h1>Playing around with low end VPS box</h1></div>
 		<div class="well small">Permalink: <a class="more" href="/playing-around-with-low-end-vps-box.html">2010-04-05 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/unixlinux.html">Unix/Linux</a>
 tags: <a href="/tag/tips-unix-linux-stuff-web-server-nginx.html">Tips Unix Linux stuff Web Server Nginx</a> </div>
 		<div><p>Last week I just bought a VPS account for playing around with. It feels so great having our own shell account with root login so that we can do anything inside. I bought it from <a href="http://www.pasarhosting.com">here</a>. First of all, I bought the minimalist one, with 64mb memory, with no burstable ram :D, using Centos. I simply cant do anything, their Centos installation itself took around 20-30mb ram. I also not well enough playing with Yum. This is not great, so I upgraded the account to 128mb ram. At the same time I noticed that besides Centos, the hosting provider also provide Debian Lenny as the OS....why dont you said that from the beginning ??? :D Now, I'm running Lenny with 128mb ram. The VM specs itself it's not that bad, considering it's powered with 2 cpu @3Ghz, 128mb ram with no swap ( this guy <a href="https://www.vpsmart.com/clients/knowledgebase.php?action=displayarticle&amp;id=4">here</a> shares a great script to create a fake swap, but I dont need it any longer ;) read the rest of the entry to know why... ), and with 10Gb disk, more than enough storage for minimalist like me :)</p>
 <p>So, first thing first, chop all the unnecessary program, replace it with the program with smaller 'cost'. Just do ps -ef and there I found apache2 and Sendmail sitting around and eating my memory. Just do :</p>

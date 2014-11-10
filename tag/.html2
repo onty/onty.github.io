@@ -29,8 +29,12 @@
 		  <a class="brand" href="/">JPrasojo's blog</a>
 			<ul class="nav">
 						<li><a href="/pages/hello-world.html">About</a></li>
-					<li ><a href="/category/blog.html">blog</a></li>
+					<li ><a href="/category/blog.html">Blog</a></li>
+					<li ><a href="/category/java.html">Java</a></li>
+					<li ><a href="/category/renungan.html">Renungan</a></li>
 					<li ><a href="/category/telco.html">Telco</a></li>
+					<li ><a href="/category/travelling.html">Travelling</a></li>
+					<li ><a href="/category/unixlinux.html">Unix/Linux</a></li>
 			</ul>
 			<p class="pull-right"><a href="/archives.html">[archives]</a> <a href="/tags.html">[tags]</a></p>
 		</div>
@@ -62,7 +66,7 @@
 	<h2>Mawar Merah ...</h2>
 	<div class="well small">Permalink: <a class="more" href="/mawar-merah.html">2007-08-09 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/renungan.html">Renungan</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>Memang ku tak mampu belikan dia Perhiasan...</p>
 <p>Tak pernah atau memberi kemewahan...</p>
@@ -76,7 +80,7 @@ tags: <a href="/tag/.html"></a> </div>
 	<h2>Ngabuburit dengan PHP</h2>
 	<div class="well small">Permalink: <a class="more" href="/ngabuburit-dengan-php.html">2007-08-09 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/unixlinux.html">Unix/Linux</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>Assalamu'alaikum ...</p>
 <p>hari minggu, lagi nunggu buka di kantor, sambil nunggu burning suse ma xandros desktop, bosan mau ngapain, jadi ngisi blog deh. mau cerita tentang PHP, one of the most powerfull programming language in the web environments.di project yg sekarang, aku make php dan xml (ini sih mungkin ...</p> <a class="btn primary xsmall" href="/ngabuburit-dengan-php.html">more…</a>
@@ -86,7 +90,7 @@ tags: <a href="/tag/.html"></a> </div>
 	<h2>Nulis Ah...</h2>
 	<div class="well small">Permalink: <a class="more" href="/nulis-ah.html">2007-08-09 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/renungan.html">Renungan</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>It's holiday from friday to sunday, some people might spend their time with thier families. Here, I spend my time hanging around the virtual world. Nevermind, so what ? this is my life :)</p>
 <p>Some people told me that I should go out, hanging around with my friends, just to make ...</p> <a class="btn primary xsmall" href="/nulis-ah.html">more…</a>
@@ -96,7 +100,7 @@ tags: <a href="/tag/.html"></a> </div>
 	<h2>Perjalanan Ke Barat....</h2>
 	<div class="well small">Permalink: <a class="more" href="/perjalanan-ke-barat.html">2007-08-09 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/blog.html">Blog</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>Besok, ke Jakarta, first flight, mengadu nasib, mengubah sejarah :p
 Rencananya besok nginep di masjid, sambil semoga bisa nginep di tempat mas Yono98, di tempat mas Heri Surahman katanya ada iparnya dua dateng, jadi agak rame, gak enak juga sih. Opsinya : masjid UI Salemba, sama kosnya mas Yono98.</p>
@@ -107,7 +111,7 @@ Rencananya besok nginep di masjid, sambil semoga bisa nginep di tempat mas Yono9
 	<h2>Romantika...</h2>
 	<div class="well small">Permalink: <a class="more" href="/romantika.html">2007-08-09 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/renungan.html">Renungan</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>Ada pesona romantika datang tiba-tiba</p>
 <p>masa klasik insani hadir kembali</p>
@@ -126,7 +130,7 @@ tags: <a href="/tag/.html"></a> </div>
 	<h2>SimplyMepis</h2>
 	<div class="well small">Permalink: <a class="more" href="/simplymepis.html">2007-08-09 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/unixlinux.html">Unix/Linux</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>Beberapa hari ini nyoba SimplyMepis, nice distro. As easy as Mandrake, but as powerful as Debian. Such a perfect combination. We can choose, whether RPM or APT. Ditambah internet di indosat yang sangat cepat, menjadikan nih linux mantep banget. Kecuali satu hal, ada trouble di libxml2 sehingga agak kacau nginstall ...</p> <a class="btn primary xsmall" href="/simplymepis.html">more…</a>
 	</div>

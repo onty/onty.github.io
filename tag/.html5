@@ -29,8 +29,12 @@
 		  <a class="brand" href="/">JPrasojo's blog</a>
 			<ul class="nav">
 						<li><a href="/pages/hello-world.html">About</a></li>
-					<li ><a href="/category/blog.html">blog</a></li>
+					<li ><a href="/category/blog.html">Blog</a></li>
+					<li ><a href="/category/java.html">Java</a></li>
+					<li ><a href="/category/renungan.html">Renungan</a></li>
 					<li ><a href="/category/telco.html">Telco</a></li>
+					<li ><a href="/category/travelling.html">Travelling</a></li>
+					<li ><a href="/category/unixlinux.html">Unix/Linux</a></li>
 			</ul>
 			<p class="pull-right"><a href="/archives.html">[archives]</a> <a href="/tags.html">[tags]</a></p>
 		</div>
@@ -62,7 +66,7 @@
 	<h2>Tukang jual pisang goreng</h2>
 	<div class="well small">Permalink: <a class="more" href="/tukang-jual-pisang-goreng.html">2007-06-03 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/travelling.html">Travelling</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>Yesterday is my 12th day in Malaysia. My company has a join project with ECM for our client, Mi3G. Yesterday, we went to Subang HiTech to install the production server.When break time, we went to street corner to find some snack, and there we met a lady who sell ...</p> <a class="btn primary xsmall" href="/tukang-jual-pisang-goreng.html">more…</a>
 	</div>
@@ -71,7 +75,7 @@ tags: <a href="/tag/.html"></a> </div>
 	<h2>Webservices with spring</h2>
 	<div class="well small">Permalink: <a class="more" href="/webservices-with-spring.html">2007-06-03 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/java.html">Java</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>These few days, I had a task to create a webservice client. Sounds interesting and challenging, because usually if we depends on weblogic's control, we can make any webservices client much much easier, just a few click, and tadaaa. The problem is, the webservice client will become stand alone ...</p> <a class="btn primary xsmall" href="/webservices-with-spring.html">more…</a>
 	</div>
@@ -89,7 +93,7 @@ tags: <a href="/tag/.html"></a> </div>
 	<h2>Testing my new Blog</h2>
 	<div class="well small">Permalink: <a class="more" href="/testing-my-new-blog.html">2007-05-29 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/renungan.html">Renungan</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>This is just write test for the first time using blogspot.com, this is the second blog I have. My first one is in http://www.jroller.com/page/JPrasojo . I just want to try out google's owned blog space. Let's see how good it woks.</p> <a class="btn primary xsmall" href="/testing-my-new-blog.html">more…</a>
 	</div>

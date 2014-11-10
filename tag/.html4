@@ -29,8 +29,12 @@
 		  <a class="brand" href="/">JPrasojo's blog</a>
 			<ul class="nav">
 						<li><a href="/pages/hello-world.html">About</a></li>
-					<li ><a href="/category/blog.html">blog</a></li>
+					<li ><a href="/category/blog.html">Blog</a></li>
+					<li ><a href="/category/java.html">Java</a></li>
+					<li ><a href="/category/renungan.html">Renungan</a></li>
 					<li ><a href="/category/telco.html">Telco</a></li>
+					<li ><a href="/category/travelling.html">Travelling</a></li>
+					<li ><a href="/category/unixlinux.html">Unix/Linux</a></li>
 			</ul>
 			<p class="pull-right"><a href="/archives.html">[archives]</a> <a href="/tags.html">[tags]</a></p>
 		</div>
@@ -62,7 +66,7 @@
 	<h2>Hongkong survival day #2-2</h2>
 	<div class="well small">Permalink: <a class="more" href="/hongkong-survival-day-2-2.html">2007-06-03 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/travelling.html">Travelling</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>Hongkong is a nice city. I love the mass transportation railway,it's so clean, and of course, definitely fast. Everything is well organized here. I rarely seen any traffic jam in here although the street is not as wide as in Indonesia. Public transportation leave and arrive in time ...</p> <a class="btn primary xsmall" href="/hongkong-survival-day-2-2.html">more…</a>
 	</div>
@@ -71,7 +75,7 @@ tags: <a href="/tag/.html"></a> </div>
 	<h2>Hongkong Survival day#1</h2>
 	<div class="well small">Permalink: <a class="more" href="/hongkong-survival-day1.html">2007-06-03 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/travelling.html">Travelling</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>Finally, got chance to go abroad outside Indonesia. This is my first journey, to Hongkong. We will be here in 4 days, 2 days training, and 2 days for having fun, he he he. Start from subuh at 04.00 AM to the airport. After clearing customs, we proceed to ...</p> <a class="btn primary xsmall" href="/hongkong-survival-day1.html">more…</a>
 	</div>
@@ -80,7 +84,7 @@ tags: <a href="/tag/.html"></a> </div>
 	<h2>JBoss Vs BES</h2>
 	<div class="well small">Permalink: <a class="more" href="/jboss-vs-bes.html">2007-06-03 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/java.html">Java</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>Finally, I know why I got this error :
 javax.naming.NameNotFoundException: OracleDS not bound ...</p>
@@ -92,7 +96,7 @@ javax.naming.NameNotFoundException: OracleDS not bound ...</p>
 	<h2>My (Outdated) Mac OS.X 10.4.1</h2>
 	<div class="well small">Permalink: <a class="more" href="/my-outdated-mac-osx-1041.html">2007-06-03 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/unixlinux.html">Unix/Linux</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>I think this picture will describe enough for us ...</p>
 <p><img alt="" src="http://jroller.com/resources/j/JPrasojo/myMac.jpg" /></p>
@@ -103,7 +107,7 @@ tags: <a href="/tag/.html"></a> </div>
 	<h2>Nexenta Alpha 5</h2>
 	<div class="well small">Permalink: <a class="more" href="/nexenta-alpha-5.html">2007-06-03 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/unixlinux.html">Unix/Linux</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>Hehe, alhamdulillah, seneng juga bisa nyobain nexenta alpha 5 walau hanya di vmware. Sempat kaget nggak nemu pkgadd, malah nemu apt-get. Dan pertama bingung juga waktu mau install package dasar -&gt; GCC karena kalo install satu-satu dependancy nya kan nggak mungkin (bisa kriting). Akhirnya nemu repository yg harus ditambahin di /etc ...</p> <a class="btn primary xsmall" href="/nexenta-alpha-5.html">more…</a>
 	</div>
@@ -112,7 +116,7 @@ tags: <a href="/tag/.html"></a> </div>
 	<h2>Solaris, SNMP, and OpenNMS</h2>
 	<div class="well small">Permalink: <a class="more" href="/solaris-snmp-and-opennms.html">2007-06-03 00:00:00+02:00</a>
 by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/blog.html">blog</a>
+ in <a href="/category/unixlinux.html">Unix/Linux</a>
 tags: <a href="/tag/.html"></a> </div>
 	<div class="summary"><p>These day, I explore about SNMP. After wikipedia-ing in <a href="http://en.wikipedia.org/wiki/Simple_Network_Management_Protocol">here</a>, I try to install one of the recomended software called OpenNMS. After tried the live demo, it looks cool. So I decided to download it in <a href="http://downloads.sourceforge.net/opennms/opennms-1.3.2-1-sol10-sparc-local.gz?modtime=1168971264&amp;big_mirror=0">here</a>.
 I followed all the installation step guide from <a href="http://www.opennms.org/documentation/InstallUnStable.html">here</a>. I also need to ...</p> <a class="btn primary xsmall" href="/solaris-snmp-and-opennms.html">more…</a>

@@ -1,43 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="utf-8" />
-        <title>Webservices with spring</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+	<meta charset="utf-8">
+	<title>JPrasojo's blog</title>
+	<meta name="description" content="">
+	<meta name="author" content="Lintang JP">
 
-        <!--[if IE]>
-            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="/theme/html5.js"></script>
+	<![endif]-->
+
+	<!-- Styles -->
+	<link href="/theme/bootstrap.min.css" rel="stylesheet">
+	<link href="/theme/local.css" rel="stylesheet">
+	<link href="/theme/pygments.css" rel="stylesheet">
+
+	<!-- Feeds -->
+
+
+
+
 </head>
+<body>
+	<div class="topbar">
+	  <div class="topbar-inner">
+		<div class="container-fluid">
+		  <a class="brand" href="/">JPrasojo's blog</a>
+			<ul class="nav">
+						<li><a href="/pages/hello-world.html">Hello world...!</a></li>
+					<li class="active"><a href="/category/blog.html">blog</a></li>
+			</ul>
+			<p class="pull-right"><a href="/archives.html">[archives]</a> <a href="/tags.html">[tags]</a></p>
+		</div>
+	  </div>
+	</div>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">JPrasojo's blog </a></h1>
-                <nav><ul>
-                    <li><a href="/pages/hello-world.html">Hello world...!</a></li>
-                    <li class="active"><a href="/category/blog.html">blog</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="/webservices-with-spring.html" rel="bookmark"
-           title="Permalink to Webservices with spring">Webservices with spring</a></h1>
-    </header>
-
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2007-06-03T00:00:00+02:00">
-                Published: Sun 03 June 2007
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
-        </address>
-<p>In <a href="/category/blog.html">blog</a>. </p>
-<p>tags: <a href="/tag/.html"></a> </p>
-</footer><!-- /.post-info -->      <p>These few days, I had a task to create a webservice client. Sounds interesting and challenging, because usually if we depends on weblogic's control, we can make any webservices client much much easier, just a few click, and tadaaa. The problem is, the webservice client will become stand alone module, so, I can't use any java controls since those controls will be managed by weblogic container during runtime.
+	<div class="container-fluid">
+	  <div class="sidebar">
+		<div class="well">
+			<h3>Blogroll</h3>
+			<ul>
+				<li><a href="http://getpelican.com/">Pelican</a></li>
+				<li><a href="http://python.org/">Python.org</a></li>
+				<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+				<li><a href="#">You can modify those links in your config file</a></li>
+			</ul>
+			<div class="social">
+			<h3>Social</h3>
+			<ul>
+				<li><a href="#">You can add links in your config file</a></li>
+				<li><a href="#">Another social link</a></li>
+			</ul>
+			</div>
+		</div>
+	  </div>
+	  <div class="content">
+	<div class='article'>
+		<div class="page-header"><h1>Webservices with spring</h1></div>
+		<div class="well small">Permalink: <a class="more" href="/webservices-with-spring.html">2007-06-03 00:00:00+02:00</a>
+by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
+ in <a href="/category/blog.html">blog</a>
+tags: <a href="/tag/.html"></a> </div>
+		<div><p>These few days, I had a task to create a webservice client. Sounds interesting and challenging, because usually if we depends on weblogic's control, we can make any webservices client much much easier, just a few click, and tadaaa. The problem is, the webservice client will become stand alone module, so, I can't use any java controls since those controls will be managed by weblogic container during runtime.
 Then I turn to find another simple and fast way to create webservice client. But, before that of course, since the remote system is not ready yet, I have to create some dummy web service first. Weblogic 9.2 having strange behaviour. First, we create webservice project from the Eclipse-based-IDE. After that, we generate the wsdl files. But, dont ever try to validate it :D because it will fail. Just pass and use those webservice to create weblogic client. That's strange, fail to validate, but it works :D</p>
 <p>Ok, dont waste time, since I already had the webservice simulator works no matter how :p I began to create the webservice client. Coding from scratch ? no, it's painful, and I need to do it fast. I turn out to spring and axis which offers it's integration. This is my bean config sample :
 [code]</p>
@@ -58,38 +83,14 @@ Then I turn to find another simple and fast way to create webservice client. But
 <p>172800000</p>
 <p>And that's it, I'm done.</p>
 <p>logger.info("from cyberjava with love....");
-Originally posted 4/19/07.</p>
-    </div><!-- /.entry-content -->
+Originally posted 4/19/07.</p></div>
+	</div>
+		<footer>
+		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>
+		  <p>&copy; Lintang JP</p>
+		</footer>
+	  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+	</div>
 </body>
 </html>

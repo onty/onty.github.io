@@ -1,43 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="utf-8" />
-        <title>Telco Billing #1, Interconnect that matters...</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+	<meta charset="utf-8">
+	<title>JPrasojo's blog</title>
+	<meta name="description" content="">
+	<meta name="author" content="Lintang JP">
 
-        <!--[if IE]>
-            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="/theme/html5.js"></script>
+	<![endif]-->
+
+	<!-- Styles -->
+	<link href="/theme/bootstrap.min.css" rel="stylesheet">
+	<link href="/theme/local.css" rel="stylesheet">
+	<link href="/theme/pygments.css" rel="stylesheet">
+
+	<!-- Feeds -->
+
+
+
+
 </head>
+<body>
+	<div class="topbar">
+	  <div class="topbar-inner">
+		<div class="container-fluid">
+		  <a class="brand" href="/">JPrasojo's blog</a>
+			<ul class="nav">
+						<li><a href="/pages/hello-world.html">Hello world...!</a></li>
+					<li class="active"><a href="/category/blog.html">blog</a></li>
+			</ul>
+			<p class="pull-right"><a href="/archives.html">[archives]</a> <a href="/tags.html">[tags]</a></p>
+		</div>
+	  </div>
+	</div>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">JPrasojo's blog </a></h1>
-                <nav><ul>
-                    <li><a href="/pages/hello-world.html">Hello world...!</a></li>
-                    <li class="active"><a href="/category/blog.html">blog</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="/telco-billing-1-interconnect-that-matters.html" rel="bookmark"
-           title="Permalink to Telco Billing #1, Interconnect that matters...">Telco Billing #1, Interconnect that matters...</a></h1>
-    </header>
-
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2009-01-10T00:00:00+01:00">
-                Published: Sat 10 January 2009
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
-        </address>
-<p>In <a href="/category/blog.html">blog</a>. </p>
-<p>tags: <a href="/tag/interconnect-telekomunikasi-telco-billing-interkoneksi.html">Interconnect Telekomunikasi Telco Billing Interkoneksi</a> </p>
-</footer><!-- /.post-info -->      <p>Seperti disebutkan dalam judul diatas, bidang interkoneksi adalah bidang yang sangat berpengaruh dalam kelangsungan operasional sebuah operator, terutama buat operator non incumbent. Bagaimana tidak, bagi operator baru, tidak ada interkoneksi berarti tidak terhubung ke jaringan lain, pelanggan tidak akan bisa bertelpon/ber-sms ke operator lain ( terutama jika operator itu incumbent ), dan ini vital sekali. Peraturan Menkominfo tentang interkoneksi ini bisa di unduh <a href="http://www.blogger.com/mod=">disini</a> .
+	<div class="container-fluid">
+	  <div class="sidebar">
+		<div class="well">
+			<h3>Blogroll</h3>
+			<ul>
+				<li><a href="http://getpelican.com/">Pelican</a></li>
+				<li><a href="http://python.org/">Python.org</a></li>
+				<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+				<li><a href="#">You can modify those links in your config file</a></li>
+			</ul>
+			<div class="social">
+			<h3>Social</h3>
+			<ul>
+				<li><a href="#">You can add links in your config file</a></li>
+				<li><a href="#">Another social link</a></li>
+			</ul>
+			</div>
+		</div>
+	  </div>
+	  <div class="content">
+	<div class='article'>
+		<div class="page-header"><h1>Telco Billing #1, Interconnect that matters...</h1></div>
+		<div class="well small">Permalink: <a class="more" href="/telco-billing-1-interconnect-that-matters.html">2009-01-10 00:00:00+01:00</a>
+by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
+ in <a href="/category/blog.html">blog</a>
+tags: <a href="/tag/interconnect-telekomunikasi-telco-billing-interkoneksi.html">Interconnect Telekomunikasi Telco Billing Interkoneksi</a> </div>
+		<div><p>Seperti disebutkan dalam judul diatas, bidang interkoneksi adalah bidang yang sangat berpengaruh dalam kelangsungan operasional sebuah operator, terutama buat operator non incumbent. Bagaimana tidak, bagi operator baru, tidak ada interkoneksi berarti tidak terhubung ke jaringan lain, pelanggan tidak akan bisa bertelpon/ber-sms ke operator lain ( terutama jika operator itu incumbent ), dan ini vital sekali. Peraturan Menkominfo tentang interkoneksi ini bisa di unduh <a href="http://www.blogger.com/mod=">disini</a> .
 Dalam bidang interkoneksi dikenal istilah-istilah berikut :
 1. POC (Point of Charge)
 Kalau jaman PSTN(telpon rumah kabel) hanya ada cuma Telkom saja seperti dulu, POC ini kita kenal dengan istilah kode area. Katakanlah Mojokerto, maka kode area nya 0321, Surabaya, 031, dst. Seiring dengan waktu, muncullah telepon seluler, yang untuk menentukan POC nya sebenarnya lebih sulit, karena sifatnya yang mobile dan dapat berpindah-pindah, akibatnya POC untuk telepon seluler ini tidak menyerap 100% dari POC milik PSTN dan FWA(telepon cdma yang non seluler, seperti flexi, esia, hepi). POC ini adalah basis yang digunakan untuk menentukan dimana lokasi penelpon dan penerima telpon.
@@ -56,38 +81,14 @@ Setelah memiliki POC, maka operator X harus juga membuka layanan interkoneksi de
 Dari sini, muncullah operator Y yang bertindak sebagai operator transit. Artinya, operator X tidak perlu membangun jaringan interkoneksi ke seluruh operator yang ada, yang diperlukan hanya 1 buah infrastruktur interkoneksi, menuju operator Y sebagai operator transit, yang nantinya akan menyalurkan alur traffic menuju operator tujuan yang sebenarnya. Dari sini kita sudah mendapatkan gambaran, bagaimana kira-kira maksud dari originasi, terminasi, dan transit.</p>
 <p>Lalu, kapan sebuah operator perlu membangun jaringan interkoneksinya sendiri ? Dari data statistik operator X tiap bulan, tentu operator X bisa melihat kemana tujuan paling banyak alur traffic dari pelanggannya. Dan begitu juga darimana pelanggannya paling banyak menerima panggilan. Jika cost transit ini diperkirakan sudah akan lebih mahal daripada membangun infrastruktur interkoneksi langsung dengan operator tujuan, maka sudah saatnya infrastruktur interkoneksi langsung ini dibangun.</p>
 <p>Oh ya, dari tadi ini kita masih membicarakan panggilan suara (voice) yah, kalau untuk SMS, infrastruktur interkoneksi harus dibuat satu-persatu menuju operator tujuan, karena SMS ke operator lain tidak bisa disampaikan melalui jaringan transit.</p>
-<p>Lalu bagaimana dengan penentuan tarif interkoneksi ? Tunggu di bagian #2 yah...</p>
-    </div><!-- /.entry-content -->
+<p>Lalu bagaimana dengan penentuan tarif interkoneksi ? Tunggu di bagian #2 yah...</p></div>
+	</div>
+		<footer>
+		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>
+		  <p>&copy; Lintang JP</p>
+		</footer>
+	  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+	</div>
 </body>
 </html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Telco Billing #1, Interconnect that matters... | JPrasojo's Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Lintang JP" />
+    <meta name="kittycheck_rumble" content="true" />
+    <meta name="kittycheck_position" content="top=60,right=60" />
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .tag-1 {
+        font-size: 13pt;
+      }
+      .tag-2 {
+        font-size: 10pt;
+      }
+      .tag-2 {
+        font-size: 8pt;
+      }
+      .tag-4 {
+        font-size: 6pt;
+     }
+    </style>
+    <link href="/theme/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/theme/css/font-awesome.css" rel="stylesheet">
+    <link href="/theme/css/pygments.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/theme/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/theme/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/theme/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/theme/img/apple-touch-icon-114x114.png">
+
+    <link href="/" type="application/atom+xml" rel="alternate" title="JPrasojo's Blog ATOM Feed" />
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/index.html">JPrasojo's Blog </a>
+          <div class="nav-collapse">
+            <ul class="nav">
+                <li class="divider-vertical"></li>
+                <li class="active">
+                  <a href="/category/blog.html">
+						        <i class="icon-folder-open icon-large"></i>blog
+					         </a>
+                </li>
+              <ul class="nav pull-right">
+                    <li><a href="/archives.html"><i class="icon-th-list"></i>Archives</a></li>
+              </ul>
+
+            </ul>
+            <!--<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>-->
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="span8" id="content">
+<div class="row">
+    <div class="span2">
+        <div class="well">
+<footer class="post-info">
+<abbr class="published" title="2009-01-10T00:00:00+00:00">
+    <i class="icon-calendar"></i>&nbsp;Sat 10 January 2009
+</abbr>
+<br/><a href="/author/lintang-jp.html"><i class="icon-user"></i>&nbsp;Lintang JP</a>
+
+
+<br/>
+	&nbsp;&nbsp;<a href="/tag/interconnect-telekomunikasi-telco-billing-interkoneksi.html" class="label"><i class="icon-tag"></i>&nbsp;Interconnect Telekomunikasi Telco Billing Interkoneksi</a>
+</footer><!-- /.post-info -->        </div>
+    </div>
+    <div class="span6">
+<section id="content" class="well">
+    <article>
+        <header>
+            <h1>
+                <a href=""
+                        rel="bookmark"
+                        title="Permalink to Telco Billing #1, Interconnect that matters...">
+                        Telco Billing #1, Interconnect that matters...
+                </a>
+            </h1>
+        </header>
+        <div class="entry-content">
+
+        <p>Seperti disebutkan dalam judul diatas, bidang interkoneksi adalah bidang yang sangat berpengaruh dalam kelangsungan operasional sebuah operator, terutama buat operator non incumbent. Bagaimana tidak, bagi operator baru, tidak ada interkoneksi berarti tidak terhubung ke jaringan lain, pelanggan tidak akan bisa bertelpon/ber-sms ke operator lain ( terutama jika operator itu incumbent ), dan ini vital sekali. Peraturan Menkominfo tentang interkoneksi ini bisa di unduh <a href="http://www.blogger.com/mod=">disini</a> .
+Dalam bidang interkoneksi dikenal istilah-istilah berikut :
+1. POC (Point of Charge)
+Kalau jaman PSTN(telpon rumah kabel) hanya ada cuma Telkom saja seperti dulu, POC ini kita kenal dengan istilah kode area. Katakanlah Mojokerto, maka kode area nya 0321, Surabaya, 031, dst. Seiring dengan waktu, muncullah telepon seluler, yang untuk menentukan POC nya sebenarnya lebih sulit, karena sifatnya yang mobile dan dapat berpindah-pindah, akibatnya POC untuk telepon seluler ini tidak menyerap 100% dari POC milik PSTN dan FWA(telepon cdma yang non seluler, seperti flexi, esia, hepi). POC ini adalah basis yang digunakan untuk menentukan dimana lokasi penelpon dan penerima telpon.
+2. POI (Point of Interconnection)
+Adalah titik dimana alur traffic mengarah masuk atau keluar, dari network lokal milik operator yang bersangkutan, menuju ke network milik operator lain. Kita akan lebih mudah memahami ini dengan contoh kasus, yang akan diulas lebih lanjut di bawah. Yang jelas, semakin banyak kita memiliki POI dengan operator lain (dan yang ter-utilisasi dengan optimal tentunya ) maka cost interkoneksi ini akan jauh lebih bisa ditekan.
+3. Originasi
+Adalah titik dimana alur traffic berasal.
+4. Transit
+Adalah titik dimana alur traffic disalurkan melalui network operator lain, untuk kemudian bisa sampai ke tujuan. Bayangkan ini seperti ketika kita memaketkan barang lewat tiki. Tiki adalah titik transit pertama kita, untuk kemudian bisa sampai ke tujuan.
+5. Terminasi
+Adalah titik dimana alur traffic berakhir di tujuan.
+Ke-lima komponen ini berpengaruh penting dalam penentuan tarif biaya interkoneksi, yang pada ujungnya juga akan mempengaruhi tarif retail akhir yang akan ditawarkan ke pelanggan. Itulah kenapa ketika pemerintah memutuskan untuk menurunkan tarif interkoneksi antar operator, tarif retail juga diharapkan akan ikut turun.
+Kita akan bahas ini dengan mengambil contoh langsung kasusnya, sebuah perusahaan telekomunikasi selular X.
+Ketika pertama kali didirikan, operator X sudah harus menetapkan basis daerah awal dimana saja mereka akan beroperasi. Dari sinilah kemudian operator tersebut menyusun POC mana saja yang akan mereka miliki. Dan dari sini pulalah mereka akan membuat pemetaan prefix nomor mereka. Sebagai contoh, untuk daerah Jakarta, operator X akan membuat prefix 08XX170YYYY. 4 digit pertama (08XX) dikenal sebagai NDC, National Destination Code. Ini prefix yang menandakan blok nomor seluler tertentu milik operator tertentu.
+Setelah memiliki POC, maka operator X harus juga membuka layanan interkoneksi dengan operator lain. Karena di Indonesia terdapat 12 operator, maka interkoneksi ini harus dibuat ke seluruh operator-operator tersebut. Pembuatan infrastruktur interkoneksi menuju operator-operator lain ini juga bukan dengan biaya yang kecil, apalagi jika alur traffic menuju operator-operator tersebut masih sangat kecil, karena tentu operator X juga membutuhkan biaya untuk balik modal kan ;).
+Dari sini, muncullah operator Y yang bertindak sebagai operator transit. Artinya, operator X tidak perlu membangun jaringan interkoneksi ke seluruh operator yang ada, yang diperlukan hanya 1 buah infrastruktur interkoneksi, menuju operator Y sebagai operator transit, yang nantinya akan menyalurkan alur traffic menuju operator tujuan yang sebenarnya. Dari sini kita sudah mendapatkan gambaran, bagaimana kira-kira maksud dari originasi, terminasi, dan transit.</p>
+<p>Lalu, kapan sebuah operator perlu membangun jaringan interkoneksinya sendiri ? Dari data statistik operator X tiap bulan, tentu operator X bisa melihat kemana tujuan paling banyak alur traffic dari pelanggannya. Dan begitu juga darimana pelanggannya paling banyak menerima panggilan. Jika cost transit ini diperkirakan sudah akan lebih mahal daripada membangun infrastruktur interkoneksi langsung dengan operator tujuan, maka sudah saatnya infrastruktur interkoneksi langsung ini dibangun.</p>
+<p>Oh ya, dari tadi ini kita masih membicarakan panggilan suara (voice) yah, kalau untuk SMS, infrastruktur interkoneksi harus dibuat satu-persatu menuju operator tujuan, karena SMS ke operator lain tidak bisa disampaikan melalui jaringan transit.</p>
+<p>Lalu bagaimana dengan penentuan tarif interkoneksi ? Tunggu di bagian #2 yah...</p>
+        </div><!-- /.entry-content -->
+    </article>
+</section>
+</div>
+</div>
+        </div><!--/span-->
+        <div class="span3 well sidebar-nav" id="sidebar">
+<ul class="nav nav-list">
+<li class="nav-header"><h4><i class="icon-external-link"></i>blogroll</h4></li>
+    <li><div><i class="icon-external-link"></i><a href="http://getpelican.com/">Pelican</a></div></li>
+    <li><div><i class="icon-external-link"></i><a href="http://python.org/">Python.org</a></div></li>
+    <li><div><i class="icon-external-link"></i><a href="http://jinja.pocoo.org/">Jinja2</a></div></li>
+    <li><div><i class="icon-external-link"></i><a href="#">You can modify those links in your config file</a></div></li>
+<li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
+<li><a href="/" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+    <li><a href="#"><i class="icon-You can add links in your config file-sign icon-large"></i>You can add links in your config file</a></li>
+    <li><a href="#"><i class="icon-Another social link-sign icon-large"></i>Another social link</a></li>
+
+<li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
+<li>
+<a href="/category/blog.html">
+    <i class="icon-folder-open icon-large"></i>blog
+</a>
+</li>
+
+<li class="nav-header"><a href="/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+    <li class="tag-4">
+        <a href="/tag/linux-stuff.html">
+            <i class="icon-tag icon-large"></i>Linux stuff
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/telco-billing-cdma-450-3g.html">
+            <i class="icon-tag icon-large"></i>Telco Billing CDMA 450 3G
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/travel.html">
+            <i class="icon-tag icon-large"></i>Travel
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/ruby-dsl-linux-stuff.html">
+            <i class="icon-tag icon-large"></i>Ruby DSL Linux stuff
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/tips-unix-linux-stuff.html">
+            <i class="icon-tag icon-large"></i>Tips Unix Linux stuff
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/jumpstart-unix-linux-stuff-solaris.html">
+            <i class="icon-tag icon-large"></i>jumpstart Unix Linux stuff solaris
+        </a>
+    </li>
+    <li class="tag-3">
+        <a href="/tag/telco-billing.html">
+            <i class="icon-tag icon-large"></i>Telco Billing
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/broadband-at-home-internet-3g.html">
+            <i class="icon-tag icon-large"></i>Broadband at home Internet 3G
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/cms.html">
+            <i class="icon-tag icon-large"></i>CMS
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/wordpress-verify-google-webmaster-internet.html">
+            <i class="icon-tag icon-large"></i>wordpress verify google webmaster Internet
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/os-linux-stuff-opensolaris-solaris.html">
+            <i class="icon-tag icon-large"></i>OS Linux stuff OpenSolaris solaris
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/tips-unix-linux-stuff-web-server-nginx.html">
+            <i class="icon-tag icon-large"></i>Tips Unix Linux stuff Web Server Nginx
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/laptop.html">
+            <i class="icon-tag icon-large"></i>Laptop
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/renungan.html">
+            <i class="icon-tag icon-large"></i>Renungan
+        </a>
+    </li>
+    <li class="tag-1">
+        <a href="/tag/.html">
+            <i class="icon-tag icon-large"></i>
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/tips.html">
+            <i class="icon-tag icon-large"></i>Tips
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/atutor-unix-linux-stuff-web-server-internet-nginx.html">
+            <i class="icon-tag icon-large"></i>aTutor Unix Linux stuff Web Server Internet Nginx
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/family.html">
+            <i class="icon-tag icon-large"></i>Family
+        </a>
+    </li>
+    <li class="tag-4">
+        <a href="/tag/interconnect-telekomunikasi-telco-billing-interkoneksi.html">
+            <i class="icon-tag icon-large"></i>Interconnect Telekomunikasi Telco Billing Interkoneksi
+        </a>
+    </li>
+
+
+</ul>        </div><!--/.well -->
+
+      </div><!--/row-->
+
+      <hr>
+
+    </div><!--/.fluid-container-->
+
+
+    <!-- Le javascript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/theme/js/jquery-1.7.2.min.js"></script>
+    <script src="/theme/js/bootstrap.min.js"></script>
+  </body>
+</html>

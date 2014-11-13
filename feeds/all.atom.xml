@@ -401,65 +401,88 @@ Lalu seperti biasa, kita jalankan make, tapi kali ini tanpa make install.
 lintang@cygnus:~$ make
 Seharusnya nanti, di direktori src/ akan ada file bernama spawn-fcgi. Kopikan file tersebut ke directory /usr/bin sebagai berikut :
 lintang@cygnus:~$ sudo cp spawn-fcgi /usr/bin/
-Lalu anda buat skrip .sh sederhana sebagai berikut :
-lintang@cygnus:/usr/local/php-5.2.6$ cat &amp;gt; /usr/bin/php-fastcgi #!/bin/sh&lt;/p&gt;
-&lt;p&gt;/usr/bin/spawn-fcgi -a 127.0.0.1 -p 8999 -f /usr/local/php-5.2.6/bin/php-cgi&lt;/p&gt;
-&lt;p&gt;EOF&lt;/p&gt;
+Lalu anda buat skrip .sh sederhana sebagai berikut :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;lintang@cygnus:/usr/local/php-5.2.6$ cat &amp;gt; /usr/bin/php-fastcgi #!/bin/sh
+
+/usr/bin/spawn-fcgi -a 127.0.0.1 -p 8999 -f /usr/local/php-5.2.6/bin/php-cgi
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;Ini adalah skrip untuk menjalankan PHP sebagai proses CGI yang terpisah dari webserver anda nantinya. PHP akan membuka socket di port 8999, dan akan binding di interface lo(127.0.0.1) anda, sehingga hanya bisa diakses dari mesin anda sendiri.
 Ok, langkah terakhir tinggal setup nginx.conf anda, punya saya ada di sini /etc/nginx/nginx.conf.
-Berikut isi file konfigurasi Nginx saya :
-user www-data;
-worker_processes 4;&lt;/p&gt;
-&lt;p&gt;error_log /var/log/nginx/error.log;
-pid /var/run/nginx.pid;&lt;/p&gt;
-&lt;p&gt;events {
+Berikut isi file konfigurasi Nginx saya :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;user www-data;
+worker_processes 4;
+
+error_log /var/log/nginx/error.log;
+pid /var/run/nginx.pid;
+
+events {
 worker_connections 1024;
-}&lt;/p&gt;
-&lt;p&gt;http {
-include /etc/nginx/mime.types;
-default_type application/octet-stream;&lt;/p&gt;
-&lt;p&gt;access_log /var/log/nginx/access.log;&lt;/p&gt;
-&lt;p&gt;sendfile on;&lt;/p&gt;
-&lt;h1&gt;tcp_nopush on;&lt;/h1&gt;
-&lt;h1&gt;keepalive_timeout 0;&lt;/h1&gt;
-&lt;p&gt;keepalive_timeout 65;
-tcp_nodelay on;
-gzip on;&lt;/p&gt;
-&lt;p&gt;include /etc/nginx/sites-enabled/*;&lt;/p&gt;
-&lt;p&gt;}
-Perhatikan baris yang di bold, bahwa Nginx saya berjalan atas nama user www-data, sehingga user ini mutlak harus ada sebelumnya, sepertinya kalau di Ubuntu, user ini dibuatkan otomatis ketika kita install Nginx yah, saya lupa sih :D.
-Baris selanjutnya, worker_processes, saya isi 4. User yang mengakses webserver saya disini kurang dari 100 orang, dan selama ini, 4 worker sudah cukup sih.
-Lalu selanjutnya, gzip on, ini modul gzip compress yang kita aktifkan setelah sebelumnya kita install zlib. Dan yang terakhir, kita akan meng-include kan semua file konfigurasi di direktori /etc/nginx/sites-enabled. Berikut contoh file konfigurasi saya di direktori tersebut :
-Filename : atutor.conf
-server {
-listen 80;
-server_name atutor;&lt;/p&gt;
-&lt;p&gt;access_log /var/log/nginx/atutor.access.log;&lt;/p&gt;
-&lt;p&gt;location / {
-root /var/www/nginx-default;
-index index.html index.htm index.php;
-}&lt;/p&gt;
-&lt;h1&gt;error_page 404 /404.html;&lt;/h1&gt;
-&lt;h1&gt;redirect server error pages to the static page /50x.html&lt;/h1&gt;
-&lt;h1&gt;&lt;/h1&gt;
-&lt;p&gt;error_page 500 502 503 504 /50x.html;
-location = /50x.html {
-root /var/www/nginx-default/ATutor;
-}&lt;/p&gt;
-&lt;h1&gt;proxy the PHP scripts to Apache listening on 127.0.0.1:80&lt;/h1&gt;
-&lt;h1&gt;&lt;/h1&gt;
-&lt;h1&gt;location ~ .php$ {&lt;/h1&gt;
-&lt;h1&gt;proxy_pass http://127.0.0.1;&lt;/h1&gt;
-&lt;h1&gt;}&lt;/h1&gt;
-&lt;h1&gt;pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000&lt;/h1&gt;
-&lt;h1&gt;&lt;/h1&gt;
-&lt;p&gt;location ~ .php$ {
-fastcgi_pass 127.0.0.1:8999;
-fastcgi_index index.php;
-fastcgi_param SCRIPT_FILENAME /var/www/nginx-default$fastcgi_script_name;
-include /etc/nginx/fastcgi_params;
 }
-}&lt;/p&gt;
+
+http {
+include /etc/nginx/mime.types;
+default_type application/octet-stream;
+
+access_log /var/log/nginx/access.log;
+
+sendfile on;
+#tcp_nopush on;
+
+#keepalive_timeout 0;
+keepalive_timeout 65;
+tcp_nodelay on;
+gzip on;
+
+include /etc/nginx/sites-enabled/*;
+
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Perhatikan baris yang di bold, bahwa Nginx saya berjalan atas nama user www-data, sehingga user ini mutlak harus ada sebelumnya, sepertinya kalau di Ubuntu, user ini dibuatkan otomatis ketika kita install Nginx yah, saya lupa sih :D.
+Baris selanjutnya, worker_processes, saya isi 4. User yang mengakses webserver saya disini kurang dari 100 orang, dan selama ini, 4 worker sudah cukup sih.
+Lalu selanjutnya, gzip on, ini modul gzip compress yang kita aktifkan setelah sebelumnya kita install zlib. Dan yang terakhir, kita akan meng-include kan semua file konfigurasi di direktori /etc/nginx/sites-enabled. Berikut contoh file konfigurasi saya di direktori tersebut :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Filename&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;atutor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;conf&lt;/span&gt;
+&lt;span class="n"&gt;server&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="n"&gt;listen&lt;/span&gt; &lt;span class="mi"&gt;80&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;server_name&lt;/span&gt; &lt;span class="n"&gt;atutor&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+
+&lt;span class="n"&gt;access_log&lt;/span&gt; &lt;span class="sr"&gt;/var/log/nginx/&lt;/span&gt;&lt;span class="n"&gt;atutor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;access&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;log&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+
+&lt;span class="n"&gt;location&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="sr"&gt;/var/www/&lt;/span&gt;&lt;span class="n"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;index&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;html&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;htm&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;php&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;error_page&lt;/span&gt; &lt;span class="mi"&gt;404&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;404&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;html&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;redirect&lt;/span&gt; &lt;span class="n"&gt;server&lt;/span&gt; &lt;span class="n"&gt;error&lt;/span&gt; &lt;span class="n"&gt;pages&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="kd"&gt;static&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;html&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;
+&lt;span class="n"&gt;error_page&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="mi"&gt;502&lt;/span&gt; &lt;span class="mi"&gt;503&lt;/span&gt; &lt;span class="mi"&gt;504&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;html&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;location&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;html&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="sr"&gt;/var/www/nginx-default/&lt;/span&gt;&lt;span class="n"&gt;ATutor&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;proxy&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;PHP&lt;/span&gt; &lt;span class="n"&gt;scripts&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;Apache&lt;/span&gt; &lt;span class="n"&gt;listening&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="mf"&gt;127.0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mf"&gt;0.1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;80&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;location&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;php&lt;/span&gt;&lt;span class="n"&gt;$&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;proxy_pass&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;://&lt;/span&gt;&lt;span class="mf"&gt;127.0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mf"&gt;0.1&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;pass&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;PHP&lt;/span&gt; &lt;span class="n"&gt;scripts&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;FastCGI&lt;/span&gt; &lt;span class="n"&gt;server&lt;/span&gt; &lt;span class="n"&gt;listening&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="mf"&gt;127.0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mf"&gt;0.1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;9000&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;
+&lt;span class="n"&gt;location&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;php&lt;/span&gt;&lt;span class="n"&gt;$&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="n"&gt;fastcgi_pass&lt;/span&gt; &lt;span class="mf"&gt;127.0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mf"&gt;0.1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;8999&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;fastcgi_index&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;php&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;fastcgi_param&lt;/span&gt; &lt;span class="n"&gt;SCRIPT_FILENAME&lt;/span&gt; &lt;span class="sr"&gt;/var/www/&lt;/span&gt;&lt;span class="n"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="n"&gt;$fastcgi_script_name&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;include&lt;/span&gt; &lt;span class="sr"&gt;/etc/nginx/&lt;/span&gt;&lt;span class="n"&gt;fastcgi_params&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;Konfigurasi ini mengatakan bahwa, saya memiliki sebuah aplikasi (kebetulan aTutor), yang saya letakkan di /var/www/nginx-default, dan untuk semua URL yang berakhiran .php, maka saya akan lemparkan requestnya ke CGI interpreter PHP yang berjalan di port 8999 seperti konfigurasi PHP diatas.&lt;/p&gt;
 &lt;p&gt;And that's it, kita bisa mengetes konfigurasi nginx kita dengan perintah :
 lintang@cygnus:~$ sudo nginx -t

@@ -39,8 +39,11 @@
 		  <a class="brand" href="http://blog.theprasojos.web.id/">JPrasojo's blog</a>
 			<ul class="nav">
 						<li><a href="http://blog.theprasojos.web.id/pages/hello-world.html">About</a></li>
-					<li class="active"><a href="http://blog.theprasojos.web.id/category/blog.html">Blog</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/blog.html">Blog</a></li>
+					<li class="active"><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
 					<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
 					<li ><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
 			</ul>
 			<p class="pull-right"><a href="http://blog.theprasojos.web.id/archives.html">[archives]</a> <a href="http://blog.theprasojos.web.id/tags.html">[tags]</a></p>
@@ -72,7 +75,7 @@
 		<div class="page-header"><h1>Glassfish for Tomcat and WebMethods</h1></div>
 		<div class="well small">Permalink: <a class="more" href="http://blog.theprasojos.web.id/glassfish-for-tomcat-and-webmethods.html">2007-12-01 00:00:00+00:00</a>
 by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
- in <a href="http://blog.theprasojos.web.id/category/blog.html">Blog</a>
+ in <a href="http://blog.theprasojos.web.id/category/java.html">Java</a>
 tags: <a href="http://blog.theprasojos.web.id/tag/.html"></a> </div>
 		<div><p>These recent days I've been played around with Glassfish in my project. I have to build connectivity between our existing Card Management for Telco company product, created with pure jsp (yes, jsp treated as PHP, spaghetti or whatever you name it) to integrate with SAP. Our client provides WebMethods Integration server 6.5 as our only and only way to interact with the SAP. OK then, I grabbed some code from my previous project with Tomcat and WebMethods 6.1 and try to reuse them in this project. Well, it works. But this code only deals with connectivity. Tomcat contacts WebMethods, and that's it. All transaction maintained by WebMethods, no need to think about rollback, commit, or anything, we apply that on WebMethods's flow services. So simple and cool !. But this current project is different. Installed WebMethods dont have any license of JDBC Adapter, it only has SAP Adapter. So in order to save to database or whatever to our Card Management system, we have to build our own connectivity method. Previously we thought about creating Stored Procedure inside our database that later can be invoked by WebMethods's JDBC Adapter, but the client doesnt want to buy the license. Hmm....</p>
 <p>Besides just store to database, our Card Management product also have to provide interfaces so that later on, it could synchronize any document with SAP. So SAP will hit our services if..let's say some PO created in SAP. In here, I <em>need to provide them with webservices</em> to access all of our Card Management API in proper way.</p>

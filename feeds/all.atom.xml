@@ -7,49 +7,270 @@ Me my self, currently has no reason to use OpenSolaris. Why ? Simple question, w
 - Solaris, Solaris 10, hostname: solclient, will be the machine to be installed.
 - IP addresses range 192.168.10.x (class C), make sure you use standard network class IP, this is where the standard broadcast address (192.168.10.255) comes into play during arp broadcast.
 - solclient will broadcast arp request, replied by pegasus's rarpd, and then and IP address will be assigned. solclient will then download the minimum kernel using tftp. The kernel file name will be the ip address of the solclient. For example, if the assigned IP is 192.168.10.5, and then the kernel name will be C0A80A05. Another way is to use this command:&lt;/p&gt;
-&lt;p&gt;elinpra@pegasus &amp;gt; printf "XXXXn" 192 168 10 5
-C0A80A05&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;elinpra@pegasus &amp;gt; printf &amp;quot;XXXXn&amp;quot; 192 168 10 5
+C0A80A05
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;This file should be stored inside the root directory of tftp. Check the tftp setting on &lt;strong&gt;/etc/inetd.conf&lt;/strong&gt;. Here is mine:&lt;/p&gt;
-&lt;p&gt;elinpra@pegasus &amp;gt; cat /etc/inetd.conf
-tftp dgram udp4 wait nobody /usr/sbin/tcpd /usr/sbin/in.tftpd /srv/tftp/&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;elinpra@pegasus &amp;gt; cat /etc/inetd.conf
+tftp dgram udp4 wait nobody /usr/sbin/tcpd /usr/sbin/in.tftpd /srv/tftp/
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;Then, the file C0A80A05 should be put in&lt;strong&gt; /srv/tftp&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Steps :&lt;/p&gt;
-&lt;p&gt;1. Install bootparamd, rarpd, tftpd and nfs-kernel-server in Linux server (pegasus)
-root@pegasus &amp;gt; apt-get install bootparamd rarpd tftpd nfs-kernel-server
-2. Run iptables -F, make sure no firewall in Linux server
-root@pegasus &amp;gt; iptables -F
-3. Check the mac address of the solaris client.
-Try boot from {ok}, see the mac address during booting (if the system is currently up, go to init 0 mode) :
-ok boot net&lt;/p&gt;
-&lt;p&gt;Resetting ...
-LOM event: 56d 21h39m43s host reset&lt;/p&gt;
-&lt;p&gt;þ
+&lt;p&gt;1. Install bootparamd, rarpd, tftpd and nfs-kernel-server in Linux server (pegasus)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;root@pegasus &amp;gt; apt-get install bootparamd rarpd tftpd nfs-kernel-server
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;2. Run iptables -F, make sure no firewall in Linux server&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;root@pegasus &amp;gt; iptables -F
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;3. Check the mac address of the solaris client.
+Try boot from {ok}, see the mac address during booting (if the system is currently up, go to init 0 mode) :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;ok boot net
+
+Resetting ...
+LOM event: 56d 21h39m43s host reset
+
+þ
 Sun Fire V120 (UltraSPARC-IIe 648MHz), No Keyboard
 OpenBoot 4.0, 1024 MB memory installed, Serial #61911409.
-Ethernet address 0:3:ba:b0:b1:71, Host ID: 83b0b171.&lt;/p&gt;
-&lt;p&gt;Back to lom&amp;gt; or sc&amp;gt; using 'break' command.&lt;/p&gt;
+Ethernet address 0:3:ba:b0:b1:71, Host ID: 83b0b171.
+
+Back to lom&amp;gt; or sc&amp;gt; using &amp;#39;break&amp;#39; command.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;4. Set &lt;strong&gt;/etc/ethers&lt;/strong&gt; and &lt;strong&gt;/etc/hosts&lt;/strong&gt; in Linux server with the mac address and hostname of the solaris client.&lt;/p&gt;
-&lt;p&gt;elinpra@pegasus &amp;gt; echo "0:3:ba:b0:b1:71 solclient" &amp;gt;&amp;gt; /etc/ethers
-elinpra@pegasus &amp;gt; echo "192.168.10.5 solclient" &amp;gt;&amp;gt; /etc/hosts&lt;/p&gt;
-&lt;p&gt;5. Start the rarpd if has not started yet.( I’m using debian based linux here )
-root@pegasus &amp;gt; /etc/init.d/rarpd start&lt;/p&gt;
-&lt;p&gt;6. If you're installing using Solaris iso file, mount the iso file to a directory using the following command, otherwise if using Solaris CD/DVD, directly go to step 8:
-root@pegasus &amp;gt; mkdir -p /mnt/sol10
+&lt;div class="highlight"&gt;&lt;pre&gt;elinpra@pegasus &amp;gt; echo &amp;quot;0:3:ba:b0:b1:71 solclient&amp;quot; &amp;gt;&amp;gt; /etc/ethers
+elinpra@pegasus &amp;gt; echo &amp;quot;192.168.10.5 solclient&amp;quot; &amp;gt;&amp;gt; /etc/hosts
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;5. Start the rarpd if has not started yet.( I’m using debian based linux here )&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;root@pegasus &amp;gt; /etc/init.d/rarpd start
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;6. If you're installing using Solaris iso file, mount the iso file to a directory using the following command, otherwise if using Solaris CD/DVD, directly go to step 8:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;root@pegasus &amp;gt; mkdir -p /mnt/sol10
 root@pegasus &amp;gt; mount -o loop solaris_iso_file.iso /mnt/sol10
-root@pegasus &amp;gt; cd /mnt/sol10&lt;/p&gt;
-&lt;p&gt;7. If you have the Solaris 10 CD, insert it on pegasus, do the following steps :
-root@pegasus &amp;gt; cd /mnt/cdrom/ (to your solaris cdrom directory)&lt;/p&gt;
+root@pegasus &amp;gt; cd /mnt/sol10
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;7. If you have the Solaris 10 CD, insert it on pegasus, do the following steps :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;root@pegasus &amp;gt; cd /mnt/cdrom/ (to your solaris cdrom directory)
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;8. Find the suitable kernel for your machine type. Mine is SunFire v120, so it will be sun4u type. If your hardware is T5220, T2000 etc then you need sun4v kernel.
 Locate the kernel on directory Solaris_10/Tools/Boot/platform/sun4u/inetboot for sun4u, or Solaris_10/Tools/Boot/platform/sun4v/inetboot for sun4v.
 Copy it to &lt;strong&gt;/srv/tftp&lt;/strong&gt; and make symbolic link to that file into C0A80A05.&lt;/p&gt;
-&lt;p&gt;root@pegasus &amp;gt; cp inetboot /srv/tftp
-root@pegasus &amp;gt; ln -s /srv/tftp/inetboot /srv/tftp/C0A80A05&lt;/p&gt;
-&lt;p&gt;9. Start tftpd daemon in pegasus :
-root@pegasus &amp;gt; /etc/init.d/openbsd-inetd restart&lt;/p&gt;
-&lt;p&gt;10. start nfs service in pegasus :
-root@pegasus &amp;gt; /etc/init.d/nfs-kernel-server start&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;root@pegasus &amp;gt; cp inetboot /srv/tftp
+root@pegasus &amp;gt; ln -s /srv/tftp/inetboot /srv/tftp/C0A80A05
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;9. Start tftpd daemon in pegasus :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;root@pegasus &amp;gt; /etc/init.d/openbsd-inetd restart
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;10. start nfs service in pegasus :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;root@pegasus &amp;gt; /etc/init.d/nfs-kernel-server start
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;11. Prepare nfs mount so that solclient later on can download the entire installation package using nfs mount. Set the mount root into where the cdrom or iso files are mounted. Make sure that the nfs mount root from solclient is /sol10.&lt;/p&gt;
-&lt;p&gt;root@pegasus &amp;gt; exportfs &lt;em&gt;:/mnt/cdrom -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync exportfs &lt;/em&gt;:/mnt -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync Check if the nfs shares can be mounted correctly.&lt;/p&gt;</summary><category term="jumpstart Unix Linux stuff solaris"></category></entry><entry><title>Playing around with low end VPS box</title><link href="http://blog.theprasojos.web.id/playing-around-with-low-end-vps-box.html" rel="alternate"></link><updated>2010-04-05T00:00:00+01:00</updated><author><name>Lintang JP</name></author><id>tag:blog.theprasojos.web.id,2010-04-05:playing-around-with-low-end-vps-box.html</id><summary type="html">&lt;p&gt;Last week I just bought a VPS account for playing around with. It feels so great having our own shell account with root login so that we can do anything inside. I bought it from &lt;a href="http://www.pasarhosting.com"&gt;here&lt;/a&gt;. First of all, I bought the minimalist one, with 64mb memory, with no burstable ram :D, using Centos. I simply cant do anything, their Centos installation itself took around 20-30mb ram. I also not well enough playing with Yum. This is not great, so I upgraded the account to 128mb ram. At the same time I noticed that besides Centos, the hosting provider also provide Debian Lenny as the OS....why dont you said that from the beginning ??? :D Now, I'm running Lenny with 128mb ram. The VM specs itself it's not that bad, considering it's powered with 2 cpu @3Ghz, 128mb ram with no swap ( this guy &lt;a href="https://www.vpsmart.com/clients/knowledgebase.php?action=displayarticle&amp;amp;id=4"&gt;here&lt;/a&gt; shares a great script to create a fake swap, but I dont need it any longer ;) read the rest of the entry to know why... ), and with 10Gb disk, more than enough storage for minimalist like me :)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;root@pegasus &amp;gt; exportfs *:/mnt/cdrom -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync exportfs *:/mnt -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Check if the nfs shares can be mounted correctly.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;root@pegasus &amp;gt; mount -t nfs4 pegasus:/sol10 /tmp/somewhere
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Verify in your mount list:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;root@pegasus &amp;gt; df -kh 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Go to /tmp/somewhere, and make sure there’s a directory called sol10/, if not, then the nfs root stil wrong. &lt;/p&gt;
+&lt;p&gt;13. Configure bootparams in /etc/bootparams, fill in this entry: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;solclient root=pegasus:/sol10/Solaris_10/Tools/Boot install=pegasus:/sol10/ boottype=:in 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;14. You might want to see what's happen in your pegasus using tcpdump: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="nv"&gt;@pegasus&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;tcpdump&lt;/span&gt; -&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;eth0&lt;/span&gt; 
+&lt;span class="n"&gt;tcpdump:&lt;/span&gt; &lt;span class="n"&gt;verbose&lt;/span&gt; &lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="n"&gt;suppressed&lt;/span&gt;, &lt;span class="k"&gt;use&lt;/span&gt; -&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="o"&gt;or&lt;/span&gt; -&lt;span class="n"&gt;vv&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;full&lt;/span&gt; &lt;span class="n"&gt;protocol&lt;/span&gt; &lt;span class="n"&gt;decode&lt;/span&gt; 
+&lt;span class="n"&gt;listening&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="n"&gt;eth0&lt;/span&gt;, &lt;span class="n"&gt;link-type&lt;/span&gt; &lt;span class="n"&gt;EN10MB&lt;/span&gt; (&lt;span class="n"&gt;Ethernet&lt;/span&gt;), &lt;span class="n"&gt;capture&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt; &lt;span class="mi"&gt;96&lt;/span&gt; &lt;span class="nb"&gt;bytes&lt;/span&gt; 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;16.385289&lt;/span&gt; &lt;span class="n"&gt;arp&lt;/span&gt; &lt;span class="n"&gt;who-has&lt;/span&gt; &lt;span class="n"&gt;osol1&lt;/span&gt; (&lt;span class="n"&gt;Broadcast&lt;/span&gt;) &lt;span class="n"&gt;tell&lt;/span&gt; &lt;span class="n"&gt;osol1&lt;/span&gt; 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;16.786701&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;pegasus&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;OSPF-ALL&lt;/span&gt;.&lt;span class="n"&gt;MCAST&lt;/span&gt;.&lt;span class="n"&gt;NET:&lt;/span&gt; &lt;span class="n"&gt;OSPFv2&lt;/span&gt;, &lt;span class="n"&gt;Hello&lt;/span&gt;, &lt;span class="n"&gt;length:&lt;/span&gt; &lt;span class="mi"&gt;44&lt;/span&gt;
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;17.904404&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;solclient&lt;/span&gt;.&lt;span class="n"&gt;syslog&lt;/span&gt; &amp;gt; &lt;span class="mf"&gt;255.255.255.255&lt;/span&gt;.&lt;span class="n"&gt;sunrpc:&lt;/span&gt; [|&lt;span class="n"&gt;syslog&lt;/span&gt;] 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;18.666258&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;osol2&lt;/span&gt;&lt;span class="mf"&gt;.58847&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;resolver&lt;/span&gt;.&lt;span class="n"&gt;ao&lt;/span&gt;.&lt;span class="n"&gt;ericsson&lt;/span&gt;.&lt;span class="n"&gt;se&lt;/span&gt;.&lt;span class="n"&gt;domain:&lt;/span&gt; &lt;span class="mi"&gt;57879&lt;/span&gt;+ &lt;span class="n"&gt;TXT&lt;/span&gt;? &lt;span class="n"&gt;_nfsv4idmapdomain&lt;/span&gt;. (&lt;span class="mi"&gt;35&lt;/span&gt;) 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;18.692884&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;resolver&lt;/span&gt;.&lt;span class="n"&gt;ao&lt;/span&gt;.&lt;span class="n"&gt;ericsson&lt;/span&gt;.&lt;span class="n"&gt;se&lt;/span&gt;.&lt;span class="n"&gt;domain&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;osol2&lt;/span&gt;&lt;span class="mf"&gt;.58847&lt;/span&gt;: &lt;span class="mi"&gt;57879&lt;/span&gt; &lt;span class="n"&gt;ServFail&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; (&lt;span class="mi"&gt;35&lt;/span&gt;) 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;18.693883&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;osol2&lt;/span&gt;&lt;span class="mf"&gt;.58848&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;resolver&lt;/span&gt;.&lt;span class="n"&gt;sw&lt;/span&gt;.&lt;span class="n"&gt;ericsson&lt;/span&gt;.&lt;span class="n"&gt;se&lt;/span&gt;.&lt;span class="n"&gt;domain:&lt;/span&gt; &lt;span class="mi"&gt;57879&lt;/span&gt;+ &lt;span class="n"&gt;TXT&lt;/span&gt;? &lt;span class="n"&gt;_nfsv4idmapdomain&lt;/span&gt;. (&lt;span class="mi"&gt;35&lt;/span&gt;) 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;18.944002&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;resolver&lt;/span&gt;.&lt;span class="n"&gt;sw&lt;/span&gt;.&lt;span class="n"&gt;ericsson&lt;/span&gt;.&lt;span class="n"&gt;se&lt;/span&gt;.&lt;span class="n"&gt;domain&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;osol2&lt;/span&gt;&lt;span class="mf"&gt;.58848&lt;/span&gt;: &lt;span class="mi"&gt;57879&lt;/span&gt; &lt;span class="n"&gt;ServFail&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; (&lt;span class="mi"&gt;35&lt;/span&gt;) 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;18.945066&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;osol2&lt;/span&gt;&lt;span class="mf"&gt;.58849&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;resolver&lt;/span&gt;.&lt;span class="n"&gt;am&lt;/span&gt;.&lt;span class="n"&gt;ericsson&lt;/span&gt;.&lt;span class="n"&gt;se&lt;/span&gt;.&lt;span class="n"&gt;domain:&lt;/span&gt; &lt;span class="mi"&gt;57879&lt;/span&gt;+ &lt;span class="n"&gt;TXT&lt;/span&gt;? &lt;span class="n"&gt;_nfsv4idmapdomain&lt;/span&gt;. (&lt;span class="mi"&gt;35&lt;/span&gt;) 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;19.349904&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;resolver&lt;/span&gt;.&lt;span class="n"&gt;am&lt;/span&gt;.&lt;span class="n"&gt;ericsson&lt;/span&gt;.&lt;span class="n"&gt;se&lt;/span&gt;.&lt;span class="n"&gt;domain&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;osol2&lt;/span&gt;&lt;span class="mf"&gt;.58849&lt;/span&gt;: &lt;span class="mi"&gt;57879&lt;/span&gt; &lt;span class="n"&gt;ServFail&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; (&lt;span class="mi"&gt;35&lt;/span&gt;) 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;19.350799&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;osol2&lt;/span&gt;&lt;span class="mf"&gt;.58850&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;resolver&lt;/span&gt;.&lt;span class="n"&gt;ao&lt;/span&gt;.&lt;span class="n"&gt;ericsson&lt;/span&gt;.&lt;span class="n"&gt;se&lt;/span&gt;.&lt;span class="n"&gt;domain:&lt;/span&gt; &lt;span class="mi"&gt;57879&lt;/span&gt;+ &lt;span class="n"&gt;TXT&lt;/span&gt;? &lt;span class="n"&gt;_nfsv4idmapdomain&lt;/span&gt;. (&lt;span class="mi"&gt;35&lt;/span&gt;) 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;19.391665&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;resolver&lt;/span&gt;.&lt;span class="n"&gt;ao&lt;/span&gt;.&lt;span class="n"&gt;ericsson&lt;/span&gt;.&lt;span class="n"&gt;se&lt;/span&gt;.&lt;span class="n"&gt;domain&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;osol2&lt;/span&gt;&lt;span class="mf"&gt;.58850&lt;/span&gt;: &lt;span class="mi"&gt;57879&lt;/span&gt; &lt;span class="n"&gt;ServFail&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; (&lt;span class="mi"&gt;35&lt;/span&gt;) 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;19.426161&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;osol2&lt;/span&gt;&lt;span class="mf"&gt;.58851&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;resolver&lt;/span&gt;.&lt;span class="n"&gt;sw&lt;/span&gt;.&lt;span class="n"&gt;ericsson&lt;/span&gt;.&lt;span class="n"&gt;se&lt;/span&gt;.&lt;span class="n"&gt;domain:&lt;/span&gt; &lt;span class="mi"&gt;57879&lt;/span&gt;+ &lt;span class="n"&gt;TXT&lt;/span&gt;? &lt;span class="n"&gt;_nfsv4idmapdomain&lt;/span&gt;. (&lt;span class="mi"&gt;35&lt;/span&gt;) 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;19.713817&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;resolver&lt;/span&gt;.&lt;span class="n"&gt;sw&lt;/span&gt;.&lt;span class="n"&gt;ericsson&lt;/span&gt;.&lt;span class="n"&gt;se&lt;/span&gt;.&lt;span class="n"&gt;domain&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;osol2&lt;/span&gt;&lt;span class="mf"&gt;.58851&lt;/span&gt;: &lt;span class="mi"&gt;57879&lt;/span&gt; &lt;span class="n"&gt;ServFail&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; (&lt;span class="mi"&gt;35&lt;/span&gt;) 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;19.714855&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;osol2&lt;/span&gt;&lt;span class="mf"&gt;.58852&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;resolver&lt;/span&gt;.&lt;span class="n"&gt;am&lt;/span&gt;.&lt;span class="n"&gt;ericsson&lt;/span&gt;.&lt;span class="n"&gt;se&lt;/span&gt;.&lt;span class="n"&gt;domain:&lt;/span&gt; &lt;span class="mi"&gt;57879&lt;/span&gt;+ &lt;span class="n"&gt;TXT&lt;/span&gt;? &lt;span class="n"&gt;_nfsv4idmapdomain&lt;/span&gt;. (&lt;span class="mi"&gt;35&lt;/span&gt;) 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;20.057720&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;solclient&lt;/span&gt;.&lt;span class="n"&gt;syslog&lt;/span&gt; &amp;gt; &lt;span class="mf"&gt;255.255.255.255&lt;/span&gt;.&lt;span class="n"&gt;sunrpc:&lt;/span&gt; [|&lt;span class="n"&gt;syslog&lt;/span&gt;] 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;20.125082&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;resolver&lt;/span&gt;.&lt;span class="n"&gt;am&lt;/span&gt;.&lt;span class="n"&gt;ericsson&lt;/span&gt;.&lt;span class="n"&gt;se&lt;/span&gt;.&lt;span class="n"&gt;domain&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;osol2&lt;/span&gt;&lt;span class="mf"&gt;.58852&lt;/span&gt;: &lt;span class="mi"&gt;57879&lt;/span&gt; &lt;span class="n"&gt;ServFail&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; (&lt;span class="mi"&gt;35&lt;/span&gt;) 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;35&lt;/span&gt;:&lt;span class="mf"&gt;21.870552&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;solclient&lt;/span&gt;.&lt;span class="n"&gt;syslog&lt;/span&gt; &amp;gt; &lt;span class="mf"&gt;255.255.255.255&lt;/span&gt;.&lt;span class="n"&gt;sunrpc:&lt;/span&gt; [|&lt;span class="n"&gt;syslog&lt;/span&gt;] 
+... 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;45&lt;/span&gt;:&lt;span class="mf"&gt;43.677010&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;solclient&lt;/span&gt;.&lt;span class="n"&gt;afpovertcp&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;pegasus&lt;/span&gt;.&lt;span class="n"&gt;nfs:&lt;/span&gt; . &lt;span class="n"&gt;ack&lt;/span&gt; &lt;span class="mi"&gt;39685605&lt;/span&gt; &lt;span class="n"&gt;win&lt;/span&gt; &lt;span class="mi"&gt;47784&lt;/span&gt; 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;45&lt;/span&gt;:&lt;span class="mf"&gt;43.677183&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;solclient&lt;/span&gt;.&lt;span class="n"&gt;afpovertcp&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;pegasus&lt;/span&gt;.&lt;span class="n"&gt;nfs:&lt;/span&gt; . &lt;span class="n"&gt;ack&lt;/span&gt; &lt;span class="mi"&gt;39688501&lt;/span&gt; &lt;span class="n"&gt;win&lt;/span&gt; &lt;span class="mi"&gt;44888&lt;/span&gt; 
+&lt;span class="mi"&gt;10&lt;/span&gt;:&lt;span class="mi"&gt;45&lt;/span&gt;:&lt;span class="mf"&gt;43.677350&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;solclient&lt;/span&gt;.&lt;span class="n"&gt;afpovertcp&lt;/span&gt; &amp;gt; &lt;span class="n"&gt;pegasus&lt;/span&gt;.&lt;span class="n"&gt;nfs:&lt;/span&gt; . &lt;span class="n"&gt;ack&lt;/span&gt; &lt;span class="mi"&gt;39691397&lt;/span&gt; &lt;span class="n"&gt;win&lt;/span&gt; &lt;span class="mi"&gt;41992&lt;/span&gt; 
+... 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;15. Boot your solclient from ok prompt: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;ok&lt;/span&gt; &lt;span class="n"&gt;boot&lt;/span&gt; &lt;span class="n"&gt;net&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; 
+&lt;span class="n"&gt;Boot&lt;/span&gt; &lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;network&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;File&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="nl"&gt;args&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; 
+&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;a000&lt;/span&gt; &lt;span class="n"&gt;Using&lt;/span&gt; &lt;span class="n"&gt;RARP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;BOOTPARAMS&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt; 
+&lt;span class="n"&gt;Internet&lt;/span&gt; &lt;span class="n"&gt;address&lt;/span&gt; &lt;span class="nl"&gt;is&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;192.168.10.5&lt;/span&gt; 
+&lt;span class="n"&gt;Bootparam&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="n"&gt;received&lt;/span&gt; 
+&lt;span class="nl"&gt;hostname&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;solclient&lt;/span&gt; 
+&lt;span class="nl"&gt;domainname&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;none&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; 
+&lt;span class="n"&gt;Found&lt;/span&gt; &lt;span class="mf"&gt;192.168.10.1&lt;/span&gt; &lt;span class="p"&gt;@&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;eb&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;52&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;e0&lt;/span&gt; 
+&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="nl"&gt;server&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;jumpstart&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;192.168.10.1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; 
+&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="nl"&gt;directory&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sol10&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Solaris_10&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Tools&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Boot&lt;/span&gt; 
+&lt;span class="n"&gt;module&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;platform&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sun4u&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;kernel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sparcv9&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nl"&gt;unix&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mh"&gt;0x1000000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mh"&gt;0x10a096d&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt; 
+&lt;span class="n"&gt;module&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;platform&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sun4u&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;kernel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sparcv9&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nl"&gt;genunix&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mh"&gt;0x10a0970&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mh"&gt;0x12615bf&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;da&lt;/span&gt; 
+&lt;span class="n"&gt;module&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;platform&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;SUNW&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;UltraAX&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i2&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;kernel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;misc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sparcv9&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nl"&gt;platmod&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mh"&gt;0x12615c0&lt;/span&gt; 
+&lt;span class="n"&gt;module&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;platform&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sun4u&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;kernel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;cpu&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sparcv9&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;SUNW&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;UltraSPARC&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;IIe&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mh"&gt;0x126184&lt;/span&gt; 
+&lt;span class="n"&gt;SunOS&lt;/span&gt; &lt;span class="n"&gt;Release&lt;/span&gt; &lt;span class="mf"&gt;5.10&lt;/span&gt; &lt;span class="n"&gt;Version&lt;/span&gt; &lt;span class="n"&gt;Generic_139555&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;08&lt;/span&gt; &lt;span class="mi"&gt;64&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;bit&lt;/span&gt; 
+&lt;span class="n"&gt;Copyright&lt;/span&gt; &lt;span class="mi"&gt;1983&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2009&lt;/span&gt; &lt;span class="n"&gt;Sun&lt;/span&gt; &lt;span class="n"&gt;Microsystems&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Inc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;All&lt;/span&gt; &lt;span class="n"&gt;rights&lt;/span&gt; &lt;span class="n"&gt;reserved&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; 
+&lt;span class="n"&gt;Use&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;subject&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;license&lt;/span&gt; &lt;span class="n"&gt;terms&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; 
+&lt;span class="n"&gt;Ethernet&lt;/span&gt; &lt;span class="n"&gt;address&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;ba&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;b0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;b1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;71&lt;/span&gt; 
+&lt;span class="n"&gt;Using&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt; &lt;span class="n"&gt;device&lt;/span&gt; &lt;span class="n"&gt;instance&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt; 
+&lt;span class="n"&gt;mem&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1048576&lt;/span&gt;&lt;span class="n"&gt;K&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x40000000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; 
+&lt;span class="n"&gt;avail&lt;/span&gt; &lt;span class="n"&gt;mem&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;845930496&lt;/span&gt; 
+&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="n"&gt;nexus&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Sun&lt;/span&gt; &lt;span class="n"&gt;Fire&lt;/span&gt; &lt;span class="n"&gt;V120&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UltraSPARC&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;IIe&lt;/span&gt; &lt;span class="mi"&gt;648&lt;/span&gt;&lt;span class="n"&gt;MHz&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo0&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt; 
+&lt;span class="n"&gt;scsi_vhci0&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt; 
+&lt;span class="n"&gt;scsi_vhci0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;scsi_vhci&lt;/span&gt; 
+&lt;span class="n"&gt;ramdisk0&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt; 
+&lt;span class="n"&gt;ramdisk0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ramdisk&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt; 
+&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ramdisk&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;root&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;fstype&lt;/span&gt; &lt;span class="n"&gt;ufs&lt;/span&gt; 
+&lt;span class="n"&gt;pcipsy0&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="nl"&gt;root&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;UPA&lt;/span&gt; &lt;span class="mh"&gt;0x1f&lt;/span&gt; &lt;span class="mh"&gt;0x0&lt;/span&gt; 
+&lt;span class="n"&gt;pcipsy0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; 
+&lt;span class="n"&gt;PCI&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;simba0&lt;/span&gt; 
+&lt;span class="n"&gt;simba0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; 
+&lt;span class="n"&gt;PCI&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;isa&lt;/span&gt;&lt;span class="mi"&gt;@7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ebus1&lt;/span&gt; 
+&lt;span class="n"&gt;ebus1&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;isa&lt;/span&gt;&lt;span class="mi"&gt;@7&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;dld0&lt;/span&gt; 
+&lt;span class="n"&gt;dld0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dld&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;SUNW&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="nl"&gt;eri0&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Local&lt;/span&gt; &lt;span class="n"&gt;Ethernet&lt;/span&gt; &lt;span class="n"&gt;address&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;ba&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;b0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;b1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;71&lt;/span&gt;&lt;span class="n"&gt;PCI&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;network&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;eri&lt;/span&gt;
+&lt;span class="n"&gt;eri0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;network&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; 
+&lt;span class="n"&gt;SUNW&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="nl"&gt;eri1&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Local&lt;/span&gt; &lt;span class="n"&gt;Ethernet&lt;/span&gt; &lt;span class="n"&gt;address&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;ba&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;b0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;b1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;72&lt;/span&gt;&lt;span class="n"&gt;SUNW&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="nl"&gt;eri1&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Using&lt;/span&gt; &lt;span class="n"&gt;local&lt;/span&gt; &lt;span class="n"&gt;MAC&lt;/span&gt; 
+&lt;span class="n"&gt;eri1&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;network&lt;/span&gt;&lt;span class="mi"&gt;@5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; 
+&lt;span class="n"&gt;su0&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="nl"&gt;ebus1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;offset&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;3f&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt; 
+&lt;span class="n"&gt;su0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;isa&lt;/span&gt;&lt;span class="mi"&gt;@7&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;serial&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;3f&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt; 
+&lt;span class="n"&gt;PCI&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;usb&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ohci0&lt;/span&gt; 
+&lt;span class="n"&gt;ohci0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usb&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt; 
+&lt;span class="n"&gt;PCI&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;usb&lt;/span&gt;&lt;span class="mi"&gt;@5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ohci1&lt;/span&gt; 
+&lt;span class="n"&gt;ohci1&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usb&lt;/span&gt;&lt;span class="mi"&gt;@5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt; 
+&lt;span class="nl"&gt;cpu0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;UltraSPARC&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;IIe&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;portid&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;impl&lt;/span&gt; &lt;span class="mh"&gt;0x13&lt;/span&gt; &lt;span class="n"&gt;ver&lt;/span&gt; &lt;span class="mh"&gt;0x33&lt;/span&gt; &lt;span class="n"&gt;clock&lt;/span&gt; &lt;span class="mi"&gt;648&lt;/span&gt; &lt;span class="n"&gt;MHz&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; 
+&lt;span class="n"&gt;iscsi0&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt; 
+&lt;span class="n"&gt;iscsi0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;iscsi&lt;/span&gt; 
+&lt;span class="n"&gt;SUNW&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="nl"&gt;eri0&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt; &lt;span class="n"&gt;Mbps&lt;/span&gt; &lt;span class="n"&gt;full&lt;/span&gt; &lt;span class="n"&gt;duplex&lt;/span&gt; &lt;span class="n"&gt;link&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;zfs0&lt;/span&gt; 
+&lt;span class="n"&gt;zfs0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;zfs&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;Configuring&lt;/span&gt; &lt;span class="n"&gt;devices&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;devinfo0&lt;/span&gt; 
+&lt;span class="n"&gt;devinfo0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devinfo&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;PCI&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;simba1&lt;/span&gt; 
+&lt;span class="n"&gt;simba1&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;pseudo1&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo1&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;zconsnex&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt; 
+&lt;span class="n"&gt;PCI&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ebus&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ebus0&lt;/span&gt; 
+&lt;span class="n"&gt;ebus0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ebus&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; 
+&lt;span class="n"&gt;PCI&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;pmu&lt;/span&gt;&lt;span class="mi"&gt;@3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pmubus0&lt;/span&gt; 
+&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;scsi&lt;/span&gt;&lt;span class="mi"&gt;@8&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;glm0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; 
+&lt;span class="n"&gt;glm0&lt;/span&gt; &lt;span class="n"&gt;supports&lt;/span&gt; &lt;span class="n"&gt;power&lt;/span&gt; &lt;span class="n"&gt;management&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; 
+&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;scsi&lt;/span&gt;&lt;span class="mi"&gt;@8&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;glm0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; 
+&lt;span class="n"&gt;Rev&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt; &lt;span class="n"&gt;Symbios&lt;/span&gt; &lt;span class="mi"&gt;53&lt;/span&gt;&lt;span class="n"&gt;c896&lt;/span&gt; &lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; 
+&lt;span class="n"&gt;PCI&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;scsi&lt;/span&gt;&lt;span class="mi"&gt;@8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;glm0&lt;/span&gt; 
+&lt;span class="n"&gt;glm0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;scsi&lt;/span&gt;&lt;span class="mi"&gt;@8&lt;/span&gt; 
+&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;scsi&lt;/span&gt;&lt;span class="mi"&gt;@8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;glm1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; 
+&lt;span class="n"&gt;glm1&lt;/span&gt; &lt;span class="n"&gt;supports&lt;/span&gt; &lt;span class="n"&gt;power&lt;/span&gt; &lt;span class="n"&gt;management&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; 
+&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;scsi&lt;/span&gt;&lt;span class="mi"&gt;@8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;glm1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; 
+&lt;span class="n"&gt;Rev&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt; &lt;span class="n"&gt;Symbios&lt;/span&gt; &lt;span class="mi"&gt;53&lt;/span&gt;&lt;span class="n"&gt;c896&lt;/span&gt; &lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; 
+&lt;span class="n"&gt;PCI&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;scsi&lt;/span&gt;&lt;span class="mi"&gt;@8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;glm1&lt;/span&gt; 
+&lt;span class="n"&gt;glm1&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;scsi&lt;/span&gt;&lt;span class="mi"&gt;@8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; 
+&lt;span class="n"&gt;power0&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="nl"&gt;ebus1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;offset&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;800&lt;/span&gt; 
+&lt;span class="n"&gt;power0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;isa&lt;/span&gt;&lt;span class="mi"&gt;@7&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;power&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;800&lt;/span&gt; 
+&lt;span class="n"&gt;su1&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="nl"&gt;ebus1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;offset&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;2e8&lt;/span&gt; 
+&lt;span class="n"&gt;su1&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;isa&lt;/span&gt;&lt;span class="mi"&gt;@7&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;serial&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;2e8&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;fssnap0&lt;/span&gt; 
+&lt;span class="n"&gt;fssnap0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;fssnap&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ramdisk1024&lt;/span&gt; 
+&lt;span class="n"&gt;ramdisk1024&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ramdisk&lt;/span&gt;&lt;span class="mi"&gt;@1024&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;winlock0&lt;/span&gt; 
+&lt;span class="n"&gt;winlock0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;winlock&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;llc10&lt;/span&gt; 
+&lt;span class="n"&gt;llc10&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;llc1&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;lofi0&lt;/span&gt; 
+&lt;span class="n"&gt;lofi0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lofi&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;sd3&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="nl"&gt;glm0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;target&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;lun&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; 
+&lt;span class="n"&gt;sd3&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;scsi&lt;/span&gt;&lt;span class="mi"&gt;@8&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sd&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;fcp0&lt;/span&gt; 
+&lt;span class="n"&gt;fcp0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;fcp&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;fcsm0&lt;/span&gt; 
+&lt;span class="n"&gt;fcsm0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;fcsm&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;trapstat0&lt;/span&gt; 
+&lt;span class="n"&gt;trapstat0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;trapstat&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;pool0&lt;/span&gt; 
+&lt;span class="n"&gt;pool0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pool&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;mem_cache0&lt;/span&gt; 
+&lt;span class="n"&gt;mem_cache0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mem_cache&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;device&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;fcode0&lt;/span&gt; 
+&lt;span class="n"&gt;fcode0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;fcode&lt;/span&gt;&lt;span class="mi"&gt;@0&lt;/span&gt; 
+&lt;span class="n"&gt;sd0&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="nl"&gt;glm0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;target&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;lun&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; 
+&lt;span class="n"&gt;sd0&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mf"&gt;@1f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pci&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;scsi&lt;/span&gt;&lt;span class="mi"&gt;@8&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sd&lt;/span&gt;&lt;span class="mi"&gt;@1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; 
+&lt;span class="n"&gt;Using&lt;/span&gt; &lt;span class="n"&gt;RPC&lt;/span&gt; &lt;span class="n"&gt;Bootparams&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;network&lt;/span&gt; &lt;span class="n"&gt;configuration&lt;/span&gt; &lt;span class="n"&gt;information&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; 
+&lt;span class="n"&gt;Attempting&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;configure&lt;/span&gt; &lt;span class="n"&gt;interface&lt;/span&gt; &lt;span class="n"&gt;eri1&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt; 
+&lt;span class="n"&gt;Skipped&lt;/span&gt; &lt;span class="n"&gt;interface&lt;/span&gt; &lt;span class="n"&gt;eri1&lt;/span&gt; 
+&lt;span class="n"&gt;Attempting&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;configure&lt;/span&gt; &lt;span class="n"&gt;interface&lt;/span&gt; &lt;span class="n"&gt;eri0&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt; 
+&lt;span class="n"&gt;Configured&lt;/span&gt; &lt;span class="n"&gt;interface&lt;/span&gt; &lt;span class="n"&gt;eri0&lt;/span&gt; 
+&lt;span class="n"&gt;Reading&lt;/span&gt; &lt;span class="n"&gt;ZFS&lt;/span&gt; &lt;span class="nl"&gt;config&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;done&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; 
+&lt;span class="n"&gt;Setting&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt; &lt;span class="n"&gt;Java&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Please&lt;/span&gt; &lt;span class="n"&gt;wait&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt; 
+&lt;span class="n"&gt;Serial&lt;/span&gt; &lt;span class="n"&gt;console&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;reverting&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; 
+&lt;span class="n"&gt;Beginning&lt;/span&gt; &lt;span class="n"&gt;system&lt;/span&gt; &lt;span class="n"&gt;identification&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt; 
+&lt;span class="n"&gt;Searching&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;configuration&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)...&lt;/span&gt; 
+&lt;span class="n"&gt;Search&lt;/span&gt; &lt;span class="n"&gt;complete&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; 
+&lt;span class="n"&gt;Discovering&lt;/span&gt; &lt;span class="n"&gt;additional&lt;/span&gt; &lt;span class="n"&gt;network&lt;/span&gt; &lt;span class="n"&gt;configuration&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt; 
+
+&lt;span class="n"&gt;Select&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;Language&lt;/span&gt; 
+
+&lt;span class="mf"&gt;0.&lt;/span&gt; &lt;span class="n"&gt;English&lt;/span&gt; 
+&lt;span class="mf"&gt;1.&lt;/span&gt; &lt;span class="n"&gt;French&lt;/span&gt; 
+&lt;span class="mf"&gt;2.&lt;/span&gt; &lt;span class="n"&gt;German&lt;/span&gt; 
+&lt;span class="mf"&gt;3.&lt;/span&gt; &lt;span class="n"&gt;Italian&lt;/span&gt; 
+&lt;span class="mf"&gt;4.&lt;/span&gt; &lt;span class="n"&gt;Japanese&lt;/span&gt; 
+&lt;span class="mf"&gt;5.&lt;/span&gt; &lt;span class="n"&gt;Korean&lt;/span&gt; 
+&lt;span class="mf"&gt;6.&lt;/span&gt; &lt;span class="n"&gt;Simplified&lt;/span&gt; &lt;span class="n"&gt;Chinese&lt;/span&gt; 
+&lt;span class="mf"&gt;7.&lt;/span&gt; &lt;span class="n"&gt;Spanish&lt;/span&gt; 
+&lt;span class="mf"&gt;8.&lt;/span&gt; &lt;span class="n"&gt;Swedish&lt;/span&gt; 
+&lt;span class="mf"&gt;9.&lt;/span&gt; &lt;span class="n"&gt;Traditional&lt;/span&gt; &lt;span class="n"&gt;Chinese&lt;/span&gt; 
+
+&lt;span class="n"&gt;Please&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;choice&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="n"&gt;press&lt;/span&gt; &lt;span class="n"&gt;h&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nl"&gt;help&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="jumpstart Unix Linux stuff solaris"></category></entry><entry><title>Playing around with low end VPS box</title><link href="http://blog.theprasojos.web.id/playing-around-with-low-end-vps-box.html" rel="alternate"></link><updated>2010-04-05T00:00:00+01:00</updated><author><name>Lintang JP</name></author><id>tag:blog.theprasojos.web.id,2010-04-05:playing-around-with-low-end-vps-box.html</id><summary type="html">&lt;p&gt;Last week I just bought a VPS account for playing around with. It feels so great having our own shell account with root login so that we can do anything inside. I bought it from &lt;a href="http://www.pasarhosting.com"&gt;here&lt;/a&gt;. First of all, I bought the minimalist one, with 64mb memory, with no burstable ram :D, using Centos. I simply cant do anything, their Centos installation itself took around 20-30mb ram. I also not well enough playing with Yum. This is not great, so I upgraded the account to 128mb ram. At the same time I noticed that besides Centos, the hosting provider also provide Debian Lenny as the OS....why dont you said that from the beginning ??? :D Now, I'm running Lenny with 128mb ram. The VM specs itself it's not that bad, considering it's powered with 2 cpu @3Ghz, 128mb ram with no swap ( this guy &lt;a href="https://www.vpsmart.com/clients/knowledgebase.php?action=displayarticle&amp;amp;id=4"&gt;here&lt;/a&gt; shares a great script to create a fake swap, but I dont need it any longer ;) read the rest of the entry to know why... ), and with 10Gb disk, more than enough storage for minimalist like me :)&lt;/p&gt;
 &lt;p&gt;So, first thing first, chop all the unnecessary program, replace it with the program with smaller 'cost'. Just do ps -ef and there I found apache2 and Sendmail sitting around and eating my memory. Just do :&lt;/p&gt;
 &lt;h1&gt;apt-get remove --purge sendmail apache2&lt;/h1&gt;
 &lt;p&gt;And dont forget to kill them, and remove them from startup script.&lt;/p&gt;
@@ -485,77 +706,91 @@ The logger level will be INFO.
 We will map /tomcat-docs/ request in httpd to be handled by tomcat, so make sure that this webapp exist in tomcat. By default if you download tomcat, this webapp is already exist. Later you can change it to your own webapp. And this request will be handled by a worker named 'router'.
 Last one is for jkmanager monitoring tools. There will be new context path named /jkmanager/ that will show us status for our jk_module. This context path only allowed to be accessed from 127.0.0.1 (localhost).&lt;/p&gt;
 &lt;p&gt;Ok, now we need to create workers.properties in conf/ directory. See part 2 of this post.&lt;/p&gt;</summary><category term=""></category></entry><entry><title>Apache Httpd and Tomcat integration using mod_jk, part 2</title><link href="http://blog.theprasojos.web.id/apache-httpd-and-tomcat-integration-using-mod_jk-part-2.html" rel="alternate"></link><updated>2007-06-03T00:00:00+01:00</updated><author><name>Lintang JP</name></author><id>tag:blog.theprasojos.web.id,2007-06-03:apache-httpd-and-tomcat-integration-using-mod_jk-part-2.html</id><summary type="html">&lt;p&gt;This posting splitted because somehow blogspot just cut it. I don't know why but when I previewed the posting, blogspot just cut the postings, so I splitted it into 2 parts.&lt;/p&gt;
-&lt;p&gt;Ok, now we create workers.properties file.
-onty@phoenix:/opt/httpd-2.2.4$ vi conf/workers.properties
-------------------------------------------------------------------------------------
-worker.list=router,jkstatus&lt;/p&gt;
-&lt;h1&gt;Define a worker using ajp13&lt;/h1&gt;
-&lt;p&gt;worker.worker1.port=8009
+&lt;p&gt;Ok, now we create workers.properties file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;onty@phoenix:/opt/httpd-2.2.4$ vi conf/workers.properties
+\------------------------------------------------------------------------------------
+worker.list=router,jkstatus
+# Define a worker using ajp13
+worker.worker1.port=8009
 worker.worker1.host=localhost
 worker.worker1.type=ajp13
-worker.worker1.lbfactor=1&lt;/p&gt;
-&lt;h1&gt;Define prefered failover node for worker1&lt;/h1&gt;
-&lt;p&gt;worker.worker1.redirect=worker2&lt;/p&gt;
-&lt;h1&gt;Define another worker using ajp13&lt;/h1&gt;
-&lt;p&gt;worker.worker2.port=8009
+worker.worker1.lbfactor=1
+# Define prefered failover node for worker1
+worker.worker1.redirect=worker2
+# Define another worker using ajp13
+worker.worker2.port=8009
 worker.worker2.host=localhost
 worker.worker2.type=ajp13
-worker.worker2.lbfactor=1&lt;/p&gt;
-&lt;h1&gt;Define the LB worker&lt;/h1&gt;
-&lt;p&gt;worker.router.type=lb
-worker.router.balance_workers=worker1,worker2&lt;/p&gt;
-&lt;h1&gt;Define the status worker&lt;/h1&gt;
-&lt;p&gt;worker.jkstatus.type=status&lt;/p&gt;
-&lt;p&gt;------------------------------------------------------------------------------------
-This file defines all our workers. Our 'router' worker will be a load balancer worker for other workers, including worker1 and worker2.&lt;/p&gt;
+worker.worker2.lbfactor=1
+
+# Define the LB worker
+worker.router.type=lb
+worker.router.balance_workers=worker1,worker2
+# Define the status worker
+worker.jkstatus.type=status
+
+\------------------------------------------------------------------------------------
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This file defines all our workers. Our 'router' worker will be a load balancer worker for other workers, including worker1 and worker2.&lt;/p&gt;
 &lt;p&gt;Now, we install (unzip, exactly) our apache. We use apache-5.2.23. We will modify the directory structure little bit, as shown like this.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="" src="http://bp0.blogger.com/_02IFrF9Xz98/RmKTVamjjKI/AAAAAAAABkI/CptR2eLPrpA/s320/opt-structure.png" /&gt;
-Give attention to tomcat1 and tomcat2 directory, and also directories inside it.We will use 2 instance of tomcat1 and tomcat2 as worker 'worker1' and 'worker2'. We also need to configure each server.xml in tomcat1 and tomcat2 so that they're not using the same port.
-Tomcat1 :
-Server port="8005" shutdown="SHUTDOWN"
-..
-..
-Connector port="8009"
-enableLookups="false" redirectPort="8443" protocol="AJP/1.3"
-..
-..&lt;/p&gt;
-&lt;p&gt;Connector port="8080" maxHttpHeaderSize="8192"
-maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
-enableLookups="false" redirectPort="8443" acceptCount="100"
-connectionTimeout="20000" disableUploadTimeout="true"&lt;/p&gt;
-&lt;p&gt;Tomcat2 :
-Server port="9005" shutdown="SHUTDOWN"
-..
-..
-Connector port="9009"
-enableLookups="false" redirectPort="8443" protocol="AJP/1.3"
-..
-..&lt;/p&gt;
-&lt;p&gt;Connector port="8080" maxHttpHeaderSize="8192"
-maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
-enableLookups="false" redirectPort="8443" acceptCount="100"
-connectionTimeout="20000" disableUploadTimeout="true"&lt;/p&gt;
-&lt;p&gt;One more thing, we need to create startup and shutdown file for each tomcat instance. We call it start1.sh, start2.sh, stop1.sh, stop2.sh
-start1.sh&lt;/p&gt;
-&lt;h1&gt;!/bin/bash&lt;/h1&gt;
-&lt;p&gt;export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat1
+Give attention to tomcat1 and tomcat2 directory, and also directories inside it.We will use 2 instance of tomcat1 and tomcat2 as worker 'worker1' and 'worker2'. We also need to configure each server.xml in tomcat1 and tomcat2 so that they're not using the same port.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Tomcat1&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="n"&gt;Server&lt;/span&gt; &lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;8005&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;shutdown&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;SHUTDOWN&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;..&lt;/span&gt;
+&lt;span class="o"&gt;..&lt;/span&gt;
+&lt;span class="n"&gt;Connector&lt;/span&gt; &lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;8009&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;enableLookups&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;false&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;redirectPort&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;8443&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;protocol&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;AJP/1.3&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;..&lt;/span&gt;
+&lt;span class="o"&gt;..&lt;/span&gt;
+
+&lt;span class="n"&gt;Connector&lt;/span&gt; &lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;8080&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;maxHttpHeaderSize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;8192&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;maxThreads&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;150&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;minSpareThreads&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;25&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;maxSpareThreads&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;75&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;enableLookups&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;false&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;redirectPort&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;8443&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;acceptCount&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;100&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;connectionTimeout&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;20000&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;disableUploadTimeout&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;true&amp;quot;&lt;/span&gt;
+
+&lt;span class="n"&gt;Tomcat2&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="n"&gt;Server&lt;/span&gt; &lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;9005&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;shutdown&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;SHUTDOWN&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;..&lt;/span&gt;
+&lt;span class="o"&gt;..&lt;/span&gt;
+&lt;span class="n"&gt;Connector&lt;/span&gt; &lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;9009&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;enableLookups&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;false&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;redirectPort&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;8443&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;protocol&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;AJP/1.3&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;..&lt;/span&gt;
+&lt;span class="o"&gt;..&lt;/span&gt;
+
+&lt;span class="n"&gt;Connector&lt;/span&gt; &lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;8080&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;maxHttpHeaderSize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;8192&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;maxThreads&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;150&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;minSpareThreads&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;25&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;maxSpareThreads&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;75&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;enableLookups&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;false&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;redirectPort&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;8443&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;acceptCount&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;100&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;connectionTimeout&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;20000&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;disableUploadTimeout&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;true&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;One more thing, we need to create startup and shutdown file for each tomcat instance. We call it start1.sh, start2.sh, stop1.sh, stop2.sh&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;start1.sh
+#!/bin/bash
+export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat1
 export JAVA_HOME=/opt/jdk1.6.0
 ./startup.sh
-start2.sh&lt;/p&gt;
-&lt;h1&gt;!/bin/bash&lt;/h1&gt;
-&lt;p&gt;export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat2
+start2.sh
+#!/bin/bash
+export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat2
 export JAVA_HOME=/opt/jdk1.6.0
 ./startup.sh
-stop1.sh&lt;/p&gt;
-&lt;h1&gt;!/bin/bash&lt;/h1&gt;
-&lt;p&gt;export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat1
+stop1.sh
+#!/bin/bash
+export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat1
 export JAVA_HOME=/opt/jdk1.6.0
 ./shutdown.sh
-stop2.sh&lt;/p&gt;
-&lt;h1&gt;!/bin/bash&lt;/h1&gt;
-&lt;p&gt;export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat2
+stop2.sh
+#!/bin/bash
+export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat2
 export JAVA_HOME=/opt/jdk1.6.0
-./shutdown.sh&lt;/p&gt;
+./shutdown.sh
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;Basically, these file just aimed to setup environment variable named CATALINA_BASE to point which tomcat instance we want to start/stop.&lt;/p&gt;
 &lt;p&gt;Now, lets try our installation. Start both tomcat instance, and also start your httpd server. Point out the browser to http://localhost/tomcat-docs/ and see if the request handled correctly. Httpd will redirect the request so that can be served by tomcat. Also point the browser to http://localhost/jkmanager/. This context path shows us the Load Balancing status for our tomcat instance.&lt;/p&gt;
 &lt;p&gt;Feel free to drop any comments about this posting.

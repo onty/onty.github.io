@@ -76,8 +76,11 @@
 by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
  in <a href="http://blog.theprasojos.web.id/category/java.html">Java</a>
 tags: <a href="http://blog.theprasojos.web.id/tag/.html"></a> </div>
-		<div><p>Finally, I know why I got this error :
-javax.naming.NameNotFoundException: OracleDS not bound ...</p>
+		<div><p>Finally, I know why I got this error :</p>
+<div class="highlight"><pre>javax.naming.NameNotFoundException: OracleDS not bound ...
+</pre></div>
+
+
 <p>Padahal di browse di Jboss console ada loh OracleDS. Udah kucoba ngeganti dengan java:OracleDS, java:/OracleDS, java:comp/env/OracleDS, semua nggak bisa....</p>
 <p>Ternyata ada konfigurasi yg harus ditambahin di oracle-ds.xml, selama ini kalo lookup langsung OracleDS tuh, dia akan nyari di JVM yang sama. Pantesan, lha aku jalaninnya dengan debug di eclipse, jelas beda JVM ama JBoss nya. Setelah browsing, akhirnya nemu link yang bilang, bahwa ada konfigurasi yang harus ditambahin di oracle-ds.xml nya, yaitu ini :
 false</p>

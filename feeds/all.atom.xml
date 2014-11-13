@@ -821,53 +821,104 @@ export JAVA_HOME=/opt/jdk1.6.0
 &lt;p&gt;Feel free to drop any comments about this posting.
 Thanks, good luck trying !&lt;/p&gt;</summary><category term=""></category></entry><entry><title>ESB #1 (Revised)</title><link href="http://blog.theprasojos.web.id/esb-1-revised.html" rel="alternate"></link><updated>2007-06-03T00:00:00+01:00</updated><author><name>Lintang JP</name></author><id>tag:blog.theprasojos.web.id,2007-06-03:esb-1-revised.html</id><summary type="html">&lt;p&gt;Baru dapet chm tentang ESB(Enterprise Service Bus), karangan Dave Chappel dari &lt;a href="http://arih.wordpress.com"&gt;mas Ari&lt;/a&gt;. Nih ulasan bab pertamanya :&lt;/p&gt;
 &lt;p&gt;Bab pertama ngejelasin tentang apa itu ESB(Enterprise Service Bus). Tahun-tahun sebelumnya kita mengenal istilah Service Oriented Architecture (SOA), Enterprise Application Integration (EAI), Business-to-Business (B2B), dan web services. Semua teknologi ini intinya sama, yaitu improvisasi hasil bisnis dari integrasi sistem-sistem yang telah ada sebelumnya. Sedangkan konsep ESB lebih kepada "..loosely coupled, highly distributed integration network that can scale beyond the limits of a hub-and-spoke EAI broker" . Jadi ketika bicara tentang ESB, maka didalamnya akan meliputi :&lt;/p&gt;
-&lt;p&gt;1. Messaging&lt;/p&gt;
-&lt;p&gt;2. Web Services&lt;/p&gt;
-&lt;p&gt;3. Transformasi data&lt;/p&gt;
-&lt;p&gt;4. Intelligent Routing yang mampu meneruskan message dari node satu ke yang lain tanpa melalui mekanisme broadcast.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;1\. Messaging
+
+2\. Web Services
+
+3\. Transformasi data
+
+4\. Intelligent Routing yang mampu meneruskan message dari node satu ke yang lain tanpa melalui mekanisme broadcast.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;Lebih lanjut dijelaskan dalam halaman berikutnya, tentang konsep-konsep apa saja yang telah diakomodir oleh generasi integrasi sebelumnya (SOA, EAI, B2B) sebagai berikut :&lt;/p&gt;
-&lt;p&gt;1.It must adapt to suit the needs of general-purpose integration projects across a variety of integration situations, large and small. Adaptability includes providing a durable architecture that is capable of withstanding evolutions in protocols, interface technology, and even process modeling trends.&lt;/p&gt;
-&lt;p&gt;2.It must link together applications that span the extended enterprise using a single unified approach and a common infrastructure.&lt;/p&gt;
-&lt;p&gt;3.It must extend beyond the boundaries of a single corporate IT data center and into automating partner relationships such as B2B and supply-chain scenarios.&lt;/p&gt;
-&lt;p&gt;4.It must have simplicity of design and low barriers to entry, enabling the everyday IT professional to become a self-empowered integration architect.&lt;/p&gt;
-&lt;p&gt;5.It must provide an SOA across the pervasive integration that enables integration architects to have a broad, abstract view of corporate application assets and automated business processes.&lt;/p&gt;
-&lt;p&gt;6.It needs the flexibility and ability to react to and meet the needs of changing business requirements and competitive pressures.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;1.It must adapt to suit the needs of general-purpose integration projects across a variety of integration situations, large and small. Adaptability includes providing a durable architecture that is capable of withstanding evolutions in protocols, interface technology, and even process modeling trends.
+
+
+2.It must link together applications that span the extended enterprise using a single unified approach and a common infrastructure.
+
+
+3.It must extend beyond the boundaries of a single corporate IT data center and into automating partner relationships such as B2B and supply-chain scenarios.
+
+
+4.It must have simplicity of design and low barriers to entry, enabling the everyday IT professional to become a self-empowered integration architect.
+
+
+5.It must provide an SOA across the pervasive integration that enables integration architects to have a broad, abstract view of corporate application assets and automated business processes.
+
+
+6.It needs the flexibility and ability to react to and meet the needs of changing business requirements and competitive pressures.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;Gambar berikut menunjukkan lebih jelas tentang posisi ESB dan teknologi integrasi pendahulunya.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="" src="http://jroller.com/resources/j/JPrasojo/Clipboard01.jpg" /&gt;&lt;/p&gt;
-&lt;p&gt;1. Traditional EAI Brokers.
-Arsitektur EAI Broker seperti ini memiliki keunggulan dimana semua fungsi-fungsi yang disediakannya (termasuk manajemen routing dan bisnis rule) dapat diatur secara terpusat. Tetapi buku ini mengatakan bahwa arsitektur ini kurang cocok untuk level integrasi antar departemen atau unit bisnis yang berbeda. Lebih lanjut dijelaskan dalam bab 2 mengenai ini.&lt;/p&gt;
-&lt;p&gt;2. Application Server.
-Application server dapat menghubungkan protokol-protokol yang berbeda dengan baik, namun hasilnya adalah sebuah aplikasi yang saling bergantung satu sama lain, yaitu antara integration logic dan application logic.&lt;/p&gt;
-&lt;p&gt;3. Message Oriented Middleware.
-Menyediakan konektivitas yang baik, loosely coupled, dengan gaya asinkron, antar aplikasi. Hal ini memungkinkan beberapa aplikasi yang kecepatan responsenya berbeda, menjadi tidak saling menunggu satu sama lain. Namun, arsitektur MOM ini membutuhkan pemrograman low-level yang cukup lumayan, sehingga bisa jadi waktu development akan lama. Belum lagi masalah perbedaan fisik network yang menyebabkan beberapa infrastruktur MOM tertentu menjadi tidak bisa diandalkan.&lt;/p&gt;
-&lt;p&gt;4. Yang terakhir, ESB.
-Disini, kita tidak lagi bicara tentang pemrograman, tetapi lebih ke arah bagaimana sebuah service di konfigurasi. Di ESB juga terdapat pemisahan arsitektur yang jelas antara business logic(proses bisnis aplikasi) dengan integration logic(routing dan transformasi format data).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;1\. Traditional EAI Brokers.
+Arsitektur EAI Broker seperti ini memiliki keunggulan dimana semua fungsi-fungsi yang disediakannya (termasuk manajemen routing dan bisnis rule) dapat diatur secara terpusat. Tetapi buku ini mengatakan bahwa arsitektur ini kurang cocok untuk level integrasi antar departemen atau unit bisnis yang berbeda. Lebih lanjut dijelaskan dalam bab 2 mengenai ini.
+
+2\. Application Server.
+Application server dapat menghubungkan protokol-protokol yang berbeda dengan baik, namun hasilnya adalah sebuah aplikasi yang saling bergantung satu sama lain, yaitu antara integration logic dan application logic.
+
+
+3\. Message Oriented Middleware.
+Menyediakan konektivitas yang baik, loosely coupled, dengan gaya asinkron, antar aplikasi. Hal ini memungkinkan beberapa aplikasi yang kecepatan responsenya berbeda, menjadi tidak saling menunggu satu sama lain. Namun, arsitektur MOM ini membutuhkan pemrograman low-level yang cukup lumayan, sehingga bisa jadi waktu development akan lama. Belum lagi masalah perbedaan fisik network yang menyebabkan beberapa infrastruktur MOM tertentu menjadi tidak bisa diandalkan.
+
+
+4\. Yang terakhir, ESB.
+Disini, kita tidak lagi bicara tentang pemrograman, tetapi lebih ke arah bagaimana sebuah service di konfigurasi. Di ESB juga terdapat pemisahan arsitektur yang jelas antara business logic(proses bisnis aplikasi) dengan integration logic(routing dan transformasi format data).
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;&lt;img alt="" src="http://jroller.com/resources/j/JPrasojo/Clipboard02.jpg" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Traditional Integration Broker Architecture&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="" src="http://jroller.com/resources/j/JPrasojo/Clipboard03.jpg" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;ESB Architecture&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Berikut karakteristik dari ESB :&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Pervasiveness. &lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;An ESB can be adapted to suit the needs of general-purpose integration projects across a variety of integration situations. It is capable of building out integration projects that can span an entire organization and its business partners.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;An ESB can be adapted to suit the needs of general-purpose integration projects across a variety of integration situations. It is capable of building out integration projects that can span an entire organization and its business partners.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;&lt;strong&gt;Highly distributed, event-driven SOA. &lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Loosely coupled integration components can be deployed on the bus across widely distributed geographic deployment topologies, yet are accessible as shared services from anywhere on the bus.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;Loosely coupled integration components can be deployed on the bus across widely distributed geographic deployment topologies, yet are accessible as shared services from anywhere on the bus.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;&lt;strong&gt;Selective deployment of integration components. &lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Adapters, distributed data transformation services, and content-based routing services can be selectively deployed when and where they are needed, and can be independently scaled.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;Adapters, distributed data transformation services, and content-based routing services can be selectively deployed when and where they are needed, and can be independently scaled.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;&lt;strong&gt;
 Security and reliability. &lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;All components that communicate through the bus can take advantage of reliable messaging, transactional integrity, and secure authenticated communications.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;All components that communicate through the bus can take advantage of reliable messaging, transactional integrity, and secure authenticated communications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;&lt;strong&gt;
 Orchestration and process flow. &lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;An ESB allows data to flow across any applications and services that are plugged into the bus, whether local or remote.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;An ESB allows data to flow across any applications and services that are plugged into the bus, whether local or remote.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;&lt;strong&gt;
 Autonomous yet federated managed environment. &lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;An ESB supports local autonomy at a departmental and business unit level, and is still able to integrate in a larger managed integration environment.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;An ESB supports local autonomy at a departmental and business unit level, and is still able to integrate in a larger managed integration environment.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;&lt;strong&gt;
 Incremental adoption. An ESB can be used for small projects. &lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Each individual project can build into a much larger integration network, which can be remotely managed from anywhere on the bus.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;Each individual project can build into a much larger integration network, which can be remotely managed from anywhere on the bus.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;&lt;strong&gt;
 XML support. &lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;An ESB can take advantage of XML as its "native" datatype.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;An ESB can take advantage of XML as its &amp;quot;native&amp;quot; datatype.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;originally posted 7/4/06&lt;/p&gt;</summary><category term=""></category></entry><entry><title>Hongkong International Airport</title><link href="http://blog.theprasojos.web.id/hongkong-international-airport.html" rel="alternate"></link><updated>2007-06-03T00:00:00+01:00</updated><author><name>Lintang JP</name></author><id>tag:blog.theprasojos.web.id,2007-06-03:hongkong-international-airport.html</id><summary type="html">&lt;p&gt;It's good to have your laptop travels with you. Like this, in airport, we dont have to be boring while we wait for the plane. Fast connection, provided by PCCW, one of Hongkong's telco operator. Thankyou PCCW.&lt;/p&gt;
 &lt;p&gt;First, open YM! messenger, and then open up my office mail....&lt;/p&gt;
 &lt;p&gt;Tadaaa, next assignment, 1. MiTV Malaysia on Monday..(WTF!) 2. STC Saudi Telecom, is this for real ????&lt;/p&gt;
@@ -888,8 +939,11 @@ http://picasaweb.google.com/lintang.jp/HongkongSurvival&lt;/p&gt;
 &lt;p&gt;That's all, training start...
 :)&lt;/p&gt;
 &lt;p&gt;tobe continued..&lt;/p&gt;
-&lt;p&gt;originally posted 2/15/07&lt;/p&gt;</summary><category term=""></category></entry><entry><title>JBoss Vs BES</title><link href="http://blog.theprasojos.web.id/jboss-vs-bes.html" rel="alternate"></link><updated>2007-06-03T00:00:00+01:00</updated><author><name>Lintang JP</name></author><id>tag:blog.theprasojos.web.id,2007-06-03:jboss-vs-bes.html</id><summary type="html">&lt;p&gt;Finally, I know why I got this error :
-javax.naming.NameNotFoundException: OracleDS not bound ...&lt;/p&gt;
+&lt;p&gt;originally posted 2/15/07&lt;/p&gt;</summary><category term=""></category></entry><entry><title>JBoss Vs BES</title><link href="http://blog.theprasojos.web.id/jboss-vs-bes.html" rel="alternate"></link><updated>2007-06-03T00:00:00+01:00</updated><author><name>Lintang JP</name></author><id>tag:blog.theprasojos.web.id,2007-06-03:jboss-vs-bes.html</id><summary type="html">&lt;p&gt;Finally, I know why I got this error :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;javax.naming.NameNotFoundException: OracleDS not bound ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;Padahal di browse di Jboss console ada loh OracleDS. Udah kucoba ngeganti dengan java:OracleDS, java:/OracleDS, java:comp/env/OracleDS, semua nggak bisa....&lt;/p&gt;
 &lt;p&gt;Ternyata ada konfigurasi yg harus ditambahin di oracle-ds.xml, selama ini kalo lookup langsung OracleDS tuh, dia akan nyari di JVM yang sama. Pantesan, lha aku jalaninnya dengan debug di eclipse, jelas beda JVM ama JBoss nya. Setelah browsing, akhirnya nemu link yang bilang, bahwa ada konfigurasi yang harus ditambahin di oracle-ds.xml nya, yaitu ini :
 false&lt;/p&gt;

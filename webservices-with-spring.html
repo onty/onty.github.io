@@ -8,35 +8,45 @@
 
 	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
 	<!--[if lt IE 9]>
-		<script src="/theme/html5.js"></script>
+		<script src="http://blog.theprasojos.web.id/theme/html5.js"></script>
 	<![endif]-->
 
 	<!-- Styles -->
-	<link href="/theme/bootstrap.min.css" rel="stylesheet">
-	<link href="/theme/local.css" rel="stylesheet">
-	<link href="/theme/pygments.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/bootstrap.min.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/local.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/pygments.css" rel="stylesheet">
 
 	<!-- Feeds -->
+	<link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Atom Feed" />
 
 
 
 
+<script>var _gaq=[['_setAccount','UA-56589451-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<script type="text/javascript">
+	var disqus_identifier = "webservices-with-spring.html";
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://jprasojos.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
 </head>
 <body>
 	<div class="topbar">
 	  <div class="topbar-inner">
 		<div class="container-fluid">
-		  <a class="brand" href="/">JPrasojo's blog</a>
+		  <a class="brand" href="http://blog.theprasojos.web.id/">JPrasojo's blog</a>
 			<ul class="nav">
-						<li><a href="/pages/hello-world.html">About</a></li>
-					<li ><a href="/category/family.html">Family</a></li>
-					<li class="active"><a href="/category/java.html">Java</a></li>
-					<li ><a href="/category/renungan.html">Renungan</a></li>
-					<li ><a href="/category/telco.html">Telco</a></li>
-					<li ><a href="/category/travelling.html">Travelling</a></li>
-					<li ><a href="/category/unixlinux.html">Unix/Linux</a></li>
+						<li><a href="http://blog.theprasojos.web.id/pages/hello-world.html">About</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
+					<li class="active"><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
 			</ul>
-			<p class="pull-right"><a href="/archives.html">[archives]</a> <a href="/tags.html">[tags]</a></p>
+			<p class="pull-right"><a href="http://blog.theprasojos.web.id/archives.html">[archives]</a> <a href="http://blog.theprasojos.web.id/tags.html">[tags]</a></p>
 		</div>
 	  </div>
 	</div>
@@ -63,32 +73,32 @@
 	  <div class="content">
 	<div class='article'>
 		<div class="page-header"><h1>Webservices with spring</h1></div>
-		<div class="well small">Permalink: <a class="more" href="/webservices-with-spring.html">2007-06-03 00:00:00+01:00</a>
-by <a class="url fn" href="/author/lintang-jp.html">Lintang JP </a>
- in <a href="/category/java.html">Java</a>
-tags: <a href="/tag/.html"></a> </div>
+		<div class="well small">Permalink: <a class="more" href="http://blog.theprasojos.web.id/webservices-with-spring.html">2007-06-03 00:00:00+01:00</a>
+by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
+ in <a href="http://blog.theprasojos.web.id/category/java.html">Java</a>
+tags: <a href="http://blog.theprasojos.web.id/tag/.html"></a> </div>
 		<div><p>These few days, I had a task to create a webservice client. Sounds interesting and challenging, because usually if we depends on weblogic's control, we can make any webservices client much much easier, just a few click, and tadaaa. The problem is, the webservice client will become stand alone module, so, I can't use any java controls since those controls will be managed by weblogic container during runtime.
 Then I turn to find another simple and fast way to create webservice client. But, before that of course, since the remote system is not ready yet, I have to create some dummy web service first. Weblogic 9.2 having strange behaviour. First, we create webservice project from the Eclipse-based-IDE. After that, we generate the wsdl files. But, dont ever try to validate it :D because it will fail. Just pass and use those webservice to create weblogic client. That's strange, fail to validate, but it works :D</p>
 <p>Ok, dont waste time, since I already had the webservice simulator works no matter how :p I began to create the webservice client. Coding from scratch ? no, it's painful, and I need to do it fast. I turn out to spring and axis which offers it's integration. This is my bean config sample :</p>
-<div class="highlight"><pre><span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">axis</span><span class="p">.</span><span class="n">client</span><span class="p">.</span><span class="n">ServiceFactory</span>
+<div class="highlight"><pre>org.apache.axis.client.ServiceFactory
 
 
-<span class="nl">http:</span><span class="c1">//localhost:7001/AggregatedInfoFeederSimulator/AggregatedInfo?WSDL</span>
+http://localhost:7001/AggregatedInfoFeederSimulator/AggregatedInfo?WSDL
 
 
-<span class="nl">http:</span><span class="c1">//com/ericsson/aggregateinfo/sub/services</span>
+http://com/ericsson/aggregateinfo/sub/services
 
 
-<span class="n">AggregatedInfoService</span>
+AggregatedInfoService
 
 
-<span class="n">AggregatedInfoSoapPort</span>
+AggregatedInfoSoapPort
 
 
-<span class="n">com</span><span class="p">.</span><span class="n">ericsson</span><span class="p">.</span><span class="n">mi3g</span><span class="p">.</span><span class="n">sub</span><span class="p">.</span><span class="n">aggregatedinfo</span><span class="p">.</span><span class="n">wsclient</span><span class="p">.</span><span class="n">RemoteInfoPortIntf</span>
+com.ericsson.mi3g.sub.aggregatedinfo.wsclient.RemoteInfoPortIntf
 
 
-<span class="n">com</span><span class="p">.</span><span class="n">ericsson</span><span class="p">.</span><span class="n">mi3g</span><span class="p">.</span><span class="n">sub</span><span class="p">.</span><span class="n">aggregatedinfo</span><span class="p">.</span><span class="n">wsclient</span><span class="p">.</span><span class="n">RemoteInfoServiceIntf</span>
+com.ericsson.mi3g.sub.aggregatedinfo.wsclient.RemoteInfoServiceIntf
 </pre></div>
 
 
@@ -101,6 +111,9 @@ Then I turn to find another simple and fast way to create webservice client. But
 <p>And that's it, I'm done.</p>
 <p>logger.info("from cyberjava with love....");
 Originally posted 4/19/07.</p></div>
+		<div>
+			<h2>Comments</h2>
+<div id="disqus_thread"></div>		<div>
 	</div>
 		<footer>
 		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>

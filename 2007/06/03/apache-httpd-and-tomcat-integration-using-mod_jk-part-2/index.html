@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>JPrasojo's blog</title>
+	<meta name="description" content="">
+	<meta name="author" content="Lintang JP">
+
+	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="http://blog.theprasojos.web.id/theme/html5.js"></script>
+	<![endif]-->
+
+	<!-- Styles -->
+	<link href="http://blog.theprasojos.web.id/theme/bootstrap.min.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/local.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/pygments.css" rel="stylesheet">
+
+	<!-- Feeds -->
+	<link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Atom Feed" />
+
+
+
+
+<script>var _gaq=[['_setAccount','UA-56589451-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<script type="text/javascript">
+	var disqus_identifier = "2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-2/";
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://jprasojos.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+</head>
+<body>
+	<div class="topbar">
+	  <div class="topbar-inner">
+		<div class="container-fluid">
+		  <a class="brand" href="http://blog.theprasojos.web.id/">JPrasojo's blog</a>
+			<ul class="nav">
+						<li><a href="http://blog.theprasojos.web.id/pages/hello-world.html">About</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
+					<li class="active"><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
+			</ul>
+			<p class="pull-right"><a href="http://blog.theprasojos.web.id/archives.html">[archives]</a> <a href="http://blog.theprasojos.web.id/tags.html">[tags]</a></p>
+		</div>
+	  </div>
+	</div>
+
+	<div class="container-fluid">
+	  <div class="sidebar">
+		<div class="well">
+			<h3>Blogroll</h3>
+			<ul>
+				<li><a href="http://getpelican.com/">Pelican</a></li>
+				<li><a href="http://python.org/">Python.org</a></li>
+				<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+				<li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+			</ul>
+			<div class="social">
+			<h3>Social</h3>
+			<ul>
+				<li><a href="https://twitter.com/jprasojo">Twitter</a></li>
+				<li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a></li>
+			</ul>
+			</div>
+		</div>
+	  </div>
+	  <div class="content">
+	<div class='article'>
+		<div class="page-header"><h1>Apache Httpd and Tomcat integration using mod_jk, part 2</h1></div>
+		<div class="well small">Permalink: <a class="more" href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-2/">2007-06-03 00:00:00+01:00</a>
+by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
+ in <a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a>
+tags: <a href="http://blog.theprasojos.web.id/tag/.html"></a> </div>
+		<div><p>This posting splitted because somehow blogspot just cut it. I don't know why but when I previewed the posting, blogspot just cut the postings, so I splitted it into 2 parts.</p>
+<p>Ok, now we create workers.properties file.</p>
+<div class="highlight"><pre>onty@phoenix:/opt/httpd-2.2.4$ vi conf/workers.properties
+\------------------------------------------------------------------------------------
+worker.list=router,jkstatus
+# Define a worker using ajp13
+worker.worker1.port=8009
+worker.worker1.host=localhost
+worker.worker1.type=ajp13
+worker.worker1.lbfactor=1
+# Define prefered failover node for worker1
+worker.worker1.redirect=worker2
+# Define another worker using ajp13
+worker.worker2.port=8009
+worker.worker2.host=localhost
+worker.worker2.type=ajp13
+worker.worker2.lbfactor=1
+
+# Define the LB worker
+worker.router.type=lb
+worker.router.balance_workers=worker1,worker2
+# Define the status worker
+worker.jkstatus.type=status
+
+\------------------------------------------------------------------------------------
+</pre></div>
+
+
+<p>This file defines all our workers. Our 'router' worker will be a load balancer worker for other workers, including worker1 and worker2.</p>
+<p>Now, we install (unzip, exactly) our apache. We use apache-5.2.23. We will modify the directory structure little bit, as shown like this.</p>
+<p><img alt="" src="http://bp0.blogger.com/_02IFrF9Xz98/RmKTVamjjKI/AAAAAAAABkI/CptR2eLPrpA/s320/opt-structure.png" />
+Give attention to tomcat1 and tomcat2 directory, and also directories inside it.We will use 2 instance of tomcat1 and tomcat2 as worker 'worker1' and 'worker2'. We also need to configure each server.xml in tomcat1 and tomcat2 so that they're not using the same port.</p>
+<div class="highlight"><pre><span class="n">Tomcat1</span> <span class="o">:</span>
+<span class="n">Server</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;8005&quot;</span> <span class="n">shutdown</span><span class="o">=</span><span class="s2">&quot;SHUTDOWN&quot;</span>
+<span class="o">..</span>
+<span class="o">..</span>
+<span class="n">Connector</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;8009&quot;</span>
+<span class="n">enableLookups</span><span class="o">=</span><span class="s2">&quot;false&quot;</span> <span class="n">redirectPort</span><span class="o">=</span><span class="s2">&quot;8443&quot;</span> <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;AJP/1.3&quot;</span>
+<span class="o">..</span>
+<span class="o">..</span>
+
+<span class="n">Connector</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;8080&quot;</span> <span class="n">maxHttpHeaderSize</span><span class="o">=</span><span class="s2">&quot;8192&quot;</span>
+<span class="n">maxThreads</span><span class="o">=</span><span class="s2">&quot;150&quot;</span> <span class="n">minSpareThreads</span><span class="o">=</span><span class="s2">&quot;25&quot;</span> <span class="n">maxSpareThreads</span><span class="o">=</span><span class="s2">&quot;75&quot;</span>
+<span class="n">enableLookups</span><span class="o">=</span><span class="s2">&quot;false&quot;</span> <span class="n">redirectPort</span><span class="o">=</span><span class="s2">&quot;8443&quot;</span> <span class="n">acceptCount</span><span class="o">=</span><span class="s2">&quot;100&quot;</span>
+<span class="n">connectionTimeout</span><span class="o">=</span><span class="s2">&quot;20000&quot;</span> <span class="n">disableUploadTimeout</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+
+<span class="n">Tomcat2</span> <span class="o">:</span>
+<span class="n">Server</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;9005&quot;</span> <span class="n">shutdown</span><span class="o">=</span><span class="s2">&quot;SHUTDOWN&quot;</span>
+<span class="o">..</span>
+<span class="o">..</span>
+<span class="n">Connector</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;9009&quot;</span>
+<span class="n">enableLookups</span><span class="o">=</span><span class="s2">&quot;false&quot;</span> <span class="n">redirectPort</span><span class="o">=</span><span class="s2">&quot;8443&quot;</span> <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;AJP/1.3&quot;</span>
+<span class="o">..</span>
+<span class="o">..</span>
+
+<span class="n">Connector</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;8080&quot;</span> <span class="n">maxHttpHeaderSize</span><span class="o">=</span><span class="s2">&quot;8192&quot;</span>
+<span class="n">maxThreads</span><span class="o">=</span><span class="s2">&quot;150&quot;</span> <span class="n">minSpareThreads</span><span class="o">=</span><span class="s2">&quot;25&quot;</span> <span class="n">maxSpareThreads</span><span class="o">=</span><span class="s2">&quot;75&quot;</span>
+<span class="n">enableLookups</span><span class="o">=</span><span class="s2">&quot;false&quot;</span> <span class="n">redirectPort</span><span class="o">=</span><span class="s2">&quot;8443&quot;</span> <span class="n">acceptCount</span><span class="o">=</span><span class="s2">&quot;100&quot;</span>
+<span class="n">connectionTimeout</span><span class="o">=</span><span class="s2">&quot;20000&quot;</span> <span class="n">disableUploadTimeout</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+</pre></div>
+
+
+<p>One more thing, we need to create startup and shutdown file for each tomcat instance. We call it start1.sh, start2.sh, stop1.sh, stop2.sh</p>
+<div class="highlight"><pre>start1.sh
+#!/bin/bash
+export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat1
+export JAVA_HOME=/opt/jdk1.6.0
+./startup.sh
+start2.sh
+#!/bin/bash
+export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat2
+export JAVA_HOME=/opt/jdk1.6.0
+./startup.sh
+stop1.sh
+#!/bin/bash
+export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat1
+export JAVA_HOME=/opt/jdk1.6.0
+./shutdown.sh
+stop2.sh
+#!/bin/bash
+export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat2
+export JAVA_HOME=/opt/jdk1.6.0
+./shutdown.sh
+</pre></div>
+
+
+<p>Basically, these file just aimed to setup environment variable named CATALINA_BASE to point which tomcat instance we want to start/stop.</p>
+<p>Now, lets try our installation. Start both tomcat instance, and also start your httpd server. Point out the browser to http://localhost/tomcat-docs/ and see if the request handled correctly. Httpd will redirect the request so that can be served by tomcat. Also point the browser to http://localhost/jkmanager/. This context path shows us the Load Balancing status for our tomcat instance.</p>
+<p>Feel free to drop any comments about this posting.
+Thanks, good luck trying !</p></div>
+		<div>
+			<h2>Comments</h2>
+<div id="disqus_thread"></div>		<div>
+	</div>
+		<footer>
+		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>
+		  <p>&copy; Lintang JP</p>
+		</footer>
+	  </div>
+
+	</div>
+</body>
+</html>

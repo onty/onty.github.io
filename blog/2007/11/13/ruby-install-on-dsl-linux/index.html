@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>JPrasojo's blog</title>
+	<meta name="description" content="">
+	<meta name="author" content="Lintang JP">
+
+	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="http://blog.theprasojos.web.id/theme/html5.js"></script>
+	<![endif]-->
+
+	<!-- Styles -->
+	<link href="http://blog.theprasojos.web.id/theme/bootstrap.min.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/local.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/pygments.css" rel="stylesheet">
+
+	<!-- Feeds -->
+	<link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Atom Feed" />
+
+
+
+
+<script>var _gaq=[['_setAccount','UA-56589451-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<script type="text/javascript">
+	var disqus_identifier = "blog/2007/11/13/ruby-install-on-dsl-linux/";
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://jprasojos.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+</head>
+<body>
+	<div class="topbar">
+	  <div class="topbar-inner">
+		<div class="container-fluid">
+		  <a class="brand" href="http://blog.theprasojos.web.id/">JPrasojo's blog</a>
+			<ul class="nav">
+						<li><a href="http://blog.theprasojos.web.id/pages/hello-world.html">About</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
+					<li class="active"><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
+			</ul>
+			<p class="pull-right"><a href="http://blog.theprasojos.web.id/archives.html">[archives]</a> <a href="http://blog.theprasojos.web.id/tags.html">[tags]</a></p>
+		</div>
+	  </div>
+	</div>
+
+	<div class="container-fluid">
+	  <div class="sidebar">
+		<div class="well">
+			<h3>Blogroll</h3>
+			<ul>
+				<li><a href="http://getpelican.com/">Pelican</a></li>
+				<li><a href="http://python.org/">Python.org</a></li>
+				<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+				<li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+			</ul>
+			<div class="social">
+			<h3>Social</h3>
+			<ul>
+				<li><a href="https://twitter.com/jprasojo">Twitter</a></li>
+				<li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a></li>
+			</ul>
+			</div>
+		</div>
+	  </div>
+	  <div class="content">
+	<div class='article'>
+		<div class="page-header"><h1>Ruby Install on DSL Linux</h1></div>
+		<div class="well small">Permalink: <a class="more" href="http://blog.theprasojos.web.id/blog/2007/11/13/ruby-install-on-dsl-linux/">2007-11-13 00:00:00+00:00</a>
+by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
+ in <a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a>
+tags: <a href="http://blog.theprasojos.web.id/tag/ruby-dsl-linux-stuff.html">Ruby DSL Linux stuff</a> </div>
+		<div><p>Went home earlier than before today, after a day full of meeting with client. I missed my linux. Got a bling about ruby. This stuff sounds cool. Lot's of java programmer migrating to this language, let's give it a shot. I started my adventure by googling with some 'beginner standars' keyword regarding ruby : "howto install ruby", and I got these links :
+- http://www.ruby-lang.org/id
+- http://hivelogic.com/narrative/articles/ruby_rails_lighttpd_mysql_tiger?status=301
+Great, I boot up my DSL linux under qemu, and start downloading the necessary package. I tried to install using DSL's extension facilities (MyDSL-ruby.dsl) but, I don't know if it's work. So I decided to download the source, and compile it, just like the good old days :)
+First, I downloaded ruby <a href="ftp://ftp.ruby-lang.org/pub/ruby/stable-snapshot.tar.gz">here</a>. And then as usual, run 3 commands :
+dsl@1[ruby-1.8.6]$ ./configure --prefix=/opt/ruby-1.8.6
+dsl@1[ruby-1.8.6]$ make
+dsl@1[ruby-1.8.6]$ sudo make install
+And, I got my ruby installed in /opt/ruby-1.8.6. Dont forget to add the path reference to ruby's bin/ directory installation as follows (mine at /opt/ruby-1.8.6/bin) :
+export PATH=/opt/ruby-1.8.6/bin:$PATH
+To make my life easier, I put that line in /etc/profile, and run : source /etc/profile. Check whether it points to the right path, type : irb, it should shows you some prompt like this :
+dsl@0[Installer]$ irb
+irb(main):001:0&gt;</p>
+<p>Ok, I continued my journey by getting a tools called RubyGems. This RubyGems is a handy command-line tool for managing the installation of Ruby packages, like Rails ('quoted from <a href="http://hivelogic.com/narrative/articles/ruby_rails_lighttpd_mysql_tiger?status=301">here</a> ').
+I downloaded it from <a href="http://rubyforge.org/frs/?group_id=126">here</a>.
+After that, I unpack it, and went inside the exploded directory and type : ruby setup.rb
+This will start the installation process of RubyGems.</p>
+<p>OK, next I installed Rails, what is it ?.
+Quoted from http://rubyonrails.org/, ruby itself is a programming language, and Rails is the framework, just like Struts in Java. Rails is a full-stack framework for developing database-backed web applications according to the Model-View-Control pattern.</p>
+<p>After RubyGems installed, it's all easy to install Rails, I just have to type :
+sudo gem install rails --include-dependencies
+And RubyGems will download all the needs.</p>
+<p>While RubyGems downloading my Rails installation, I went to next step and install PCRE and Lighttpd. PCRE is a Ruby regex extensions stands for Perl Compatible Regular Expression. I downloaded it from <a href="ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-7.4.tar.gz">here</a>. While Lighttpd is a webserver that became the default one when we choose Rails. I downloaded Lighttpd from <a href="http://www.lighttpd.net/download/lighttpd-1.4.18.tar.bz2">here</a>.
+First, PCRE. I run : ./configure, make, and make install. I done the same command with Lighttpd, only that I gave different prefix on each ./configure like this :
+PCRE : ./configure --prefix=/opt/pcre-7.4
+Lighttpd : ./configure --prefix=/opt/Lighttpd-1.4.18
+And the rest make and make install commands were same.</p>
+<p>Ok, I should be ready for rock and roll with ruby on rails.
+I'll write my next experiments later. Now, it's time to get rest, we'll have a great patch deployment tomorrow :)</p></div>
+		<div>
+			<h2>Comments</h2>
+<div id="disqus_thread"></div>		<div>
+	</div>
+		<footer>
+		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>
+		  <p>&copy; Lintang JP</p>
+		</footer>
+	  </div>
+
+	</div>
+</body>
+</html>

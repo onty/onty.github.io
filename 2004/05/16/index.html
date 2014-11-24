@@ -1,80 +1,207 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>JPrasojo's blog</title>
-	<meta name="description" content="">
-	<meta name="author" content="Lintang JP">
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
-	<!--[if lt IE 9]>
-		<script src="http://blog.theprasojos.web.id/theme/html5.js"></script>
-	<![endif]-->
+		<title>JPrasojo's blog</title>
+		<meta name="description" content="">
+		<meta name="author" content="Lintang JP">
 
-	<!-- Styles -->
-	<link href="http://blog.theprasojos.web.id/theme/bootstrap.min.css" rel="stylesheet">
-	<link href="http://blog.theprasojos.web.id/theme/local.css" rel="stylesheet">
-	<link href="http://blog.theprasojos.web.id/theme/pygments.css" rel="stylesheet">
-
-	<!-- Feeds -->
-	<link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Atom Feed" />
+		<link rel="stylesheet" href="http://blog.theprasojos.web.id/theme/css/foundation.css" />
+		<link rel="stylesheet" href="http://blog.theprasojos.web.id/theme/css/pygment/monokai.css" />
+		<link rel="stylesheet" href="http://blog.theprasojos.web.id/theme/css/custom.css" />
 
 
+		<script src="http://blog.theprasojos.web.id/theme/js/modernizr.js"></script>
 
+		<!-- Feeds -->
+		<link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Atom Feed" />
 
 <script>var _gaq=[['_setAccount','UA-56589451-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
-</head>
-<body>
-	<div class="topbar">
-	  <div class="topbar-inner">
-		<div class="container-fluid">
-		  <a class="brand" href="http://blog.theprasojos.web.id/">JPrasojo's blog</a>
-			<ul class="nav">
-						<li><a href="http://blog.theprasojos.web.id/pages/hello-world.html">About</a></li>
-					<li ><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
-					<li ><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
-					<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
-					<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
-					<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
-					<li ><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
-			</ul>
-			<p class="pull-right"><a href="http://blog.theprasojos.web.id/archives.html">[archives]</a> <a href="http://blog.theprasojos.web.id/tags.html">[tags]</a></p>
-		</div>
-	  </div>
-	</div>
 
-	<div class="container-fluid">
-	  <div class="sidebar">
-		<div class="well">
-			<h3>Blogroll</h3>
-			<ul>
-				<li><a href="http://getpelican.com/">Pelican</a></li>
-				<li><a href="http://python.org/">Python.org</a></li>
-				<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-				<li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
-			</ul>
-			<div class="social">
-			<h3>Social</h3>
-			<ul>
-				<li><a href="https://twitter.com/jprasojo">Twitter</a></li>
-				<li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a></li>
-			</ul>
-			</div>
-		</div>
-	  </div>
-	  <div class="content">
-<div class="page-header"><h1> JPrasojo's blog </h1></div><h1>Archives for 16 May 2004</h1>
+		<!-- mathjax config similar to math.stackexchange -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$', '$'] ],
+				displayMath: [ ['$$', '$$']],
+				processEscapes: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+			},
+			messageStyle: "none",
+			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+		});
+		</script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	</head>
+	<body>
+		<div class="off-canvas-wrap">
+			<div class="inner-wrap">
+				<!-- mobile top bar to activate nav -->
+				<nav class="tab-bar show-for-small">
+					<section class="left-small">
+						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+					</section>
+
+					<section class="middle tab-bar-section">
+						<h1 class="title">JPrasojo's&nbsp;blog</h1>
+					</section>
+				</nav>
+
+				<!-- mobile side bar nav -->
+				<aside class="left-off-canvas-menu">
+					<ul class="off-canvas-list">
+						<li><a href="http://blog.theprasojos.web.id">Home</a></li>
+						<li><label>Categories</label></li>
+							<li ><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
+							<li ><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
+							<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
+							<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
+							<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
+							<li ><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
+
+						<li><label>Places</label></li>
+							<li><a href="http://getpelican.com/">Pelican</a></li>
+							<li><a href="http://python.org/">Python.org</a></li>
+							<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+							<li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+
+
+						<li><label>Monthly Archives</label></li>
+									<li><a href="/2004/05/index.html">May 2004 (1)</a></li>
+
+						<li><label>Links</label></li>
+							<li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a></li>
+							<li><a href="https://twitter.com/jprasojo">Twitter</a></li>
+					</ul>	
+				</aside>
+
+				<!-- top bar nav -->
+				<nav class="top-bar hide-for-small-only" data-topbar>
+					<ul class="title-area">
+						<li class="name">
+							<h1><a href="http://blog.theprasojos.web.id/">JPrasojo's blog</a></h1>
+						</li>
+					</ul>
+
+					<section class="top-bar-section">
+						<ul class="left">
+								<li ><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
+								<li ><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
+								<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
+								<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
+								<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
+								<li ><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
+						</ul>
+					</section>
+				</nav>
+
+				<!-- Main Page Content and Sidebar -->
+				<section class="main-section">
+					<div class="row">
+						<!-- Main Content -->
+						<div class="medium-9 small-12 columns" role="content">
+<h1>Archives for 16 May 2004</h1>
 
 <dl>
     <dt>Sun 16 May 2004</dt>
     <dd><a href="http://blog.theprasojos.web.id/2004/05/16/dia/">Dia...</a></dd>
 </dl>
-		<footer>
-		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>
-		  <p>&copy; Lintang JP</p>
-		</footer>
-	  </div>
+						</div>
+						<!-- End Main Content -->
+						<!-- Sidebar -->
+						<aside class="medium-3 hide-for-small-only columns">
+							<div class="panel">
+								<h5>Places</h5>
+								<ul class="side-nav">
+									<li><a href="http://getpelican.com/">Pelican</a></li>
+									<li><a href="http://python.org/">Python.org</a></li>
+									<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+									<li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+								</ul>
+							</div>
 
-	</div>
-</body>
+							<div class="panel">
+								<h5>Tags</h5>
+								<ul class="tag-cloud">
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/embassy.html">embassy</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/tiara-medan.html">tiara medan</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/broadband-at-home-internet-3g.html">Broadband at home Internet 3G</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/intelligent-network.html">Intelligent Network</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/lembur-kuring-medan.html">lembur kuring medan</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/jumpstart-unix-linux-stuff-solaris.html">jumpstart Unix Linux stuff solaris</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/merdeka-walk.html">merdeka walk</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/linux-stuff.html">Linux stuff</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/os-linux-stuff-opensolaris-solaris.html">OS Linux stuff OpenSolaris solaris</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/martebe.html">martebe</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/harare.html">harare</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/prepaid-system.html">Prepaid System</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/charging-system.html">Charging System</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/atutor-unix-linux-stuff-web-server-internet-nginx.html">aTutor Unix Linux stuff Web Server Internet Nginx</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/indonesian-embassy.html">indonesian embassy</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/grand-angkasa-medan.html">grand angkasa medan</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/tips-unix-linux-stuff-web-server-nginx.html">Tips Unix Linux stuff Web Server Nginx</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/travel.html">Travel</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/cms.html">CMS</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/green-card.html">Green Card</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/tips-unix-linux-stuff.html">Tips Unix Linux stuff</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/ruby-dsl-linux-stuff.html">Ruby DSL Linux stuff</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/grand-angkasa.html">grand angkasa</a></li>
+										<li class="tag-3"><a href="http://blog.theprasojos.web.id/tag/telco-billing.html">Telco Billing</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/ocs.html">OCS</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/interconnect-telekomunikasi-telco-billing-interkoneksi.html">Interconnect Telekomunikasi Telco Billing Interkoneksi</a></li>
+										<li class="tag-3"><a href="http://blog.theprasojos.web.id/tag/renungan.html">Renungan</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/brastagi.html">brastagi</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/telco-billing-cdma-450-3g.html">Telco Billing CDMA 450 3G</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/visa.html">VISA</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/medan.html">medan</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/family.html">Family</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/wordpress-verify-google-webmaster-internet.html">wordpress verify google webmaster Internet</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/tips.html">Tips</a></li>
+										<li class="tag-1"><a href="http://blog.theprasojos.web.id/tag/.html"></a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/ireland.html">Ireland</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/zimbabwe.html">zimbabwe</a></li>
+										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/laptop.html">Laptop</a></li>
+								</ul>
+							</div>
+
+							<div class="panel">
+								<h5>Monthly Archives</h5>
+								<ul class="side-nav">
+											<li><a href="/2004/05/index.html">May 2004 (1)</a></li>
+								</ul>
+							</div>
+
+							<div class="panel">
+								<h5>Links</h5>
+								<ul class="side-nav">
+									<li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a></li>
+									<li><a href="https://twitter.com/jprasojo">Twitter</a></li>
+								</ul>
+							</div>
+						</aside>
+						<!-- End Sidebar -->
+					</div>
+
+					<!-- Footer -->
+					<footer class="row">
+						<div class="medium-9 small-12">
+							<hr/>
+							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
+						</div>
+					</footer>
+					<!-- End Footer -->
+				</section>
+				<a class="exit-off-canvas"></a>
+			</div><!--off-canvas inner-->
+		</div><!--off-canvas wrap-->
+
+		<script src="http://blog.theprasojos.web.id/theme/js/jquery.js"></script>
+		<script src="http://blog.theprasojos.web.id/theme/js/foundation.min.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
 </html>

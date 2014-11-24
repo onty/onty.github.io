@@ -1,287 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>JPrasojo's blog</title>
-    <meta name="description" content="">
-    <meta name="author" content="Lintang JP">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<title>JPrasojo's blog</title>
+	<meta name="description" content="">
+	<meta name="author" content="Lintang JP">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-    <script src="http://blog.theprasojos.web.id/theme/html5.js"></script>
-    <![endif]-->
+	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="http://blog.theprasojos.web.id/theme/html5.js"></script>
+	<![endif]-->
 
-    <!-- Le styles -->
-    <link href="http://blog.theprasojos.web.id/theme/bootstrap.min.css" rel="stylesheet">
-    <link href="http://blog.theprasojos.web.id/theme/bootstrap.min.responsive.css" rel="stylesheet">
-    <link href="http://blog.theprasojos.web.id/theme/local.css" rel="stylesheet">
-    <link href="http://blog.theprasojos.web.id/theme/pygments.css" rel="stylesheet">
+	<!-- Styles -->
+	<link href="http://blog.theprasojos.web.id/theme/bootstrap.min.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/local.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/pygments.css" rel="stylesheet">
 
-    <!-- So Firefox can bookmark->"abo this site" -->
-        <link href="feeds/all.atom.xml" rel="alternate" title="JPrasojo's blog" type="application/atom+xml">
+	<!-- Feeds -->
+	<link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Atom Feed" />
 
+
+
+
+<script>var _gaq=[['_setAccount','UA-56589451-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
 </head>
-
 <body>
+	<div class="topbar">
+	  <div class="topbar-inner">
+		<div class="container-fluid">
+		  <a class="brand" href="http://blog.theprasojos.web.id/">JPrasojo's blog</a>
+			<ul class="nav">
+						<li><a href="http://blog.theprasojos.web.id/pages/hello-world.html">About</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
+			</ul>
+			<p class="pull-right"><a href="http://blog.theprasojos.web.id/archives.html">[archives]</a> <a href="http://blog.theprasojos.web.id/tags.html">[tags]</a></p>
+		</div>
+	  </div>
+	</div>
 
-<div class="navbar">
-    <div class="navbar-inner">
-    <div class="container">
-
-         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-         </a>
-
-        <a class="brand" href="http://blog.theprasojos.web.id">JPrasojo's blog</a>
-
-        <div class="nav-collapse">
-        <ul class="nav">
-            
-            <li><a href="http://blog.theprasojos.web.id/pages/hello-world.html">About</a></li>
-        </ul>
-        </div>
-        
-    </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="content">
-    <div class="row">
-
-        <div class="span9">
-        
-
-        
-
-
-    <div class='article'>
-        <div class="content-title">
-            <a href="http://blog.theprasojos.web.id/2009/01/13/telco-billing-2-interconnect-that-matters/"><h1>Telco Billing #2, Interconnect that matters...</h1></a>
-Tue 13 January 2009
-
-by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
- 
-
-
- 
-        </div>
-        
-        <div><p>Ok, sekarang penentuan tarif interkoneksi.
-Sejak tahun 2007, Indonesia menganut sistem Cost Based Interconnection (kalau di dunia lebih dikenal dengan Bottom Up-Long Run Incremental Cost, dan saat ini konsultan nya buat negara kita yaitu Ovum, yang merekomendasikan sistem Cost Based ini di Indonesia ). Ilustrasi di paragraf ketiga akan mencoba menjelaskan dengan bahasa manusial normal, tentang bagaimana sistem ini bekerja. Intinya adalah, semua variable yang berpengaruh dalam pembuatan sebuah panggilan, akan diperhitungkan di dalamnya. Seperti kita ketahui, ketika kita membuat suatu panggilan suara ( baca: nelpon ), di dalamnya kita melibatkan BTS, BSC, MSC, dan IN dari operator. Dan begitu juga ketika panggilan kita disampaikan ke nomer tujuan, komponen yang terlibat kurang lebih sama. Nah, semua komponen tersebut memiliki biaya produksi, termasuk diperhitungkan juga biaya penyusutannya. Hasilnya adalah tariff interkoneksi, lokal, SLJJ, dan Internasional, per menit, untuk durasi yang lebih dari 5 detik. Artinya, call yang melibatkan interkoneksi kurang dari 5 detik, tidak akan di charge. Kenapa 5 detik ? karena nilai ini dianggap sebagai waktu maksimum yang dibutuhkan agar perangkat-perangkat interkoneksi antar operator dapat berbicara satu sama lain. Kalau bisa kurang dari itu ya bagus, kalau tidak, kemungkinan besar anda akan dapat drop call.</p>
-<p>Lalu apa untungnya memakai sistem Cost Based ini ? Syahdan pada jaman dahulu kala, terdapat duopoli sektor telekomunikasi di Indonesia, yep, Telkom dan Indosat. Seluruh traffik interkoneksi antar operator, haruslah transit melalui kedua operator ini, baik lokal, SLJJ, maupun internasional. Karena cuma dua operator ini, maka yang menentukan harga ya terserah yang jualan, ya tho ? Sampai akhirnya pada tahun 2006, muncullah peraturan menkominfo tentang pemberlakuan sistem interkoneksi yang baru. Peraturan ini memungkinkan operator untuk membuat interkoneksinya sendiri, atau tetap transit lewat dua operator tadi. Efeknya ? biaya interkoneksi jadi bisa bersaing ( baca: turun ). Kok bisa ? ya karena kalau ada dua operator membuat interkoneksi satu sama lain, dan ternyata cost nya lebih murah daripada transit ke dua operator duopolist diatas, ya kenapa tidak ? Sebaliknya, operator duopolist tentu akan pikir-pikir lagi kalau memasang tariff, kalau interkoneksi direct lebih murah, maka dagangan mereka nggak ada lagi yang beli dong, ya kan ? Imbas turunnya tariff interkoneksi ini juga sampai ke pelanggan seperti kita. Karena tariff interkoneksi turun, akibatnya tariff retail juga turun deh. Seperti judul diatas, kalau tidak ada interkoneksi, kita akan kuper, apalagi kalau kita operator baru.</p>
-<p>Seperti uraian diatas, di dalam billing interkoneksi, juga dikenal istilah sambungan lokal, dan sambungan jarak jauh (SLJJ) seperti di billing retail. Bedanya, kalau di billing retail, penentuan lokal dan SLJJ didasarkan pada POC pemanggil dan penerima. Kalau POC nya sama, maka dihitung tariff lokal, dan kalau berbeda maka dihitung tariff SLJJ. Misal, kalau kita telpon dari Bandung yang POC nya 022 (Ingat, POC kira-kira sama dengan kode area, well...more or less) ke Bandung juga, maka tariffnya adalah lokal. Kalau dari Bandung ke Jakarta ( 021 ) maka tariffnya adalah interlokal (SLJJ), karena POC nya berbeda.
-Nah, kalau di billing interkoneksi, penentuan lokal dan SLJJ agak sedikit berbeda. Di billing interkoneksi, yang berpengaruh adalah POI operator caller, dan POC operator yang dituju. Sebuah call diperhitungkan lokal, jika POI nya sama dengan POC tujuan. Misal, operator X dan Y membuat titik interkoneksi ( POI ) di Surabaya. Lalu ada pelanggan operator X dari Mojokerto misalnya, menelpon saudaranya yang berlangganan operator Y di Surabaya. Maka biaya interkoneksinya akan menjadi lokal. Kenapa ? karena POI operator X dan Y berada di Surabaya, dan operator tujuan ( operator Y ) adalah di Surabaya, POI = POC tujuan. Sedangkan si pengguna operator X di Mojokerto tadi, terkena charge tariff retail SLJJ, karena POC pemanggil != POC tujuan. Disinilah perbedaan mendasar antara billing retail dan billing interkoneksi.
-Billing Retail ( billing yang dikenakan pada pelanggan ) :</p>
-<div class="highlight"><pre>1. Lokal, jika POC A = POC B
-2. SLJJ, jika POC A != POC B
-</pre></div>
-
-
-<p>Billing interkoneksi ( billing antar operator ) :</p>
-<div class="highlight"><pre>1. Lokal, jika POI A = POC B
-2. SLJJ, jika POI A != POC B
-</pre></div>
-
-
-<p>Lalu bagaimana dengan tariff interkoneksi untuk internasional call ( SLI ) ? Seperti yang kita ketahui, kini ada 3 operator yang memiliki lisensi untuk SLI ini, Telkom, Indosat, dan BTel. Artinya, mau tidak mau, operator yang ada haruslah memiliki perjanjian transit dengan salah satu dari 3 operator ini. Dari sini, tariffnya adalah tariff per-negara. Dan biasanya, operator-operator yang lain tinggal membundling tariff SLI dari operator pemilik lisensi SLI ini, ke dalam tariff retail mereka, dan sistemnya adalah komisi. Biaya interkoneksi dibayarkan penuh, namun untuk tiap panggilan yang melewati sistem interkoneksi operator pemilik lisensi SLI tadi, operator pemanggil akan mendapatkan komisi, yang besarnya tentu saja tergantung dari volume traffik yang dilewatkan. Begitu juga dengan panggilan masuk dari luar negeri. Trafficnya juga hanya bisa melalui 3 operator SLI tadi, dan tariffnya tergantung perjanjian antara operator SLI dengan operator penerima panggilan yang sebenarnya.</p>
-<p>Kira-kira demikianlah proses interkoneksi. Mungkin di lain kesempatan akan dibahas tentang billing retail. Any comments ? please wrote it down.</p></div>
-        <hr />
-    </div>
-		
-
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://blog.theprasojos.web.id/2007/12/01/glassfish-for-tomcat-and-webmethods/"><h2>Glassfish for Tomcat and WebMethods</h2></a>
-        <div class= "well small"> Sat 01 December 2007
-
-by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
- 
-
-
- </div>
-        <div class="summary"><p>These recent days I've been played around with Glassfish in my project. I have to build connectivity between our existing Card Management for Telco company product, created with pure jsp (yes, jsp treated as PHP, spaghetti or whatever you name it) to integrate with SAP. Our client provides WebMethods ...</p> <a class="btn btn-info xsmall" href="http://blog.theprasojos.web.id/2007/12/01/glassfish-for-tomcat-and-webmethods/">read more</a></div>
-    </div>	
-				
-
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://blog.theprasojos.web.id/2007/08/09/simplymepis/"><h2>SimplyMepis</h2></a>
-        <div class= "well small"> Thu 09 August 2007
-
-by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
- 
-
-
- </div>
-        <div class="summary"><p>Beberapa hari ini nyoba SimplyMepis, nice distro. As easy as Mandrake, but as powerful as Debian. Such a perfect combination. We can choose, whether RPM or APT. Ditambah internet di indosat yang sangat cepat, menjadikan nih linux mantep banget. Kecuali satu hal, ada trouble di libxml2 sehingga agak kacau nginstall ...</p> <a class="btn btn-info xsmall" href="http://blog.theprasojos.web.id/2007/08/09/simplymepis/">read more</a></div>
-    </div>	
-				
-
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-1/"><h2>Apache Httpd and Tomcat integration using mod_jk, part 1</h2></a>
-        <div class= "well small"> Sun 03 June 2007
-
-by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
- 
-
-
- </div>
-        <div class="summary"><p>In my other blog, I've wrote about howto use mod_jk2 to integrate httpd and tomcat. The article can be accesed <a href="http://www.jroller.com/page/JPrasojo/?anchor=setup_tomcat_clustering_and_load">here</a> and <a href="http://www.jroller.com/page/JPrasojo/?anchor=setup_tomcat_clustering_and_load1">here</a>.
+	<div class="container-fluid">
+	  <div class="sidebar">
+		<div class="well">
+			<h3>Blogroll</h3>
+			<ul>
+				<li><a href="http://getpelican.com/">Pelican</a></li>
+				<li><a href="http://python.org/">Python.org</a></li>
+				<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+				<li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+			</ul>
+			<div class="social">
+			<h3>Social</h3>
+			<ul>
+				<li><a href="https://twitter.com/jprasojo">Twitter</a></li>
+				<li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a></li>
+			</ul>
+			</div>
+		</div>
+	  </div>
+	  <div class="content">
+<div class="page-header"><h1>JPrasojo's blog <small></small></h1></div>
+<div class='article'>
+	<h2>Telco Billing #2, Interconnect that matters...</h2>
+	<div class="well small">Permalink: <a class="more" href="http://blog.theprasojos.web.id/2009/01/13/telco-billing-2-interconnect-that-matters/">2009-01-13 00:00:00+00:00</a>
+by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
+ in <a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a>
+tags: <a href="http://blog.theprasojos.web.id/tag/.html"></a> </div>
+	<div class="summary"><p>Ok, sekarang penentuan tarif interkoneksi.
+Sejak tahun 2007, Indonesia menganut sistem Cost Based Interconnection (kalau di dunia lebih dikenal dengan Bottom Up-Long Run Incremental Cost, dan saat ini konsultan nya buat negara kita yaitu Ovum, yang merekomendasikan sistem Cost Based ini di Indonesia ). Ilustrasi di paragraf ketiga akan mencoba menjelaskan ...</p> <a class="btn primary xsmall" href="http://blog.theprasojos.web.id/2009/01/13/telco-billing-2-interconnect-that-matters/">more…</a>
+	</div>
+</div>	
+<div class='article'>
+	<h2>Glassfish for Tomcat and WebMethods</h2>
+	<div class="well small">Permalink: <a class="more" href="http://blog.theprasojos.web.id/2007/12/01/glassfish-for-tomcat-and-webmethods/">2007-12-01 00:00:00+00:00</a>
+by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
+ in <a href="http://blog.theprasojos.web.id/category/java.html">Java</a>
+tags: <a href="http://blog.theprasojos.web.id/tag/.html"></a> </div>
+	<div class="summary"><p>These recent days I've been played around with Glassfish in my project. I have to build connectivity between our existing Card Management for Telco company product, created with pure jsp (yes, jsp treated as PHP, spaghetti or whatever you name it) to integrate with SAP. Our client provides WebMethods ...</p> <a class="btn primary xsmall" href="http://blog.theprasojos.web.id/2007/12/01/glassfish-for-tomcat-and-webmethods/">more…</a>
+	</div>
+</div>	
+<div class='article'>
+	<h2>SimplyMepis</h2>
+	<div class="well small">Permalink: <a class="more" href="http://blog.theprasojos.web.id/2007/08/09/simplymepis/">2007-08-09 00:00:00+01:00</a>
+by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
+ in <a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a>
+tags: <a href="http://blog.theprasojos.web.id/tag/.html"></a> </div>
+	<div class="summary"><p>Beberapa hari ini nyoba SimplyMepis, nice distro. As easy as Mandrake, but as powerful as Debian. Such a perfect combination. We can choose, whether RPM or APT. Ditambah internet di indosat yang sangat cepat, menjadikan nih linux mantep banget. Kecuali satu hal, ada trouble di libxml2 sehingga agak kacau nginstall ...</p> <a class="btn primary xsmall" href="http://blog.theprasojos.web.id/2007/08/09/simplymepis/">more…</a>
+	</div>
+</div>	
+<div class='article'>
+	<h2>Apache Httpd and Tomcat integration using mod_jk, part 1</h2>
+	<div class="well small">Permalink: <a class="more" href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-1/">2007-06-03 00:00:00+01:00</a>
+by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
+ in <a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a>
+tags: <a href="http://blog.theprasojos.web.id/tag/.html"></a> </div>
+	<div class="summary"><p>In my other blog, I've wrote about howto use mod_jk2 to integrate httpd and tomcat. The article can be accesed <a href="http://www.jroller.com/page/JPrasojo/?anchor=setup_tomcat_clustering_and_load">here</a> and <a href="http://www.jroller.com/page/JPrasojo/?anchor=setup_tomcat_clustering_and_load1">here</a>.
 Now, since mod_jk2 has not supported again by apache-tomcat-connector developers, so in this article I will use mod_jk. I'm using :</p>
 <ul>
-<li>httpd-2.2.4, can be ...</li></ul> <a class="btn btn-info xsmall" href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-1/">read more</a></div>
-    </div>	
-				
-
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-2/"><h2>Apache Httpd and Tomcat integration using mod_jk, part 2</h2></a>
-        <div class= "well small"> Sun 03 June 2007
-
-by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
- 
-
-
- </div>
-        <div class="summary"><p>This posting splitted because somehow blogspot just cut it. I don't know why but when I previewed the posting, blogspot just cut the postings, so I splitted it into 2 parts.</p>
+<li>httpd-2.2.4, can be ...</li></ul> <a class="btn primary xsmall" href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-1/">more…</a>
+	</div>
+</div>	
+<div class='article'>
+	<h2>Apache Httpd and Tomcat integration using mod_jk, part 2</h2>
+	<div class="well small">Permalink: <a class="more" href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-2/">2007-06-03 00:00:00+01:00</a>
+by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
+ in <a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a>
+tags: <a href="http://blog.theprasojos.web.id/tag/.html"></a> </div>
+	<div class="summary"><p>This posting splitted because somehow blogspot just cut it. I don't know why but when I previewed the posting, blogspot just cut the postings, so I splitted it into 2 parts.</p>
 <p>Ok, now we create workers.properties file.</p>
 <div class="highlight"><pre>onty@phoenix:/opt/httpd-2.2.4$ vi conf/workers.properties
 \------------------------------------------------------------------------------------
-worker ...</pre></div> <a class="btn btn-info xsmall" href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-2/">read more</a></div>
-    </div>	
-				
+worker ...</pre></div> <a class="btn primary xsmall" href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-2/">more…</a>
+	</div>
+</div>	
+<div class='article'>
+	<h2>Hongkong International Airport</h2>
+	<div class="well small">Permalink: <a class="more" href="http://blog.theprasojos.web.id/2007/06/03/hongkong-international-airport/">2007-06-03 00:00:00+01:00</a>
+by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
+ in <a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a>
+tags: <a href="http://blog.theprasojos.web.id/tag/.html"></a> </div>
+	<div class="summary"><p>It's good to have your laptop travels with you. Like this, in airport, we dont have to be boring while we wait for the plane. Fast connection, provided by PCCW, one of Hongkong's telco operator. Thankyou PCCW.</p>
+<p>First, open YM! messenger, and then open up my office mail ...</p> <a class="btn primary xsmall" href="http://blog.theprasojos.web.id/2007/06/03/hongkong-international-airport/">more…</a>
+	</div>
+</div>	
 
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://blog.theprasojos.web.id/2007/06/03/hongkong-international-airport/"><h2>Hongkong International Airport</h2></a>
-        <div class= "well small"> Sun 03 June 2007
-
-by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
- 
-
-
- </div>
-        <div class="summary"><p>It's good to have your laptop travels with you. Like this, in airport, we dont have to be boring while we wait for the plane. Fast connection, provided by PCCW, one of Hongkong's telco operator. Thankyou PCCW.</p>
-<p>First, open YM! messenger, and then open up my office mail ...</p> <a class="btn btn-info xsmall" href="http://blog.theprasojos.web.id/2007/06/03/hongkong-international-airport/">read more</a></div>
-    </div>	
-				
 <div class="pagination">
 <ul>
-    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
-
-    <li class="active"><a href="http://blog.theprasojos.web.id/tag/.html">1</a></li>
-    <li class=""><a href="http://blog.theprasojos.web.id/tag/2.html">2</a></li>
-    <li class=""><a href="http://blog.theprasojos.web.id/tag/3.html">3</a></li>
-    <li class=""><a href="http://blog.theprasojos.web.id/tag/4.html">4</a></li>
-    <li class=""><a href="http://blog.theprasojos.web.id/tag/5.html">5</a></li>
-
-    <li class="next"><a href="http://blog.theprasojos.web.id/tag/2.html">Next &rarr;</a></li>
-
+		<li class="prev disabled"><a href="#">&larr; Previous</a></li>
+		<li class="active"><a href="http://blog.theprasojos.web.id/tag/.html">1</a></li>
+		<li class=""><a href="http://blog.theprasojos.web.id/tag/2.html">2</a></li>
+		<li class=""><a href="http://blog.theprasojos.web.id/tag/3.html">3</a></li>
+		<li class=""><a href="http://blog.theprasojos.web.id/tag/4.html">4</a></li>
+		<li class=""><a href="http://blog.theprasojos.web.id/tag/5.html">5</a></li>
+		<li class="next"><a href="http://blog.theprasojos.web.id/tag/2.html">Next &rarr;</a></li>
 </ul>
 </div>
- 
-  
-        </div>
-        
-        <div class="span3">
 
-            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-            <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Site
-                </li>
-            
-                <li><a href="http://blog.theprasojos.web.id/">Archives</a>
-                <li><a href="http://blog.theprasojos.web.id/tags.html">Tags</a>
+		<footer>
+		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>
+		  <p>&copy; Lintang JP</p>
+		</footer>
+	  </div>
 
-
-
-                <li><a href="http://blog.theprasojos.web.id/feeds/all.atom.xml" rel="alternate">Atom feed</a></li>
-
-            </ul>
-            </div>
-
-
-            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-            <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Categories
-                </li>
-                
-                <li><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
-                <li><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
-                <li><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
-                <li><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
-                <li><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
-                <li><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
-                   
-            </ul>
-            </div>
-
-
-            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-            <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Links
-                </li>
-            
-                <li><a href="http://getpelican.com/">Pelican</a></li>
-                <li><a href="http://python.org/">Python.org</a></li>
-                <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
-            </ul>
-            </div>
-
-
-            <div class="social">
-            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-            <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Social
-                </li>
-           
-                <li><a href="https://twitter.com/jprasojo">Twitter</a></li>
-                <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a></li>
-            </ul>
-            </div>
-            </div>
-
-        </div>  
-    </div>     </div> 
-<footer>
-<br />
-<p><a href="http://blog.theprasojos.web.id">JPrasojo's blog</a> &copy; Lintang JP 2012</p>
-</footer>
-
-</div> <!-- /container -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
-<script>var _gaq=[['_setAccount','UA-56589451-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
- 
+	</div>
 </body>
 </html>

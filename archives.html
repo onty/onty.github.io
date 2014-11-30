@@ -1,763 +1,229 @@
-<!doctype html>
-<html class="no-js" lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>JPrasojo's blog</title>
+	<meta name="description" content="">
+	<meta name="author" content="Lintang JP">
 
-		<title>JPrasojo's blog</title>
-		<meta name="description" content="">
-		<meta name="author" content="Lintang JP">
+	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="http://blog.theprasojos.web.id/theme/html5.js"></script>
+	<![endif]-->
 
-		<link rel="stylesheet" href="http://blog.theprasojos.web.id/theme/css/foundation.css" />
-		<link rel="stylesheet" href="http://blog.theprasojos.web.id/theme/css/pygment/monokai.css" />
-		<link rel="stylesheet" href="http://blog.theprasojos.web.id/theme/css/custom.css" />
+	<!-- Styles -->
+	<link href="http://blog.theprasojos.web.id/theme/bootstrap.min.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/local.css" rel="stylesheet">
+	<link href="http://blog.theprasojos.web.id/theme/pygments.css" rel="stylesheet">
+
+	<!-- Feeds -->
+	<link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Atom Feed" />
 
 
-		<script src="http://blog.theprasojos.web.id/theme/js/modernizr.js"></script>
 
-		<!-- Feeds -->
-		<link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Atom Feed" />
 
 <script>var _gaq=[['_setAccount','UA-56589451-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
-
-		<!-- mathjax config similar to math.stackexchange -->
-		<script type="text/x-mathjax-config">
-		MathJax.Hub.Config({
-			jax: ["input/TeX", "output/HTML-CSS"],
-			tex2jax: {
-				inlineMath: [ ['$', '$'] ],
-				displayMath: [ ['$$', '$$']],
-				processEscapes: true,
-				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-			},
-			messageStyle: "none",
-			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
-		});
-		</script>
-		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-	</head>
-	<body>
-		<div class="off-canvas-wrap">
-			<div class="inner-wrap">
-				<!-- mobile top bar to activate nav -->
-				<nav class="tab-bar show-for-small">
-					<section class="left-small">
-						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
-					</section>
-
-					<section class="middle tab-bar-section">
-						<h1 class="title">JPrasojo's&nbsp;blog</h1>
-					</section>
-				</nav>
-
-				<!-- mobile side bar nav -->
-				<aside class="left-off-canvas-menu">
-					<ul class="off-canvas-list">
-						<li><a href="http://blog.theprasojos.web.id">Home</a></li>
-						<li><label>Categories</label></li>
-							<li ><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
-							<li ><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
-							<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
-							<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
-							<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
-							<li ><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
-
-						<li><label>Places</label></li>
-							<li><a href="http://getpelican.com/">Pelican</a></li>
-							<li><a href="http://python.org/">Python.org</a></li>
-							<li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
-							<li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
-
-
-						<li><label>Monthly Archives</label></li>
-									<li><a href="/2014/11/index.html">November 2014 (1)</a></li>
-									<li><a href="/2014/10/index.html">October 2014 (1)</a></li>
-									<li><a href="/2014/08/index.html">August 2014 (1)</a></li>
-									<li><a href="/2014/07/index.html">July 2014 (1)</a></li>
-									<li><a href="/2014/03/index.html">March 2014 (1)</a></li>
-									<li><a href="/2011/02/index.html">February 2011 (1)</a></li>
-									<li><a href="/2010/08/index.html">August 2010 (2)</a></li>
-									<li><a href="/2010/04/index.html">April 2010 (1)</a></li>
-									<li><a href="/2009/12/index.html">December 2009 (3)</a></li>
-									<li><a href="/2009/05/index.html">May 2009 (1)</a></li>
-									<li><a href="/2009/01/index.html">January 2009 (2)</a></li>
-									<li><a href="/2008/12/index.html">December 2008 (3)</a></li>
-									<li><a href="/2008/06/index.html">June 2008 (1)</a></li>
-									<li><a href="/2008/03/index.html">March 2008 (1)</a></li>
-									<li><a href="/2008/01/index.html">January 2008 (2)</a></li>
-									<li><a href="/2007/12/index.html">December 2007 (1)</a></li>
-									<li><a href="/2007/11/index.html">November 2007 (1)</a></li>
-									<li><a href="/2007/08/index.html">August 2007 (1)</a></li>
-									<li><a href="/2007/06/index.html">June 2007 (11)</a></li>
-									<li><a href="/2007/05/index.html">May 2007 (2)</a></li>
-									<li><a href="/2007/04/index.html">April 2007 (1)</a></li>
-									<li><a href="/2006/04/index.html">April 2006 (2)</a></li>
-									<li><a href="/2005/07/index.html">July 2005 (1)</a></li>
-									<li><a href="/2005/06/index.html">June 2005 (3)</a></li>
-									<li><a href="/2005/04/index.html">April 2005 (1)</a></li>
-									<li><a href="/2005/03/index.html">March 2005 (1)</a></li>
-									<li><a href="/2004/11/index.html">November 2004 (1)</a></li>
-									<li><a href="/2004/10/index.html">October 2004 (2)</a></li>
-									<li><a href="/2004/09/index.html">September 2004 (4)</a></li>
-									<li><a href="/2004/08/index.html">August 2004 (1)</a></li>
-									<li><a href="/2004/05/index.html">May 2004 (1)</a></li>
-
-						<li><label>Links</label></li>
-							<li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a></li>
-							<li><a href="https://twitter.com/jprasojo">Twitter</a></li>
-					</ul>	
-				</aside>
-
-				<!-- top bar nav -->
-				<nav class="top-bar hide-for-small-only" data-topbar>
-					<ul class="title-area">
-						<li class="name">
-							<h1><a href="http://blog.theprasojos.web.id/">JPrasojo's blog</a></h1>
-						</li>
-					</ul>
-
-					<section class="top-bar-section">
-						<ul class="left">
-								<li ><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
-								<li ><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
-								<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
-								<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
-								<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
-								<li ><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
-						</ul>
-					</section>
-				</nav>
-
-				<!-- Main Page Content and Sidebar -->
-				<section class="main-section">
-					<div class="row">
-						<!-- Main Content -->
-						<div class="medium-9 small-12 columns" role="content">
-							<div class="row">
-								<div class="small-12 columns">
-									<h2>Archives</h2>
-								</div>
-							</div>
-	<div class="row">
-		<div class="small-10 columns small-centered">
-				<div class="row archive-year">
-					<div class="small-2 columns text-right">
-						<h3>2014</h3>
-					</div>
-				</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Mar 23</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2014/03/23/ireland-visa/">Ireland VISA</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jul 19</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2014/07/19/zimbabwe-part-1/">Zimbabwe part 1..</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Aug 02</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2014/08/02/zimbabwe-part-2/">Zimbabwe, part 2..</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Oct 18</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2014/10/18/back-in-taiwan-after-4-years/">Back in Taiwan, after 4 years</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Nov 23</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2014/11/23/apa-itu-online-charging-systemocs-part-1/">Apa itu Online Charging System(OCS) Part 1</a></h5>
-						</div>
-					</div>
-				<div class="row archive-year">
-					<div class="small-2 columns text-right">
-						<h3>2011</h3>
-					</div>
-				</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Feb 18</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2011/02/18/biar-banyak-yang-penting-barokah/">Biar banyak,yang penting barokah...</a></h5>
-						</div>
-					</div>
-				<div class="row archive-year">
-					<div class="small-2 columns text-right">
-						<h3>2010</h3>
-					</div>
-				</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Apr 05</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2010/04/05/playing-around-with-low-end-vps-box/">Playing around with low end VPS box</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Aug 14</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2010/08/14/bye-bye-opensolaris/">Bye bye OpenSolaris ?</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Aug 10</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2010/08/10/solaris-jumpstart-on-linux/">Solaris Jumpstart on Linux</a></h5>
-						</div>
-					</div>
-				<div class="row archive-year">
-					<div class="small-2 columns text-right">
-						<h3>2009</h3>
-					</div>
-				</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jan 13</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2009/01/13/telco-billing-2-interconnect-that-matters/">Telco Billing #2, Interconnect that matters...</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jan 10</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2009/01/10/telco-billing-1-interconnect-that-matters/">Telco Billing #1, Interconnect that matters...</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>May 18</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2009/05/18/quick-guide-on-unix-task-scheduling-with-at-and-batch-command/">Quick guide on UNIX task scheduling with at and batch command</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Dec 26</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2009/12/26/verifying-your-wordpresscom-blog-on-google-webmaster-central/">Verifying your wordpress.com blog on google webmaster central</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Dec 25</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2009/12/25/daddys-trip-1-medan-part-2/">Daddy's trip #1, Medan, part 2</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Dec 25</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2009/12/25/daddys-trip-1-medan/">Daddy's trip #1, Medan</a></h5>
-						</div>
-					</div>
-				<div class="row archive-year">
-					<div class="small-2 columns text-right">
-						<h3>2008</h3>
-					</div>
-				</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jan 20</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2008/01/20/the-journey-beganpart-ii/">The Journey began...Part II</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jan 19</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2008/01/19/the-journey-beganpart-i/">The Journey began...Part I</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Mar 27</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2008/03/27/welcome-to-billing-world/">Welcome to billing world....</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 20</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2008/06/20/popular-telco-billing-terms-1/">Popular telco billing terms #1</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Dec 22</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2008/12/22/bye-bye-apache-welcome-nginx/">Bye bye apache, welcome Nginx</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Dec 21</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2008/12/21/teknologi-cdma-450/">Teknologi CDMA 450</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Dec 18</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2008/12/18/speedy-vs-matrix-broadband-35g/">Speedy Vs Matrix Broadband 3.5G</a></h5>
-						</div>
-					</div>
-				<div class="row archive-year">
-					<div class="small-2 columns text-right">
-						<h3>2007</h3>
-					</div>
-				</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Apr 19</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/04/19/webservices-with-spring/">Webservices with spring</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>May 29</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/05/29/testing-my-new-blog/">Testing my new Blog</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>May 04</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/05/04/tukang-jual-pisang-goreng/">Tukang jual pisang goreng</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 03</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-1/">Apache Httpd and Tomcat integration using mod_jk, part 1</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 03</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-2/">Apache Httpd and Tomcat integration using mod_jk, part 2</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 03</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/06/03/hongkong-international-airport/">Hongkong International Airport</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 03</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/06/03/hongkong-survival-day-2-1/">Hongkong survival day #2-1</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 03</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/06/03/hongkong-survival-day-2-2/">Hongkong survival day #2-2</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 03</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/06/03/hongkong-survival-day1/">Hongkong Survival day#1</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 03</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/06/03/my-outdated-mac-osx-1041/">My (Outdated) Mac OS.X 10.4.1</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 03</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/06/03/nexenta-alpha-5/">Nexenta Alpha 5</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 03</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/06/03/solaris-snmp-and-opennms/">Solaris, SNMP, and OpenNMS</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 03</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/06/03/why-telco-narsis/">Why Telco? *Narsis</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 01</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/06/01/toratoolkit-for-oracle-installation/">Tora(Toolkit for Oracle) Installation</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Aug 09</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/08/09/simplymepis/">SimplyMepis</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Nov 13</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/11/13/ruby-install-on-dsl-linux/">Ruby Install on DSL Linux</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Dec 01</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2007/12/01/glassfish-for-tomcat-and-webmethods/">Glassfish for Tomcat and WebMethods</a></h5>
-						</div>
-					</div>
-				<div class="row archive-year">
-					<div class="small-2 columns text-right">
-						<h3>2006</h3>
-					</div>
-				</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Apr 07</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2006/04/07/esb-1-revised/">ESB #1 (Revised)</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Apr 07</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2006/04/07/jboss-vs-bes/">JBoss Vs BES</a></h5>
-						</div>
-					</div>
-				<div class="row archive-year">
-					<div class="small-2 columns text-right">
-						<h3>2005</h3>
-					</div>
-				</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Mar 26</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2005/03/26/nulis-ah/">Nulis Ah...</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Apr 16</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2005/04/16/kado-buat-bapak/">Kado buat bapak</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 15</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2005/06/15/kenangan-buat-ustadz/">Kenangan buat ustadz ...</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 10</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2005/06/10/kru-keadilanlast-word/">Kru-keadilan.....last word.</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jun 08</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2005/06/08/romantika/">Romantika...</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Jul 09</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2005/07/09/mawar-merah/">Mawar Merah ...</a></h5>
-						</div>
-					</div>
-				<div class="row archive-year">
-					<div class="small-2 columns text-right">
-						<h3>2004</h3>
-					</div>
-				</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>May 16</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2004/05/16/dia/">Dia...</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Aug 29</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2004/08/29/petualangan-bulan-ini/">Petualangan bulan ini..</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Sep 14</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2004/09/14/perjalanan-ke-barat/">Perjalanan Ke Barat....</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Sep 13</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2004/09/13/something-wrong-with-me/">Something wrong with me ???</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Sep 12</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2004/09/12/buat-hacker-keadilan/">Buat hacker keadilan...</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Sep 04</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2004/09/04/blog/">Blog</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Oct 08</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2004/10/08/bosan/">Bosan...</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Oct 04</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2004/10/04/ngabuburit-dengan-php/">Ngabuburit dengan PHP</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>Nov 11</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="http://blog.theprasojos.web.id/2004/11/11/fit-words-for-you-bastards/">Fit Words for you Bastards</a></h5>
-						</div>
-					</div>
+</head>
+<body>
+	<div class="topbar">
+	  <div class="topbar-inner">
+		<div class="container-fluid">
+		  <a class="brand" href="http://blog.theprasojos.web.id/">JPrasojo's blog</a>
+			<ul class="nav">
+						<li><a href="http://blog.theprasojos.web.id/pages/hello-world.html">About</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
+					<li ><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
+			</ul>
+			<p class="pull-right"><a href="http://blog.theprasojos.web.id/archives.html">[archives]</a> <a href="http://blog.theprasojos.web.id/tags.html">[tags]</a></p>
 		</div>
+	  </div>
 	</div>
-						</div>
-						<!-- End Main Content -->
-						<!-- Sidebar -->
-						<aside class="medium-3 hide-for-small-only columns">
-							<div class="panel">
-								<h5>Places</h5>
-								<ul class="side-nav">
-									<li><a href="http://getpelican.com/">Pelican</a></li>
-									<li><a href="http://python.org/">Python.org</a></li>
-									<li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
-									<li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
-								</ul>
-							</div>
 
-							<div class="panel">
-								<h5>Tags</h5>
-								<ul class="tag-cloud">
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/harare.html">harare</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/ruby-dsl-linux-stuff.html">Ruby DSL Linux stuff</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/merdeka-walk.html">merdeka walk</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/green-card.html">Green Card</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/charging-system.html">Charging System</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/family.html">Family</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/grand-angkasa.html">grand angkasa</a></li>
-										<li class="tag-3"><a href="http://blog.theprasojos.web.id/tag/telco-billing.html">Telco Billing</a></li>
-										<li class="tag-1"><a href="http://blog.theprasojos.web.id/tag/.html"></a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/broadband-at-home-internet-3g.html">Broadband at home Internet 3G</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/interconnect-telekomunikasi-telco-billing-interkoneksi.html">Interconnect Telekomunikasi Telco Billing Interkoneksi</a></li>
-										<li class="tag-3"><a href="http://blog.theprasojos.web.id/tag/renungan.html">Renungan</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/cms.html">CMS</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/lembur-kuring-medan.html">lembur kuring medan</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/travel.html">Travel</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/laptop.html">Laptop</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/zimbabwe.html">zimbabwe</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/tips.html">Tips</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/embassy.html">embassy</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/medan.html">medan</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/telco-billing-cdma-450-3g.html">Telco Billing CDMA 450 3G</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/grand-angkasa-medan.html">grand angkasa medan</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/ocs.html">OCS</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/prepaid-system.html">Prepaid System</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/ireland.html">Ireland</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/atutor-unix-linux-stuff-web-server-internet-nginx.html">aTutor Unix Linux stuff Web Server Internet Nginx</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/tips-unix-linux-stuff.html">Tips Unix Linux stuff</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/indonesian-embassy.html">indonesian embassy</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/linux-stuff.html">Linux stuff</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/os-linux-stuff-opensolaris-solaris.html">OS Linux stuff OpenSolaris solaris</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/brastagi.html">brastagi</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/wordpress-verify-google-webmaster-internet.html">wordpress verify google webmaster Internet</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/visa.html">VISA</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/jumpstart-unix-linux-stuff-solaris.html">jumpstart Unix Linux stuff solaris</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/tiara-medan.html">tiara medan</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/martebe.html">martebe</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/tips-unix-linux-stuff-web-server-nginx.html">Tips Unix Linux stuff Web Server Nginx</a></li>
-										<li class="tag-4"><a href="http://blog.theprasojos.web.id/tag/intelligent-network.html">Intelligent Network</a></li>
-								</ul>
-							</div>
+	<div class="container-fluid">
+	  <div class="sidebar">
+		<div class="well">
+			<h3>Blogroll</h3>
+			<ul>
+				<li><a href="http://getpelican.com/">Pelican</a></li>
+				<li><a href="http://python.org/">Python.org</a></li>
+				<li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
+				<li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+			</ul>
+			<div class="social">
+			<h3>Social</h3>
+			<ul>
+				<li><a href="https://twitter.com/jprasojo">Twitter</a></li>
+				<li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a></li>
+			</ul>
+			</div>
+		</div>
+	  </div>
+	  <div class="content">
+<div class="page-header"><h1>JPrasojo's blog <small>[archive]</small></h1></div><h2>2004</h2>
+<h3>August</h3>
+<ul>
+	<li><a href="2004/08/29/petualangan-bulan-ini/">Petualangan bulan ini..</a></li>
+</ul>
+<h3>September</h3>
+<ul>
+	<li><a href="2004/09/14/perjalanan-ke-barat/">Perjalanan Ke Barat....</a></li>
+	<li><a href="2004/09/13/something-wrong-with-me/">Something wrong with me ???</a></li>
+	<li><a href="2004/09/12/buat-hacker-keadilan/">Buat hacker keadilan...</a></li>
+	<li><a href="2004/09/04/blog/">Blog</a></li>
+</ul>
+<h3>October</h3>
+<ul>
+	<li><a href="2004/10/08/bosan/">Bosan...</a></li>
+	<li><a href="2004/10/04/ngabuburit-dengan-php/">Ngabuburit dengan PHP</a></li>
+</ul>
+<h3>November</h3>
+<ul>
+	<li><a href="2004/11/11/fit-words-for-you-bastards/">Fit Words for you Bastards</a></li>
+</ul>
+<h2>2005</h2>
+<h3>March</h3>
+<ul>
+	<li><a href="2005/03/26/nulis-ah/">Nulis Ah...</a></li>
+</ul>
+<h3>April</h3>
+<ul>
+	<li><a href="2005/04/16/dia/">Dia...</a></li>
+	<li><a href="2005/04/16/kado-buat-bapak/">Kado buat bapak</a></li>
+</ul>
+<h3>June</h3>
+<ul>
+	<li><a href="2005/06/15/kenangan-buat-ustadz/">Kenangan buat ustadz ...</a></li>
+	<li><a href="2005/06/10/kru-keadilanlast-word/">Kru-keadilan.....last word.</a></li>
+	<li><a href="2005/06/08/romantika/">Romantika...</a></li>
+</ul>
+<h3>July</h3>
+<ul>
+	<li><a href="2005/07/09/mawar-merah/">Mawar Merah ...</a></li>
+</ul>
+<h2>2006</h2>
+<h3>April</h3>
+<ul>
+	<li><a href="2006/04/07/esb-1-revised/">ESB #1 (Revised)</a></li>
+	<li><a href="2006/04/07/jboss-vs-bes/">JBoss Vs BES</a></li>
+</ul>
+<h2>2007</h2>
+<h3>April</h3>
+<ul>
+	<li><a href="2007/04/19/webservices-with-spring/">Webservices with spring</a></li>
+</ul>
+<h3>May</h3>
+<ul>
+	<li><a href="2007/05/29/testing-my-new-blog/">Testing my new Blog</a></li>
+	<li><a href="2007/05/04/tukang-jual-pisang-goreng/">Tukang jual pisang goreng</a></li>
+</ul>
+<h3>June</h3>
+<ul>
+	<li><a href="2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-1/">Apache Httpd and Tomcat integration using mod_jk, part 1</a></li>
+	<li><a href="2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-2/">Apache Httpd and Tomcat integration using mod_jk, part 2</a></li>
+	<li><a href="2007/06/03/hongkong-international-airport/">Hongkong International Airport</a></li>
+	<li><a href="2007/06/03/hongkong-survival-day-2-1/">Hongkong survival day #2-1</a></li>
+	<li><a href="2007/06/03/hongkong-survival-day-2-2/">Hongkong survival day #2-2</a></li>
+	<li><a href="2007/06/03/hongkong-survival-day1/">Hongkong Survival day#1</a></li>
+	<li><a href="2007/06/03/my-outdated-mac-osx-1041/">My (Outdated) Mac OS.X 10.4.1</a></li>
+	<li><a href="2007/06/03/nexenta-alpha-5/">Nexenta Alpha 5</a></li>
+	<li><a href="2007/06/03/solaris-snmp-and-opennms/">Solaris, SNMP, and OpenNMS</a></li>
+	<li><a href="2007/06/03/why-telco-narsis/">Why Telco? *Narsis</a></li>
+	<li><a href="2007/06/01/toratoolkit-for-oracle-installation/">Tora(Toolkit for Oracle) Installation</a></li>
+</ul>
+<h3>August</h3>
+<ul>
+	<li><a href="2007/08/09/simplymepis/">SimplyMepis</a></li>
+</ul>
+<h3>November</h3>
+<ul>
+	<li><a href="2007/11/13/ruby-install-on-dsl-linux/">Ruby Install on DSL Linux</a></li>
+</ul>
+<h3>December</h3>
+<ul>
+	<li><a href="2007/12/01/glassfish-for-tomcat-and-webmethods/">Glassfish for Tomcat and WebMethods</a></li>
+</ul>
+<h2>2008</h2>
+<h3>January</h3>
+<ul>
+	<li><a href="2008/01/20/the-journey-beganpart-ii/">The Journey began...Part II</a></li>
+	<li><a href="2008/01/19/the-journey-beganpart-i/">The Journey began...Part I</a></li>
+</ul>
+<h3>March</h3>
+<ul>
+	<li><a href="2008/03/27/welcome-to-billing-world/">Welcome to billing world....</a></li>
+</ul>
+<h3>June</h3>
+<ul>
+	<li><a href="2008/06/20/popular-telco-billing-terms-1/">Popular telco billing terms #1</a></li>
+</ul>
+<h3>December</h3>
+<ul>
+	<li><a href="2008/12/22/bye-bye-apache-welcome-nginx/">Bye bye apache, welcome Nginx</a></li>
+	<li><a href="2008/12/21/teknologi-cdma-450/">Teknologi CDMA 450</a></li>
+	<li><a href="2008/12/18/speedy-vs-matrix-broadband-35g/">Speedy Vs Matrix Broadband 3.5G</a></li>
+</ul>
+<h2>2009</h2>
+<h3>January</h3>
+<ul>
+	<li><a href="2009/01/13/telco-billing-2-interconnect-that-matters/">Telco Billing #2, Interconnect that matters...</a></li>
+	<li><a href="2009/01/10/telco-billing-1-interconnect-that-matters/">Telco Billing #1, Interconnect that matters...</a></li>
+</ul>
+<h3>May</h3>
+<ul>
+	<li><a href="2009/05/18/quick-guide-on-unix-task-scheduling-with-at-and-batch-command/">Quick guide on UNIX task scheduling with at and batch command</a></li>
+</ul>
+<h3>December</h3>
+<ul>
+	<li><a href="2009/12/26/verifying-your-wordpresscom-blog-on-google-webmaster-central/">Verifying your wordpress.com blog on google webmaster central</a></li>
+	<li><a href="2009/12/25/daddys-trip-1-medan-part-2/">Daddy's trip #1, Medan, part 2</a></li>
+	<li><a href="2009/12/25/daddys-trip-1-medan/">Daddy's trip #1, Medan</a></li>
+</ul>
+<h2>2010</h2>
+<h3>April</h3>
+<ul>
+	<li><a href="2010/04/05/playing-around-with-low-end-vps-box/">Playing around with low end VPS box</a></li>
+</ul>
+<h3>August</h3>
+<ul>
+	<li><a href="2010/08/14/bye-bye-opensolaris/">Bye bye OpenSolaris ?</a></li>
+	<li><a href="2010/08/10/solaris-jumpstart-on-linux/">Solaris Jumpstart on Linux</a></li>
+</ul>
+<h2>2011</h2>
+<h3>February</h3>
+<ul>
+	<li><a href="2011/02/18/biar-banyak-yang-penting-barokah/">Biar banyak,yang penting barokah...</a></li>
+</ul>
+<h2>2014</h2>
+<h3>March</h3>
+<ul>
+	<li><a href="2014/03/23/ireland-visa/">Ireland VISA</a></li>
+</ul>
+<h3>July</h3>
+<ul>
+	<li><a href="2014/07/19/zimbabwe-part-1/">Zimbabwe part 1..</a></li>
+</ul>
+<h3>August</h3>
+<ul>
+	<li><a href="2014/08/02/zimbabwe-part-2/">Zimbabwe, part 2..</a></li>
+</ul>
+<h3>October</h3>
+<ul>
+	<li><a href="2014/10/18/back-in-taiwan-after-4-years/">Back in Taiwan, after 4 years</a></li>
+</ul>
+<h3>November</h3>
+<ul>
+	<li><a href="2014/11/23/apa-itu-online-charging-systemocs-part-1/">Apa itu Online Charging System(OCS) Part 1</a></li>
+</ul>
+		<footer>
+		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>
+		  <p>&copy; Lintang JP</p>
+		</footer>
+	  </div>
 
-							<div class="panel">
-								<h5>Monthly Archives</h5>
-								<ul class="side-nav">
-											<li><a href="/2014/11/index.html">November 2014 (1)</a></li>
-											<li><a href="/2014/10/index.html">October 2014 (1)</a></li>
-											<li><a href="/2014/08/index.html">August 2014 (1)</a></li>
-											<li><a href="/2014/07/index.html">July 2014 (1)</a></li>
-											<li><a href="/2014/03/index.html">March 2014 (1)</a></li>
-											<li><a href="/2011/02/index.html">February 2011 (1)</a></li>
-											<li><a href="/2010/08/index.html">August 2010 (2)</a></li>
-											<li><a href="/2010/04/index.html">April 2010 (1)</a></li>
-											<li><a href="/2009/12/index.html">December 2009 (3)</a></li>
-											<li><a href="/2009/05/index.html">May 2009 (1)</a></li>
-											<li><a href="/2009/01/index.html">January 2009 (2)</a></li>
-											<li><a href="/2008/12/index.html">December 2008 (3)</a></li>
-											<li><a href="/2008/06/index.html">June 2008 (1)</a></li>
-											<li><a href="/2008/03/index.html">March 2008 (1)</a></li>
-											<li><a href="/2008/01/index.html">January 2008 (2)</a></li>
-											<li><a href="/2007/12/index.html">December 2007 (1)</a></li>
-											<li><a href="/2007/11/index.html">November 2007 (1)</a></li>
-											<li><a href="/2007/08/index.html">August 2007 (1)</a></li>
-											<li><a href="/2007/06/index.html">June 2007 (11)</a></li>
-											<li><a href="/2007/05/index.html">May 2007 (2)</a></li>
-											<li><a href="/2007/04/index.html">April 2007 (1)</a></li>
-											<li><a href="/2006/04/index.html">April 2006 (2)</a></li>
-											<li><a href="/2005/07/index.html">July 2005 (1)</a></li>
-											<li><a href="/2005/06/index.html">June 2005 (3)</a></li>
-											<li><a href="/2005/04/index.html">April 2005 (1)</a></li>
-											<li><a href="/2005/03/index.html">March 2005 (1)</a></li>
-											<li><a href="/2004/11/index.html">November 2004 (1)</a></li>
-											<li><a href="/2004/10/index.html">October 2004 (2)</a></li>
-											<li><a href="/2004/09/index.html">September 2004 (4)</a></li>
-											<li><a href="/2004/08/index.html">August 2004 (1)</a></li>
-											<li><a href="/2004/05/index.html">May 2004 (1)</a></li>
-								</ul>
-							</div>
-
-							<div class="panel">
-								<h5>Links</h5>
-								<ul class="side-nav">
-									<li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a></li>
-									<li><a href="https://twitter.com/jprasojo">Twitter</a></li>
-								</ul>
-							</div>
-						</aside>
-						<!-- End Sidebar -->
-					</div>
-
-					<!-- Footer -->
-					<footer class="row">
-						<div class="medium-9 small-12">
-							<hr/>
-							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
-						</div>
-					</footer>
-					<!-- End Footer -->
-				</section>
-				<a class="exit-off-canvas"></a>
-			</div><!--off-canvas inner-->
-		</div><!--off-canvas wrap-->
-
-		<script src="http://blog.theprasojos.web.id/theme/js/jquery.js"></script>
-		<script src="http://blog.theprasojos.web.id/theme/js/foundation.min.js"></script>
-		<script>
-			$(document).foundation();
-		</script>
-	</body>
+	</div>
+</body>
 </html>

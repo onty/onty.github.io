@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Playing around with low end VPS box - JPrasojo's blog</title>	
+	<meta name="author" content="Lintang JP">
+	
+
+  <meta name="description" content="Last week I just bought a VPS account for playing around with. It feels so great having our own shell account with root login so that we can do anything inside. I bought it from here. First of all, I bought the minimalist one, with 64mb memory, with no burstable ...">
+
+
+
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+	      <nav class="pages">
+			  <a href="/pages/hello-world.html">About</a>
+	      </nav>
+		<a href="" class="title">JPrasojo's blog</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>Playing around with low end VPS box</h1>
+		
+<div class="metadata">
+  <time datetime="2010-04-05T00:00:00+01:00" pubdate>Mon 05 April 2010</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
+    </address>
+  in <a href="/category/unixlinux.html">Unix/Linux</a>
+<p class="tags">tagged <a href="/tag/tips-unix-linux-stuff-web-server-nginx.html">Tips Unix Linux stuff Web Server Nginx</a></p></div>		
+		<p>Last week I just bought a VPS account for playing around with. It feels so great having our own shell account with root login so that we can do anything inside. I bought it from <a href="http://www.pasarhosting.com">here</a>. First of all, I bought the minimalist one, with 64mb memory, with no burstable ram :D, using Centos. I simply cant do anything, their Centos installation itself took around 20-30mb ram. I also not well enough playing with Yum. This is not great, so I upgraded the account to 128mb ram. At the same time I noticed that besides Centos, the hosting provider also provide Debian Lenny as the OS....why dont you said that from the beginning ??? :D Now, I'm running Lenny with 128mb ram. The VM specs itself it's not that bad, considering it's powered with 2 cpu @3Ghz, 128mb ram with no swap ( this guy <a href="https://www.vpsmart.com/clients/knowledgebase.php?action=displayarticle&amp;id=4">here</a> shares a great script to create a fake swap, but I dont need it any longer ;) read the rest of the entry to know why... ), and with 10Gb disk, more than enough storage for minimalist like me :)</p>
+<p>So, first thing first, chop all the unnecessary program, replace it with the program with smaller 'cost'. Just do ps -ef and there I found apache2 and Sendmail sitting around and eating my memory. Just do :</p>
+<div class="highlight"><pre># apt-get remove --purge sendmail apache2
+</pre></div>
+
+
+<p>And dont forget to kill them, and remove them from startup script.</p>
+<div class="highlight"><pre># kill -9 pid
+# update-rc.d -f remove apache2
+# update-rc.d -f remove sendmail
+</pre></div>
+
+
+<p>Ok, that left me around 5 mb used memory. Not bad :)
+Next thing is to replace the default shell, since bash shell become greedy enough to eat my memory. I replaced it with pdksh since after googling around, this pdksh shell saves ~1mb for every shell session...good enough. So I install it :</p>
+<div class="highlight"><pre># apt-get install pdksh
+</pre></div>
+
+
+<p>Dont remove the bash shell yet, since it has a lot of dependencies. Leave it there, but dont use it :) How do we do that ? Just edit your own default shell to become pdksh in /etc/passwd :</p>
+<div class="highlight"><pre># vi /etc/passwd
+</pre></div>
+
+
+<p>Change the line using /bin/bash, into /bin/pdksh, and voillaa, next login session will be using pdksh.</p>
+<p>Not enought with just # prompt ? It's time to decorate your shell with some fancy prompts, just edit the .profile located inside the user's home directory ( just do ls -la to see it, since it's a hidden file ). Add the following line :</p>
+<div class="highlight"><pre>HOSTNAME=`hostname`
+PS1=`print &quot;
+</pre></div>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" >
+
+
+  	          <nav>
+	            <h2>Categories</h2>
+	            <ul>
+	                <li ><a href="/category/family.html">Family</a></li>
+	                <li ><a href="/category/java.html">Java</a></li>
+	                <li ><a href="/category/renungan.html">Renungan</a></li>
+	                <li ><a href="/category/telco.html">Telco</a></li>
+	                <li ><a href="/category/travelling.html">Travelling</a></li>
+	                <li class="active"><a href="/category/unixlinux.html">Unix/Linux</a></li>
+	            </ul>
+	          </nav>
+
+	            <aside>
+	            <h2>Social</h2>
+			      <ul class="social">
+				    <li><a href="https://twitter.com/jprasojo">Twitter</a><i></i></li>
+				    <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a><i></i></li>
+			      </ul>
+			    </aside>
+
+	            <aside>
+	              <h2>Blogroll</h2>
+	              <ul>
+	                  <li><a href="http://getpelican.com/">Pelican</a></li>
+	                  <li><a href="http://python.org/">Python.org</a></li>
+	                  <li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
+	                  <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+	              </ul>
+	            </aside>
+	        </div>
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  Lintang JP - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

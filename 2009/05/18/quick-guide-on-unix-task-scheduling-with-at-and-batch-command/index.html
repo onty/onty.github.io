@@ -1,83 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="">	
 <head>
-	<meta charset="utf-8">
-	<title>JPrasojo's blog</title>
-	<meta name="description" content="">
+	<meta charset="utf-8"/>
+	<title>Quick guide on UNIX task scheduling with at and batch command - JPrasojo's blog</title>	
 	<meta name="author" content="Lintang JP">
+	
 
-	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
-	<!--[if lt IE 9]>
-		<script src="http://blog.theprasojos.web.id/theme/html5.js"></script>
-	<![endif]-->
-
-	<!-- Styles -->
-	<link href="http://blog.theprasojos.web.id/theme/bootstrap.min.css" rel="stylesheet">
-	<link href="http://blog.theprasojos.web.id/theme/local.css" rel="stylesheet">
-	<link href="http://blog.theprasojos.web.id/theme/pygments.css" rel="stylesheet">
-
-	<!-- Feeds -->
-	<link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Atom Feed" />
+  <meta name="description" content="While task scheduling in UNIX commonly uses Crontab facilities, UNIX based system (actually, Windows provide it too, at.exe) also provide at command. Both related to the same area, task scheduling. While Crontab aims to schedule a recurring command (every minutes, every month, every week, etc), at command aims to ...">
 
 
 
+	<link rel="stylesheet" href="http://blog.theprasojos.web.id/theme/css/main.css" type="text/css" />
+		
 
-<script>var _gaq=[['_setAccount','UA-56589451-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
-<script type="text/javascript">
-	var disqus_identifier = "2009/05/18/quick-guide-on-unix-task-scheduling-with-at-and-batch-command/";
-	(function() {
-		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-		dsq.src = 'http://jprasojos.disqus.com/embed.js';
-		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	})();
-</script>
+
+    <link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Atom Feed" />
 </head>
+	
 <body>
-	<div class="topbar">
-	  <div class="topbar-inner">
-		<div class="container-fluid">
-		  <a class="brand" href="http://blog.theprasojos.web.id/">JPrasojo's blog</a>
-			<ul class="nav">
-						<li><a href="http://blog.theprasojos.web.id/pages/hello-world.html">About</a></li>
-					<li ><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
-					<li ><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
-					<li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
-					<li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
-					<li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
-					<li class="active"><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
-			</ul>
-			<p class="pull-right"><a href="http://blog.theprasojos.web.id/archives.html">[archives]</a> <a href="http://blog.theprasojos.web.id/tags.html">[tags]</a></p>
-		</div>
-	  </div>
-	</div>
 
-	<div class="container-fluid">
-	  <div class="sidebar">
-		<div class="well">
-			<h3>Blogroll</h3>
-			<ul>
-				<li><a href="http://getpelican.com/">Pelican</a></li>
-				<li><a href="http://python.org/">Python.org</a></li>
-				<li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
-				<li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
-			</ul>
-			<div class="social">
-			<h3>Social</h3>
-			<ul>
-				<li><a href="https://twitter.com/jprasojo">Twitter</a></li>
-				<li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a></li>
-			</ul>
-			</div>
-		</div>
-	  </div>
-	  <div class="content">
-	<div class='article'>
-		<div class="page-header"><h1>Quick guide on UNIX task scheduling with at and batch command</h1></div>
-		<div class="well small">Permalink: <a class="more" href="http://blog.theprasojos.web.id/2009/05/18/quick-guide-on-unix-task-scheduling-with-at-and-batch-command/">2009-05-18 00:00:00+01:00</a>
-by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP </a>
- in <a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a>
-tags: <a href="http://blog.theprasojos.web.id/tag/tips-unix-linux-stuff.html">Tips Unix Linux stuff</a> </div>
-		<div><p>While task scheduling in UNIX commonly uses Crontab facilities, UNIX based system (actually, Windows provide it too, at.exe) also provide at command. Both related to the same area, task scheduling. While Crontab aims to schedule a recurring command (every minutes, every month, every week, etc), at command aims to schedule a task that run once, with specific time arguments. Here’s one example of how we can schedule a task with at command:</p>
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	      <a href="http://blog.theprasojos.web.id/feeds/all.atom.xml" rel="alternate"><img src="http://blog.theprasojos.web.id/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+	      <nav class="pages">
+			  <a href="http://blog.theprasojos.web.id/pages/hello-world.html">About</a>
+	      </nav>
+		<a href="http://blog.theprasojos.web.id" class="title">JPrasojo's blog</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>Quick guide on UNIX task scheduling with at and batch command</h1>
+		
+<div class="metadata">
+  <time datetime="2009-05-18T00:00:00+01:00" pubdate>Mon 18 May 2009</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
+    </address>
+  in <a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a>
+<p class="tags">tagged <a href="http://blog.theprasojos.web.id/tag/tips-unix-linux-stuff.html">Tips Unix Linux stuff</a></p></div>		
+		<p>While task scheduling in UNIX commonly uses Crontab facilities, UNIX based system (actually, Windows provide it too, at.exe) also provide at command. Both related to the same area, task scheduling. While Crontab aims to schedule a recurring command (every minutes, every month, every week, etc), at command aims to schedule a task that run once, with specific time arguments. Here’s one example of how we can schedule a task with at command:</p>
 <div class="highlight"><pre>$ <span class="n">at</span> <span class="n">now</span> <span class="mi">1</span> <span class="n">hour</span> <span class="nv">&amp;1</span> &gt; <span class="n">outfile</span> | <span class="n">mailx</span> <span class="n">mygroup</span>
 !
 <span class="n">commands</span> <span class="k">will</span> <span class="n">be</span> <span class="n">executed</span> <span class="n">using</span> /<span class="n">bin</span><span class="o">/</span><span class="n">tcsh</span>
@@ -171,17 +139,83 @@ Rank Execution Date Owner Job Queue Job Name
 <p>If the file does not exist, for example: at.allow file does not exist, means that all users are allowed to use at command.</p>
 <p>While batch command is similar with at -q b -m now commands. Meaning that the batch command will use different queue with at (special queue named ‘b’), and by default it will send a report via email. It will also execute right away. If the queue is full, then the command will have to wait to be executed one by one.</p>
 <p>Resource : 1. Unix at man pages, with some slang modifications :p</p>
-<p>Fiuh, alhamdulillah, that was hard to wrote :D</p></div>
-		<div>
-			<h2>Comments</h2>
-<div id="disqus_thread"></div>		<div>
+<p>Fiuh, alhamdulillah, that was hard to wrote :D</p>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "2009/05/18/quick-guide-on-unix-task-scheduling-with-at-and-batch-command/";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://jprasojos.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
 	</div>
-		<footer>
-		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>
-		  <p>&copy; Lintang JP</p>
-		</footer>
+
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" >
+
+
+  	          <nav>
+	            <h2>Categories</h2>
+	            <ul>
+	                <li ><a href="http://blog.theprasojos.web.id/category/family.html">Family</a></li>
+	                <li ><a href="http://blog.theprasojos.web.id/category/java.html">Java</a></li>
+	                <li ><a href="http://blog.theprasojos.web.id/category/renungan.html">Renungan</a></li>
+	                <li ><a href="http://blog.theprasojos.web.id/category/telco.html">Telco</a></li>
+	                <li ><a href="http://blog.theprasojos.web.id/category/travelling.html">Travelling</a></li>
+	                <li class="active"><a href="http://blog.theprasojos.web.id/category/unixlinux.html">Unix/Linux</a></li>
+	            </ul>
+	          </nav>
+
+	            <aside>
+	            <h2>Social</h2>
+			      <ul class="social">
+				    <li><a href="https://twitter.com/jprasojo">Twitter</a><i></i></li>
+				    <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a><i></i></li>
+			      </ul>
+			    </aside>
+
+	            <aside>
+	              <h2>Blogroll</h2>
+	              <ul>
+	                  <li><a href="http://getpelican.com/">Pelican</a></li>
+	                  <li><a href="http://python.org/">Python.org</a></li>
+	                  <li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
+	                  <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+	              </ul>
+	            </aside>
+	        </div>
+		  </div>
+
 	  </div>
 
+      <footer>
+		<p role="contentinfo">
+		  Lintang JP - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
+
+	  </footer>	
+
 	</div>
+	
+	  <script>
+		var _gaq=[['_setAccount','UA-56589451-1'],['_trackPageview']];
+		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+		g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g,s)}(document,'script'));
+	  </script>
+
 </body>
 </html>

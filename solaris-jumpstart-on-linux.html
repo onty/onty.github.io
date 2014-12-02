@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Solaris Jumpstart on Linux - JPrasojo's blog</title>	
+	<meta name="author" content="Lintang JP">
+	
+
+  <meta name="description" content="Intro : - Linux, Debian based (mine: Lenny), hostname : pegasus, act as the Solaris jumpstart server. - Solaris, Solaris 10, hostname: solclient, will be the machine to be installed. - IP addresses range 192.168.10.x (class C), make sure you use standard network class IP, this is where the standard broadcast address ...">
+
+
+
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+	      <nav class="pages">
+			  <a href="/pages/hello-world.html">About</a>
+	      </nav>
+		<a href="" class="title">JPrasojo's blog</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>Solaris Jumpstart on Linux</h1>
+		
+<div class="metadata">
+  <time datetime="2010-08-10T00:00:00+01:00" pubdate>Tue 10 August 2010</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
+    </address>
+  in <a href="/category/unixlinux.html">Unix/Linux</a>
+<p class="tags">tagged <a href="/tag/jumpstart-unix-linux-stuff-solaris.html">jumpstart Unix Linux stuff solaris</a></p></div>		
+		<p><strong><em>Intro :</em></strong>
+- Linux, Debian based (mine: Lenny), hostname : pegasus, act as the Solaris jumpstart server.
+- Solaris, Solaris 10, hostname: solclient, will be the machine to be installed.
+- IP addresses range 192.168.10.x (class C), make sure you use standard network class IP, this is where the standard broadcast address (192.168.10.255) comes into play during arp broadcast.
+- solclient will broadcast arp request, replied by pegasus's rarpd, and then and IP address will be assigned. solclient will then download the minimum kernel using tftp. The kernel file name will be the ip address of the solclient. For example, if the assigned IP is 192.168.10.5, and then the kernel name will be C0A80A05. Another way is to use this command:</p>
+<div class="highlight"><pre>elinpra@pegasus &gt; printf &quot;XXXXn&quot; 192 168 10 5
+C0A80A05
+</pre></div>
+
+
+<p>This file should be stored inside the root directory of tftp. Check the tftp setting on <strong>/etc/inetd.conf</strong>. Here is mine:</p>
+<div class="highlight"><pre>elinpra@pegasus &gt; cat /etc/inetd.conf
+tftp dgram udp4 wait nobody /usr/sbin/tcpd /usr/sbin/in.tftpd /srv/tftp/
+</pre></div>
+
+
+<p>Then, the file C0A80A05 should be put in<strong> /srv/tftp</strong>.</p>
+<p>Steps :</p>
+<p>1. Install bootparamd, rarpd, tftpd and nfs-kernel-server in Linux server (pegasus)</p>
+<div class="highlight"><pre>root@pegasus &gt; apt-get install bootparamd rarpd tftpd nfs-kernel-server
+</pre></div>
+
+
+<p>2. Run iptables -F, make sure no firewall in Linux server</p>
+<div class="highlight"><pre>root@pegasus &gt; iptables -F
+</pre></div>
+
+
+<p>3. Check the mac address of the solaris client.
+Try boot from {ok}, see the mac address during booting (if the system is currently up, go to init 0 mode) :</p>
+<div class="highlight"><pre>ok boot net
+
+Resetting ...
+LOM event: 56d 21h39m43s host reset
+
+þ
+Sun Fire V120 (UltraSPARC-IIe 648MHz), No Keyboard
+OpenBoot 4.0, 1024 MB memory installed, Serial #61911409.
+Ethernet address 0:3:ba:b0:b1:71, Host ID: 83b0b171.
+
+Back to lom&gt; or sc&gt; using &#39;break&#39; command.
+</pre></div>
+
+
+<p>4. Set <strong>/etc/ethers</strong> and <strong>/etc/hosts</strong> in Linux server with the mac address and hostname of the solaris client.</p>
+<div class="highlight"><pre>elinpra@pegasus &gt; echo &quot;0:3:ba:b0:b1:71 solclient&quot; &gt;&gt; /etc/ethers
+elinpra@pegasus &gt; echo &quot;192.168.10.5 solclient&quot; &gt;&gt; /etc/hosts
+</pre></div>
+
+
+<p>5. Start the rarpd if has not started yet.( I’m using debian based linux here )</p>
+<div class="highlight"><pre>root@pegasus &gt; /etc/init.d/rarpd start
+</pre></div>
+
+
+<p>6. If you're installing using Solaris iso file, mount the iso file to a directory using the following command, otherwise if using Solaris CD/DVD, directly go to step 8:</p>
+<div class="highlight"><pre>root@pegasus &gt; mkdir -p /mnt/sol10
+root@pegasus &gt; mount -o loop solaris_iso_file.iso /mnt/sol10
+root@pegasus &gt; cd /mnt/sol10
+</pre></div>
+
+
+<p>7. If you have the Solaris 10 CD, insert it on pegasus, do the following steps :</p>
+<div class="highlight"><pre>root@pegasus &gt; cd /mnt/cdrom/ (to your solaris cdrom directory)
+</pre></div>
+
+
+<p>8. Find the suitable kernel for your machine type. Mine is SunFire v120, so it will be sun4u type. If your hardware is T5220, T2000 etc then you need sun4v kernel.
+Locate the kernel on directory Solaris_10/Tools/Boot/platform/sun4u/inetboot for sun4u, or Solaris_10/Tools/Boot/platform/sun4v/inetboot for sun4v.
+Copy it to <strong>/srv/tftp</strong> and make symbolic link to that file into C0A80A05.</p>
+<div class="highlight"><pre>root@pegasus &gt; cp inetboot /srv/tftp
+root@pegasus &gt; ln -s /srv/tftp/inetboot /srv/tftp/C0A80A05
+</pre></div>
+
+
+<p>9. Start tftpd daemon in pegasus :</p>
+<div class="highlight"><pre>root@pegasus &gt; /etc/init.d/openbsd-inetd restart
+</pre></div>
+
+
+<p>10. start nfs service in pegasus :</p>
+<div class="highlight"><pre>root@pegasus &gt; /etc/init.d/nfs-kernel-server start
+</pre></div>
+
+
+<p>11. Prepare nfs mount so that solclient later on can download the entire installation package using nfs mount. Set the mount root into where the cdrom or iso files are mounted. Make sure that the nfs mount root from solclient is /sol10.</p>
+<div class="highlight"><pre>root@pegasus &gt; exportfs *:/mnt/cdrom -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync exportfs *:/mnt -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync 
+</pre></div>
+
+
+<p>Check if the nfs shares can be mounted correctly.</p>
+<div class="highlight"><pre>root@pegasus &gt; mount -t nfs4 pegasus:/sol10 /tmp/somewhere
+</pre></div>
+
+
+<p>Verify in your mount list:</p>
+<div class="highlight"><pre>root@pegasus &gt; df -kh 
+</pre></div>
+
+
+<p>Go to /tmp/somewhere, and make sure there’s a directory called sol10/, if not, then the nfs root stil wrong. </p>
+<p>13. Configure bootparams in /etc/bootparams, fill in this entry: </p>
+<div class="highlight"><pre>solclient root=pegasus:/sol10/Solaris_10/Tools/Boot install=pegasus:/sol10/ boottype=:in 
+</pre></div>
+
+
+<p>14. You might want to see what's happen in your pegasus using tcpdump: </p>
+<div class="highlight"><pre><span class="n">root</span><span class="nv">@pegasus</span> &gt; <span class="n">tcpdump</span> -<span class="n">i</span> <span class="n">eth0</span> 
+<span class="n">tcpdump:</span> <span class="n">verbose</span> <span class="n">output</span> <span class="n">suppressed</span>, <span class="k">use</span> -<span class="n">v</span> <span class="o">or</span> -<span class="n">vv</span> <span class="k">for</span> <span class="n">full</span> <span class="n">protocol</span> <span class="n">decode</span> 
+<span class="n">listening</span> <span class="n">on</span> <span class="n">eth0</span>, <span class="n">link-type</span> <span class="n">EN10MB</span> (<span class="n">Ethernet</span>), <span class="n">capture</span> <span class="n">size</span> <span class="mi">96</span> <span class="nb">bytes</span> 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">16.385289</span> <span class="n">arp</span> <span class="n">who-has</span> <span class="n">osol1</span> (<span class="n">Broadcast</span>) <span class="n">tell</span> <span class="n">osol1</span> 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">16.786701</span> <span class="n">IP</span> <span class="n">pegasus</span> &gt; <span class="n">OSPF-ALL</span>.<span class="n">MCAST</span>.<span class="n">NET:</span> <span class="n">OSPFv2</span>, <span class="n">Hello</span>, <span class="n">length:</span> <span class="mi">44</span>
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">17.904404</span> <span class="n">IP</span> <span class="n">solclient</span>.<span class="n">syslog</span> &gt; <span class="mf">255.255.255.255</span>.<span class="n">sunrpc:</span> [|<span class="n">syslog</span>] 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">18.666258</span> <span class="n">IP</span> <span class="n">osol2</span><span class="mf">.58847</span> &gt; <span class="n">resolver</span>.<span class="n">ao</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain:</span> <span class="mi">57879</span>+ <span class="n">TXT</span>? <span class="n">_nfsv4idmapdomain</span>. (<span class="mi">35</span>) 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">18.692884</span> <span class="n">IP</span> <span class="n">resolver</span>.<span class="n">ao</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain</span> &gt; <span class="n">osol2</span><span class="mf">.58847</span>: <span class="mi">57879</span> <span class="n">ServFail</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span> (<span class="mi">35</span>) 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">18.693883</span> <span class="n">IP</span> <span class="n">osol2</span><span class="mf">.58848</span> &gt; <span class="n">resolver</span>.<span class="n">sw</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain:</span> <span class="mi">57879</span>+ <span class="n">TXT</span>? <span class="n">_nfsv4idmapdomain</span>. (<span class="mi">35</span>) 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">18.944002</span> <span class="n">IP</span> <span class="n">resolver</span>.<span class="n">sw</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain</span> &gt; <span class="n">osol2</span><span class="mf">.58848</span>: <span class="mi">57879</span> <span class="n">ServFail</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span> (<span class="mi">35</span>) 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">18.945066</span> <span class="n">IP</span> <span class="n">osol2</span><span class="mf">.58849</span> &gt; <span class="n">resolver</span>.<span class="n">am</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain:</span> <span class="mi">57879</span>+ <span class="n">TXT</span>? <span class="n">_nfsv4idmapdomain</span>. (<span class="mi">35</span>) 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">19.349904</span> <span class="n">IP</span> <span class="n">resolver</span>.<span class="n">am</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain</span> &gt; <span class="n">osol2</span><span class="mf">.58849</span>: <span class="mi">57879</span> <span class="n">ServFail</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span> (<span class="mi">35</span>) 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">19.350799</span> <span class="n">IP</span> <span class="n">osol2</span><span class="mf">.58850</span> &gt; <span class="n">resolver</span>.<span class="n">ao</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain:</span> <span class="mi">57879</span>+ <span class="n">TXT</span>? <span class="n">_nfsv4idmapdomain</span>. (<span class="mi">35</span>) 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">19.391665</span> <span class="n">IP</span> <span class="n">resolver</span>.<span class="n">ao</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain</span> &gt; <span class="n">osol2</span><span class="mf">.58850</span>: <span class="mi">57879</span> <span class="n">ServFail</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span> (<span class="mi">35</span>) 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">19.426161</span> <span class="n">IP</span> <span class="n">osol2</span><span class="mf">.58851</span> &gt; <span class="n">resolver</span>.<span class="n">sw</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain:</span> <span class="mi">57879</span>+ <span class="n">TXT</span>? <span class="n">_nfsv4idmapdomain</span>. (<span class="mi">35</span>) 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">19.713817</span> <span class="n">IP</span> <span class="n">resolver</span>.<span class="n">sw</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain</span> &gt; <span class="n">osol2</span><span class="mf">.58851</span>: <span class="mi">57879</span> <span class="n">ServFail</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span> (<span class="mi">35</span>) 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">19.714855</span> <span class="n">IP</span> <span class="n">osol2</span><span class="mf">.58852</span> &gt; <span class="n">resolver</span>.<span class="n">am</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain:</span> <span class="mi">57879</span>+ <span class="n">TXT</span>? <span class="n">_nfsv4idmapdomain</span>. (<span class="mi">35</span>) 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">20.057720</span> <span class="n">IP</span> <span class="n">solclient</span>.<span class="n">syslog</span> &gt; <span class="mf">255.255.255.255</span>.<span class="n">sunrpc:</span> [|<span class="n">syslog</span>] 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">20.125082</span> <span class="n">IP</span> <span class="n">resolver</span>.<span class="n">am</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain</span> &gt; <span class="n">osol2</span><span class="mf">.58852</span>: <span class="mi">57879</span> <span class="n">ServFail</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span> (<span class="mi">35</span>) 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">21.870552</span> <span class="n">IP</span> <span class="n">solclient</span>.<span class="n">syslog</span> &gt; <span class="mf">255.255.255.255</span>.<span class="n">sunrpc:</span> [|<span class="n">syslog</span>] 
+... 
+<span class="mi">10</span>:<span class="mi">45</span>:<span class="mf">43.677010</span> <span class="n">IP</span> <span class="n">solclient</span>.<span class="n">afpovertcp</span> &gt; <span class="n">pegasus</span>.<span class="n">nfs:</span> . <span class="n">ack</span> <span class="mi">39685605</span> <span class="n">win</span> <span class="mi">47784</span> 
+<span class="mi">10</span>:<span class="mi">45</span>:<span class="mf">43.677183</span> <span class="n">IP</span> <span class="n">solclient</span>.<span class="n">afpovertcp</span> &gt; <span class="n">pegasus</span>.<span class="n">nfs:</span> . <span class="n">ack</span> <span class="mi">39688501</span> <span class="n">win</span> <span class="mi">44888</span> 
+<span class="mi">10</span>:<span class="mi">45</span>:<span class="mf">43.677350</span> <span class="n">IP</span> <span class="n">solclient</span>.<span class="n">afpovertcp</span> &gt; <span class="n">pegasus</span>.<span class="n">nfs:</span> . <span class="n">ack</span> <span class="mi">39691397</span> <span class="n">win</span> <span class="mi">41992</span> 
+... 
+</pre></div>
+
+
+<p>15. Boot your solclient from ok prompt: </p>
+<div class="highlight"><pre><span class="n">ok</span> <span class="n">boot</span> <span class="n">net</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span> <span class="n">install</span> 
+<span class="n">Boot</span> <span class="nl">device</span><span class="p">:</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">network</span><span class="p">@</span><span class="n">c</span><span class="p">,</span><span class="mi">1</span> <span class="n">File</span> <span class="n">and</span> <span class="nl">args</span><span class="p">:</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span> <span class="n">install</span> 
+<span class="mi">3</span><span class="n">a000</span> <span class="n">Using</span> <span class="n">RARP</span><span class="o">/</span><span class="n">BOOTPARAMS</span><span class="p">...</span> 
+<span class="n">Internet</span> <span class="n">address</span> <span class="nl">is</span><span class="p">:</span> <span class="mf">192.168.10.5</span> 
+<span class="n">Bootparam</span> <span class="n">response</span> <span class="n">received</span> 
+<span class="nl">hostname</span><span class="p">:</span> <span class="n">solclient</span> 
+<span class="nl">domainname</span><span class="p">:</span> <span class="p">(</span><span class="n">none</span><span class="p">)</span> 
+<span class="n">Found</span> <span class="mf">192.168.10.1</span> <span class="p">@</span> <span class="mi">8</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="mi">20</span><span class="o">:</span><span class="nl">eb</span><span class="p">:</span><span class="mi">52</span><span class="o">:</span><span class="n">e0</span> 
+<span class="n">root</span> <span class="nl">server</span><span class="p">:</span> <span class="n">jumpstart</span> <span class="p">(</span><span class="mf">192.168.10.1</span><span class="p">)</span> 
+<span class="n">root</span> <span class="nl">directory</span><span class="p">:</span> <span class="o">/</span><span class="n">sol10</span><span class="o">/</span><span class="n">Solaris_10</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">Boot</span> 
+<span class="n">module</span> <span class="o">/</span><span class="n">platform</span><span class="o">/</span><span class="n">sun4u</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">sparcv9</span><span class="o">/</span><span class="nl">unix</span><span class="p">:</span> <span class="n">text</span> <span class="n">at</span> <span class="p">[</span><span class="mh">0x1000000</span><span class="p">,</span> <span class="mh">0x10a096d</span><span class="p">]</span> <span class="n">data</span> 
+<span class="n">module</span> <span class="o">/</span><span class="n">platform</span><span class="o">/</span><span class="n">sun4u</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">sparcv9</span><span class="o">/</span><span class="nl">genunix</span><span class="p">:</span> <span class="n">text</span> <span class="n">at</span> <span class="p">[</span><span class="mh">0x10a0970</span><span class="p">,</span> <span class="mh">0x12615bf</span><span class="p">]</span> <span class="n">da</span> 
+<span class="n">module</span> <span class="o">/</span><span class="n">platform</span><span class="o">/</span><span class="n">SUNW</span><span class="p">,</span><span class="n">UltraAX</span><span class="o">-</span><span class="n">i2</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">misc</span><span class="o">/</span><span class="n">sparcv9</span><span class="o">/</span><span class="nl">platmod</span><span class="p">:</span> <span class="n">text</span> <span class="n">at</span> <span class="p">[</span><span class="mh">0x12615c0</span> 
+<span class="n">module</span> <span class="o">/</span><span class="n">platform</span><span class="o">/</span><span class="n">sun4u</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">cpu</span><span class="o">/</span><span class="n">sparcv9</span><span class="o">/</span><span class="n">SUNW</span><span class="p">,</span><span class="n">UltraSPARC</span><span class="o">-</span><span class="nl">IIe</span><span class="p">:</span> <span class="n">text</span> <span class="n">at</span> <span class="p">[</span><span class="mh">0x126184</span> 
+<span class="n">SunOS</span> <span class="n">Release</span> <span class="mf">5.10</span> <span class="n">Version</span> <span class="n">Generic_139555</span><span class="o">-</span><span class="mi">08</span> <span class="mi">64</span><span class="o">-</span><span class="n">bit</span> 
+<span class="n">Copyright</span> <span class="mi">1983</span><span class="o">-</span><span class="mi">2009</span> <span class="n">Sun</span> <span class="n">Microsystems</span><span class="p">,</span> <span class="n">Inc</span><span class="p">.</span> <span class="n">All</span> <span class="n">rights</span> <span class="n">reserved</span><span class="p">.</span> 
+<span class="n">Use</span> <span class="n">is</span> <span class="n">subject</span> <span class="n">to</span> <span class="n">license</span> <span class="n">terms</span><span class="p">.</span> 
+<span class="n">Ethernet</span> <span class="n">address</span> <span class="o">=</span> <span class="mi">0</span><span class="o">:</span><span class="mi">3</span><span class="o">:</span><span class="nl">ba</span><span class="p">:</span><span class="nl">b0</span><span class="p">:</span><span class="nl">b1</span><span class="p">:</span><span class="mi">71</span> 
+<span class="n">Using</span> <span class="k">default</span> <span class="n">device</span> <span class="n">instance</span> <span class="n">data</span> 
+<span class="n">mem</span> <span class="o">=</span> <span class="mi">1048576</span><span class="n">K</span> <span class="p">(</span><span class="mh">0x40000000</span><span class="p">)</span> 
+<span class="n">avail</span> <span class="n">mem</span> <span class="o">=</span> <span class="mi">845930496</span> 
+<span class="n">root</span> <span class="n">nexus</span> <span class="o">=</span> <span class="n">Sun</span> <span class="n">Fire</span> <span class="n">V120</span> <span class="p">(</span><span class="n">UltraSPARC</span><span class="o">-</span><span class="n">IIe</span> <span class="mi">648</span><span class="n">MHz</span><span class="p">)</span> 
+<span class="n">pseudo0</span> <span class="n">at</span> <span class="n">root</span> 
+<span class="n">pseudo0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span> 
+<span class="n">scsi_vhci0</span> <span class="n">at</span> <span class="n">root</span> 
+<span class="n">scsi_vhci0</span> <span class="n">is</span> <span class="o">/</span><span class="n">scsi_vhci</span> 
+<span class="n">ramdisk0</span> <span class="n">at</span> <span class="n">root</span> 
+<span class="n">ramdisk0</span> <span class="n">is</span> <span class="o">/</span><span class="n">ramdisk</span><span class="o">-</span><span class="n">root</span> 
+<span class="n">root</span> <span class="n">on</span> <span class="o">/</span><span class="n">ramdisk</span><span class="o">-</span><span class="nl">root</span><span class="p">:</span><span class="n">a</span> <span class="n">fstype</span> <span class="n">ufs</span> 
+<span class="n">pcipsy0</span> <span class="n">at</span> <span class="nl">root</span><span class="p">:</span> <span class="n">UPA</span> <span class="mh">0x1f</span> <span class="mh">0x0</span> 
+<span class="n">pcipsy0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span> 
+<span class="n">PCI</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">simba0</span> 
+<span class="n">simba0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span> 
+<span class="n">PCI</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">isa</span><span class="mi">@7</span><span class="p">,</span> <span class="n">ebus1</span> 
+<span class="n">ebus1</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">isa</span><span class="mi">@7</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">dld0</span> 
+<span class="n">dld0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">dld</span><span class="mi">@0</span> 
+<span class="n">SUNW</span><span class="p">,</span><span class="nl">eri0</span> <span class="p">:</span> <span class="n">Local</span> <span class="n">Ethernet</span> <span class="n">address</span> <span class="o">=</span> <span class="mi">0</span><span class="o">:</span><span class="mi">3</span><span class="o">:</span><span class="nl">ba</span><span class="p">:</span><span class="nl">b0</span><span class="p">:</span><span class="nl">b1</span><span class="p">:</span><span class="mi">71</span><span class="n">PCI</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">network</span><span class="p">@</span><span class="n">c</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">eri</span>
+<span class="n">eri0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">network</span><span class="p">@</span><span class="n">c</span><span class="p">,</span><span class="mi">1</span> 
+<span class="n">SUNW</span><span class="p">,</span><span class="nl">eri1</span> <span class="p">:</span> <span class="n">Local</span> <span class="n">Ethernet</span> <span class="n">address</span> <span class="o">=</span> <span class="mi">0</span><span class="o">:</span><span class="mi">3</span><span class="o">:</span><span class="nl">ba</span><span class="p">:</span><span class="nl">b0</span><span class="p">:</span><span class="nl">b1</span><span class="p">:</span><span class="mi">72</span><span class="n">SUNW</span><span class="p">,</span><span class="nl">eri1</span> <span class="p">:</span> <span class="n">Using</span> <span class="n">local</span> <span class="n">MAC</span> 
+<span class="n">eri1</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">network</span><span class="mi">@5</span><span class="p">,</span><span class="mi">1</span> 
+<span class="n">su0</span> <span class="n">at</span> <span class="nl">ebus1</span><span class="p">:</span> <span class="n">offset</span> <span class="mi">0</span><span class="p">,</span><span class="mf">3f</span><span class="mi">8</span> 
+<span class="n">su0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">isa</span><span class="mi">@7</span><span class="o">/</span><span class="n">serial</span><span class="mi">@0</span><span class="p">,</span><span class="mf">3f</span><span class="mi">8</span> 
+<span class="n">PCI</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">usb</span><span class="p">@</span><span class="n">c</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">ohci0</span> 
+<span class="n">ohci0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">usb</span><span class="p">@</span><span class="n">c</span><span class="p">,</span><span class="mi">3</span> 
+<span class="n">PCI</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">usb</span><span class="mi">@5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">ohci1</span> 
+<span class="n">ohci1</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">usb</span><span class="mi">@5</span><span class="p">,</span><span class="mi">3</span> 
+<span class="nl">cpu0</span><span class="p">:</span> <span class="n">UltraSPARC</span><span class="o">-</span><span class="n">IIe</span> <span class="p">(</span><span class="n">portid</span> <span class="mi">0</span> <span class="n">impl</span> <span class="mh">0x13</span> <span class="n">ver</span> <span class="mh">0x33</span> <span class="n">clock</span> <span class="mi">648</span> <span class="n">MHz</span><span class="p">)</span> 
+<span class="n">iscsi0</span> <span class="n">at</span> <span class="n">root</span> 
+<span class="n">iscsi0</span> <span class="n">is</span> <span class="o">/</span><span class="n">iscsi</span> 
+<span class="n">SUNW</span><span class="p">,</span><span class="nl">eri0</span> <span class="p">:</span> <span class="mi">100</span> <span class="n">Mbps</span> <span class="n">full</span> <span class="n">duplex</span> <span class="n">link</span> <span class="n">up</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">zfs0</span> 
+<span class="n">zfs0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">zfs</span><span class="mi">@0</span> 
+<span class="n">Configuring</span> <span class="n">devices</span><span class="p">.</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">devinfo0</span> 
+<span class="n">devinfo0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">devinfo</span><span class="mi">@0</span> 
+<span class="n">PCI</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">pci</span><span class="mi">@1</span><span class="p">,</span> <span class="n">simba1</span> 
+<span class="n">simba1</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">pseudo1</span> 
+<span class="n">pseudo1</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">zconsnex</span><span class="mi">@1</span> 
+<span class="n">PCI</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">ebus</span><span class="p">@</span><span class="n">c</span><span class="p">,</span> <span class="n">ebus0</span> 
+<span class="n">ebus0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">ebus</span><span class="p">@</span><span class="n">c</span> 
+<span class="n">PCI</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">pmu</span><span class="mi">@3</span><span class="p">,</span> <span class="n">pmubus0</span> 
+<span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="o">/</span><span class="n">scsi</span><span class="mi">@8</span> <span class="p">(</span><span class="n">glm0</span><span class="p">)</span><span class="o">:</span> 
+<span class="n">glm0</span> <span class="n">supports</span> <span class="n">power</span> <span class="n">management</span><span class="p">.</span> 
+<span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="o">/</span><span class="n">scsi</span><span class="mi">@8</span> <span class="p">(</span><span class="n">glm0</span><span class="p">)</span><span class="o">:</span> 
+<span class="n">Rev</span><span class="p">.</span> <span class="mi">7</span> <span class="n">Symbios</span> <span class="mi">53</span><span class="n">c896</span> <span class="n">found</span><span class="p">.</span> 
+<span class="n">PCI</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">scsi</span><span class="mi">@8</span><span class="p">,</span> <span class="n">glm0</span> 
+<span class="n">glm0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="o">/</span><span class="n">scsi</span><span class="mi">@8</span> 
+<span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="o">/</span><span class="n">scsi</span><span class="mi">@8</span><span class="p">,</span><span class="mi">1</span> <span class="p">(</span><span class="n">glm1</span><span class="p">)</span><span class="o">:</span> 
+<span class="n">glm1</span> <span class="n">supports</span> <span class="n">power</span> <span class="n">management</span><span class="p">.</span> 
+<span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="o">/</span><span class="n">scsi</span><span class="mi">@8</span><span class="p">,</span><span class="mi">1</span> <span class="p">(</span><span class="n">glm1</span><span class="p">)</span><span class="o">:</span> 
+<span class="n">Rev</span><span class="p">.</span> <span class="mi">7</span> <span class="n">Symbios</span> <span class="mi">53</span><span class="n">c896</span> <span class="n">found</span><span class="p">.</span> 
+<span class="n">PCI</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">scsi</span><span class="mi">@8</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">glm1</span> 
+<span class="n">glm1</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="o">/</span><span class="n">scsi</span><span class="mi">@8</span><span class="p">,</span><span class="mi">1</span> 
+<span class="n">power0</span> <span class="n">at</span> <span class="nl">ebus1</span><span class="p">:</span> <span class="n">offset</span> <span class="mi">0</span><span class="p">,</span><span class="mi">800</span> 
+<span class="n">power0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">isa</span><span class="mi">@7</span><span class="o">/</span><span class="n">power</span><span class="mi">@0</span><span class="p">,</span><span class="mi">800</span> 
+<span class="n">su1</span> <span class="n">at</span> <span class="nl">ebus1</span><span class="p">:</span> <span class="n">offset</span> <span class="mi">0</span><span class="p">,</span><span class="mf">2e8</span> 
+<span class="n">su1</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">isa</span><span class="mi">@7</span><span class="o">/</span><span class="n">serial</span><span class="mi">@0</span><span class="p">,</span><span class="mf">2e8</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">fssnap0</span> 
+<span class="n">fssnap0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">fssnap</span><span class="mi">@0</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">ramdisk1024</span> 
+<span class="n">ramdisk1024</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">ramdisk</span><span class="mi">@1024</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">winlock0</span> 
+<span class="n">winlock0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">winlock</span><span class="mi">@0</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">llc10</span> 
+<span class="n">llc10</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">llc1</span><span class="mi">@0</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">lofi0</span> 
+<span class="n">lofi0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">lofi</span><span class="mi">@0</span> 
+<span class="n">sd3</span> <span class="n">at</span> <span class="nl">glm0</span><span class="p">:</span> <span class="n">target</span> <span class="mi">0</span> <span class="n">lun</span> <span class="mi">0</span> 
+<span class="n">sd3</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="o">/</span><span class="n">scsi</span><span class="mi">@8</span><span class="o">/</span><span class="n">sd</span><span class="mi">@0</span><span class="p">,</span><span class="mi">0</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">fcp0</span> 
+<span class="n">fcp0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">fcp</span><span class="mi">@0</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">fcsm0</span> 
+<span class="n">fcsm0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">fcsm</span><span class="mi">@0</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">trapstat0</span> 
+<span class="n">trapstat0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">trapstat</span><span class="mi">@0</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">pool0</span> 
+<span class="n">pool0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">pool</span><span class="mi">@0</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">mem_cache0</span> 
+<span class="n">mem_cache0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">mem_cache</span><span class="mi">@0</span> 
+<span class="n">pseudo</span><span class="o">-</span><span class="nl">device</span><span class="p">:</span> <span class="n">fcode0</span> 
+<span class="n">fcode0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pseudo</span><span class="o">/</span><span class="n">fcode</span><span class="mi">@0</span> 
+<span class="n">sd0</span> <span class="n">at</span> <span class="nl">glm0</span><span class="p">:</span> <span class="n">target</span> <span class="mi">1</span> <span class="n">lun</span> <span class="mi">0</span> 
+<span class="n">sd0</span> <span class="n">is</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="o">/</span><span class="n">scsi</span><span class="mi">@8</span><span class="o">/</span><span class="n">sd</span><span class="mi">@1</span><span class="p">,</span><span class="mi">0</span> 
+<span class="n">Using</span> <span class="n">RPC</span> <span class="n">Bootparams</span> <span class="k">for</span> <span class="n">network</span> <span class="n">configuration</span> <span class="n">information</span><span class="p">.</span> 
+<span class="n">Attempting</span> <span class="n">to</span> <span class="n">configure</span> <span class="n">interface</span> <span class="n">eri1</span><span class="p">...</span> 
+<span class="n">Skipped</span> <span class="n">interface</span> <span class="n">eri1</span> 
+<span class="n">Attempting</span> <span class="n">to</span> <span class="n">configure</span> <span class="n">interface</span> <span class="n">eri0</span><span class="p">...</span> 
+<span class="n">Configured</span> <span class="n">interface</span> <span class="n">eri0</span> 
+<span class="n">Reading</span> <span class="n">ZFS</span> <span class="nl">config</span><span class="p">:</span> <span class="n">done</span><span class="p">.</span> 
+<span class="n">Setting</span> <span class="n">up</span> <span class="n">Java</span><span class="p">.</span> <span class="n">Please</span> <span class="n">wait</span><span class="p">...</span> 
+<span class="n">Serial</span> <span class="n">console</span><span class="p">,</span> <span class="n">reverting</span> <span class="n">to</span> <span class="n">text</span> <span class="n">install</span> 
+<span class="n">Beginning</span> <span class="n">system</span> <span class="n">identification</span><span class="p">...</span> 
+<span class="n">Searching</span> <span class="k">for</span> <span class="n">configuration</span> <span class="n">file</span><span class="p">(</span><span class="n">s</span><span class="p">)...</span> 
+<span class="n">Search</span> <span class="n">complete</span><span class="p">.</span> 
+<span class="n">Discovering</span> <span class="n">additional</span> <span class="n">network</span> <span class="n">configuration</span><span class="p">...</span> 
+
+<span class="n">Select</span> <span class="n">a</span> <span class="n">Language</span> 
+
+<span class="mf">0.</span> <span class="n">English</span> 
+<span class="mf">1.</span> <span class="n">French</span> 
+<span class="mf">2.</span> <span class="n">German</span> 
+<span class="mf">3.</span> <span class="n">Italian</span> 
+<span class="mf">4.</span> <span class="n">Japanese</span> 
+<span class="mf">5.</span> <span class="n">Korean</span> 
+<span class="mf">6.</span> <span class="n">Simplified</span> <span class="n">Chinese</span> 
+<span class="mf">7.</span> <span class="n">Spanish</span> 
+<span class="mf">8.</span> <span class="n">Swedish</span> 
+<span class="mf">9.</span> <span class="n">Traditional</span> <span class="n">Chinese</span> 
+
+<span class="n">Please</span> <span class="n">make</span> <span class="n">a</span> <span class="n">choice</span> <span class="p">(</span><span class="mi">0</span> <span class="o">-</span> <span class="mi">9</span><span class="p">),</span> <span class="n">or</span> <span class="n">press</span> <span class="n">h</span> <span class="n">or</span> <span class="o">?</span> <span class="k">for</span> <span class="nl">help</span><span class="p">:</span> 
+</pre></div>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" >
+
+
+  	          <nav>
+	            <h2>Categories</h2>
+	            <ul>
+	                <li ><a href="/category/family.html">Family</a></li>
+	                <li ><a href="/category/java.html">Java</a></li>
+	                <li ><a href="/category/renungan.html">Renungan</a></li>
+	                <li ><a href="/category/telco.html">Telco</a></li>
+	                <li ><a href="/category/travelling.html">Travelling</a></li>
+	                <li class="active"><a href="/category/unixlinux.html">Unix/Linux</a></li>
+	            </ul>
+	          </nav>
+
+	            <aside>
+	            <h2>Social</h2>
+			      <ul class="social">
+				    <li><a href="https://twitter.com/jprasojo">Twitter</a><i></i></li>
+				    <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a><i></i></li>
+			      </ul>
+			    </aside>
+
+	            <aside>
+	              <h2>Blogroll</h2>
+	              <ul>
+	                  <li><a href="http://getpelican.com/">Pelican</a></li>
+	                  <li><a href="http://python.org/">Python.org</a></li>
+	                  <li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
+	                  <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+	              </ul>
+	            </aside>
+	        </div>
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  Lintang JP - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

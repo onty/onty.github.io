@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Tora(Toolkit for Oracle) Installation - JPrasojo's blog</title>	
+	<meta name="author" content="Lintang JP">
+	
+
+  <meta name="description" content="Yesterday I managed to install my laptop with Tora. I'm using Kubuntu Feisty Fawn.For you who doesnt have any idea what kind of animal Tora is, let me give you some hint. If you used to use Toad in M$-Windows to do your oracle database-related jobs, well ...">
+
+
+
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+	      <nav class="pages">
+			  <a href="/pages/hello-world.html">About</a>
+	      </nav>
+		<a href="" class="title">JPrasojo's blog</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>Tora(Toolkit for Oracle) Installation</h1>
+		
+<div class="metadata">
+  <time datetime="2007-06-01T00:00:00+01:00" pubdate>Fri 01 June 2007</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
+    </address>
+  in <a href="/category/unixlinux.html">Unix/Linux</a>
+<p class="tags">tagged <a href="/tag/linux-stuff.html">Linux stuff</a></p></div>		
+		<p>Yesterday I managed to install my laptop with Tora. I'm using Kubuntu Feisty Fawn.For you who doesnt have any idea what kind of animal Tora is, let me give you some hint. If you used to use Toad in M$-Windows to do your oracle database-related jobs, well, you can say that Tora has similar usage.It can runs on Linux, make your life simpler, and easier, he he. Hey, it's your laptop that should work for you, not you're the one that has to work for your laptop, right ?
+Ok, here's the step I saved from my installation adventure :</p>
+<p>1. get Oracle instant client
+You can get it here :
+http://download.oracle.com/otn/linux/instantclient/instantclient-basic-linux32-10.2.0.3-20061115.zip
+http://download.oracle.com/otn/linux/instantclient/instantclient-sdk-linux32-10.2.0.3-20061115.zip</p>
+<p>2. Unzip it at some directory, e.g : /opt/instantclient_10_2</p>
+<p>3. Add the directory to /etc/ld.so.conf, dont forget run /sbin/ldconfig.
+Here's the sample from my laptop :
+------------------
+onty@phoenix:~$ cat /etc/ld.so.conf
+/lib
+/usr/lib
+/usr/lib/firefox/plugins
+/opt/instantclient_10_2
+------------------</p>
+<p>4. Install libqscintilla.
+Thank God, I'm using Kubuntu,and having great internet connection in my office. So just simply run apt-get.
+root@phoenix:/opt# apt-get install libqscintilla6 libqscintilla-dev</p>
+<p>5. Download and Unzip tora
+You can get it <a href="http://sourceforge.net/projects/tora">here</a>. I'm using version 1.3.21.</p>
+<p>6. compile start
+oracle@phoenix:/opt/tora-1.3.21$ ./configure --with-qt-dir=/usr/lib/qt3 --with-oracle-libraries=/opt/instantclient_10_2 --with-oracle-includes=/opt/instantclient_10_2/sdk/include --with-oci-version=10G --with-instant-client
+oracle@phoenix:/opt/tora-1.3.21$ make
+oracle@phoenix:/opt/tora-1.3.21$ make install</p>
+<p>7. In the midde of make, I'm getting error says that toThreadStartWrapper has not been declared. I googled around to find the solution, and found out that I have to edit a file named tothread.cpp around line 157 like below.</p>
+<h1>define THREAD_ASSERT(x) if((x)!=0) {</h1>
+<p>throw (qApp-&gt;translate("toThread","Thread function "%1" failed.").arg(QString::fromLatin1( #x ))); }</p>
+<p>/<em> new added start </em>/
+void <em>toThreadStartWrapper(void </em>t);
+/<em> new added end </em>/</p>
+<p>void toThread::initAttr()</p>
+<p>After that, I continued with make, and make install.</p>
+<p>And finally, run ./tora and you can see ORACLE option in your connection. That connection refers to wherever you put our TNSNAMES.ORA in your ORACLE_HOME.</p>
+<p>OK, that's for today's tip.</p>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" >
+
+
+  	          <nav>
+	            <h2>Categories</h2>
+	            <ul>
+	                <li ><a href="/category/family.html">Family</a></li>
+	                <li ><a href="/category/java.html">Java</a></li>
+	                <li ><a href="/category/renungan.html">Renungan</a></li>
+	                <li ><a href="/category/telco.html">Telco</a></li>
+	                <li ><a href="/category/travelling.html">Travelling</a></li>
+	                <li class="active"><a href="/category/unixlinux.html">Unix/Linux</a></li>
+	            </ul>
+	          </nav>
+
+	            <aside>
+	            <h2>Social</h2>
+			      <ul class="social">
+				    <li><a href="https://twitter.com/jprasojo">Twitter</a><i></i></li>
+				    <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a><i></i></li>
+			      </ul>
+			    </aside>
+
+	            <aside>
+	              <h2>Blogroll</h2>
+	              <ul>
+	                  <li><a href="http://getpelican.com/">Pelican</a></li>
+	                  <li><a href="http://python.org/">Python.org</a></li>
+	                  <li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
+	                  <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+	              </ul>
+	            </aside>
+	        </div>
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  Lintang JP - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>About</title>
+    <title>Playing around with low end VPS box - JPrasojo's blog</title>
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -16,6 +16,7 @@
 
     <!-- newsfeeds -->
         <link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Full Atom Feed" />
+        <link href="http://blog.theprasojos.web.id/feeds/unixlinux.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Categories Atom Feed" />
 
     <!-- assets -->
     <!--[if lt IE 9]>
@@ -50,24 +51,65 @@
     <div class="grid grid-pad">
        <div id="left-side" class="col-8-12">
           <section id="content" class="hyphenate">
-    <h1>About</h1>
-    
 
-    <p>Hello there, Assalamu'alaikum.</p>
-<p>Here we present our new homepage on internet. This blog tells about&nbsp;our
-family, yes...we are <strong>The Prasojo's</strong>. In this blog, you will find our
-story. The story starts from the very beginning when two young people
-met, and decided to marry :), until now we already had a lovely
-daughter. Well, it's a little bit late to start though, since the store
-already began in 2007;that means 1 year a go. Well, the idea just came
-yesterday when me and my wife had a little night chat. Hey, maybe it's
-gonna be great to have a family blog. Just want to write and share our
-daily life to all. And later after all of our kids and daughter grow up,
-they can see history of their life on internet, and opens it every time
-they want. Great idea...and here we are, <strong>The Prasojo's</strong>..........</p>
-<p>We welcome you to our virtual house. Hope you all enjoy our writings,
-and hopefully shares the same happiness as we have here.</p>
+    <h1 class="title">Playing around with low end VPS box</h1>
 
+        <div class="date">
+            <p>written on Mon 05 April 2010
+            by <a rel="author" href="http://blog.theprasojos.web.id/pages/aboutme.html">Lintang JP</a></p>
+        </div>
+
+    <div class="clearboth"><p>Last week I just bought a VPS account for playing around with. It feels so great having our own shell account with root login so that we can do anything inside. I bought it from <a href="http://www.pasarhosting.com">here</a>. First of all, I bought the minimalist one, with 64mb memory, with no burstable ram :D, using Centos. I simply cant do anything, their Centos installation itself took around 20-30mb ram. I also not well enough playing with Yum. This is not great, so I upgraded the account to 128mb ram. At the same time I noticed that besides Centos, the hosting provider also provide Debian Lenny as the OS....why dont you said that from the beginning ??? :D Now, I'm running Lenny with 128mb ram. The VM specs itself it's not that bad, considering it's powered with 2 cpu @3Ghz, 128mb ram with no swap ( this guy <a href="https://www.vpsmart.com/clients/knowledgebase.php?action=displayarticle&amp;id=4">here</a> shares a great script to create a fake swap, but I dont need it any longer ;) read the rest of the entry to know why... ), and with 10Gb disk, more than enough storage for minimalist like me :)</p>
+<p>So, first thing first, chop all the unnecessary program, replace it with the program with smaller 'cost'. Just do ps -ef and there I found apache2 and Sendmail sitting around and eating my memory. Just do :</p>
+<div class="highlight"><pre># apt-get remove --purge sendmail apache2
+</pre></div>
+
+
+<p>And dont forget to kill them, and remove them from startup script.</p>
+<div class="highlight"><pre># kill -9 pid
+# update-rc.d -f remove apache2
+# update-rc.d -f remove sendmail
+</pre></div>
+
+
+<p>Ok, that left me around 5 mb used memory. Not bad :)
+Next thing is to replace the default shell, since bash shell become greedy enough to eat my memory. I replaced it with pdksh since after googling around, this pdksh shell saves ~1mb for every shell session...good enough. So I install it :</p>
+<div class="highlight"><pre># apt-get install pdksh
+</pre></div>
+
+
+<p>Dont remove the bash shell yet, since it has a lot of dependencies. Leave it there, but dont use it :) How do we do that ? Just edit your own default shell to become pdksh in /etc/passwd :</p>
+<div class="highlight"><pre># vi /etc/passwd
+</pre></div>
+
+
+<p>Change the line using /bin/bash, into /bin/pdksh, and voillaa, next login session will be using pdksh.</p>
+<p>Not enought with just # prompt ? It's time to decorate your shell with some fancy prompts, just edit the .profile located inside the user's home directory ( just do ls -la to see it, since it's a hidden file ). Add the following line :</p>
+<div class="highlight"><pre>HOSTNAME=`hostname`
+PS1=`print &quot;
+</pre></div></div>
+
+        <div class="tags">
+            <p>This entry was tagged on  
+                <a href="http://blog.theprasojos.web.id/tag/tips-unix-linux-stuff-web-server-nginx.html">#Tips_Unix_Linux_stuff_Web_Server_Nginx</a></p>
+        </div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = "jprasojos";
+    var disqus_title = "Playing around with low end VPS box";
+    var disqus_url = "http://blog.theprasojos.web.id/2010/04/05/playing-around-with-low-end-vps-box/";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
           </section>
        </div>

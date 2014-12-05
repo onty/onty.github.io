@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>About</title>
+    <title>Telco Billing #1, Interconnect that matters... - JPrasojo's blog</title>
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -16,6 +16,7 @@
 
     <!-- newsfeeds -->
         <link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Full Atom Feed" />
+        <link href="http://blog.theprasojos.web.id/feeds/telco.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Categories Atom Feed" />
 
     <!-- assets -->
     <!--[if lt IE 9]>
@@ -50,24 +51,56 @@
     <div class="grid grid-pad">
        <div id="left-side" class="col-8-12">
           <section id="content" class="hyphenate">
-    <h1>About</h1>
-    
 
-    <p>Hello there, Assalamu'alaikum.</p>
-<p>Here we present our new homepage on internet. This blog tells about&nbsp;our
-family, yes...we are <strong>The Prasojo's</strong>. In this blog, you will find our
-story. The story starts from the very beginning when two young people
-met, and decided to marry :), until now we already had a lovely
-daughter. Well, it's a little bit late to start though, since the store
-already began in 2007;that means 1 year a go. Well, the idea just came
-yesterday when me and my wife had a little night chat. Hey, maybe it's
-gonna be great to have a family blog. Just want to write and share our
-daily life to all. And later after all of our kids and daughter grow up,
-they can see history of their life on internet, and opens it every time
-they want. Great idea...and here we are, <strong>The Prasojo's</strong>..........</p>
-<p>We welcome you to our virtual house. Hope you all enjoy our writings,
-and hopefully shares the same happiness as we have here.</p>
+    <h1 class="title">Telco Billing #1, Interconnect that matters...</h1>
 
+        <div class="date">
+            <p>written on Sat 10 January 2009
+            by <a rel="author" href="http://blog.theprasojos.web.id/pages/aboutme.html">Lintang JP</a></p>
+        </div>
+
+    <div class="clearboth"><p>Seperti disebutkan dalam judul diatas, bidang interkoneksi adalah bidang yang sangat berpengaruh dalam kelangsungan operasional sebuah operator, terutama buat operator non incumbent. Bagaimana tidak, bagi operator baru, tidak ada interkoneksi berarti tidak terhubung ke jaringan lain, pelanggan tidak akan bisa bertelpon/ber-sms ke operator lain ( terutama jika operator itu incumbent ), dan ini vital sekali. Peraturan Menkominfo tentang interkoneksi ini bisa di unduh <a href="http://www.blogger.com/mod=">disini</a> .</p>
+<p>Dalam bidang interkoneksi dikenal istilah-istilah berikut :</p>
+<p><strong>1. POC (Point of Charge)</strong></p>
+<p>Kalau jaman PSTN(telpon rumah kabel) hanya ada cuma Telkom saja seperti dulu, POC ini kita kenal dengan istilah kode area. Katakanlah Mojokerto, maka kode area nya 0321, Surabaya, 031, dst. Seiring dengan waktu, muncullah telepon seluler, yang untuk menentukan POC nya sebenarnya lebih sulit, karena sifatnya yang mobile dan dapat berpindah-pindah, akibatnya POC untuk telepon seluler ini tidak menyerap 100% dari POC milik PSTN dan FWA(telepon cdma yang non seluler, seperti flexi, esia, hepi). POC ini adalah basis yang digunakan untuk menentukan dimana lokasi penelpon dan penerima telpon.</p>
+<p><strong>2. POI (Point of Interconnection)</strong></p>
+<p>Adalah titik dimana alur traffic mengarah masuk atau keluar, dari network lokal milik operator yang bersangkutan, menuju ke network milik operator lain. Kita akan lebih mudah memahami ini dengan contoh kasus, yang akan diulas lebih lanjut di bawah. Yang jelas, semakin banyak kita memiliki POI dengan operator lain (dan yang ter-utilisasi dengan optimal tentunya ) maka cost interkoneksi ini akan jauh lebih bisa ditekan.</p>
+<p><strong>3. Originasi</strong></p>
+<p>Adalah titik dimana alur traffic berasal.</p>
+<p><strong>4. Transit</strong></p>
+<p>Adalah titik dimana alur traffic disalurkan melalui network operator lain, untuk kemudian bisa sampai ke tujuan. Bayangkan ini seperti ketika kita memaketkan barang lewat tiki. Tiki adalah titik transit pertama kita, untuk kemudian bisa sampai ke tujuan.</p>
+<p><strong>5. Terminasi</strong></p>
+<p>Adalah titik dimana alur traffic berakhir di tujuan.</p>
+<p>Ke-lima komponen ini berpengaruh penting dalam penentuan tarif biaya interkoneksi, yang pada ujungnya juga akan mempengaruhi tarif retail akhir yang akan ditawarkan ke pelanggan. Itulah kenapa ketika pemerintah memutuskan untuk menurunkan tarif interkoneksi antar operator, tarif retail juga diharapkan akan ikut turun.</p>
+<p>Kita akan bahas ini dengan mengambil contoh langsung kasusnya, sebuah perusahaan telekomunikasi selular X.
+Ketika pertama kali didirikan, operator X sudah harus menetapkan basis daerah awal dimana saja mereka akan beroperasi. Dari sinilah kemudian operator tersebut menyusun POC mana saja yang akan mereka miliki. Dan dari sini pulalah mereka akan membuat pemetaan prefix nomor mereka. Sebagai contoh, untuk daerah Jakarta, operator X akan membuat prefix 08XX170YYYY. 4 digit pertama (08XX) dikenal sebagai NDC, National Destination Code. Ini prefix yang menandakan blok nomor seluler tertentu milik operator tertentu.</p>
+<p>Setelah memiliki POC, maka operator X harus juga membuka layanan interkoneksi dengan operator lain. Karena di Indonesia terdapat 12 operator, maka interkoneksi ini harus dibuat ke seluruh operator-operator tersebut. Pembuatan infrastruktur interkoneksi menuju operator-operator lain ini juga bukan dengan biaya yang kecil, apalagi jika alur traffic menuju operator-operator tersebut masih sangat kecil, karena tentu operator X juga membutuhkan biaya untuk balik modal kan ;).
+Dari sini, muncullah operator Y yang bertindak sebagai operator transit. Artinya, operator X tidak perlu membangun jaringan interkoneksi ke seluruh operator yang ada, yang diperlukan hanya 1 buah infrastruktur interkoneksi, menuju operator Y sebagai operator transit, yang nantinya akan menyalurkan alur traffic menuju operator tujuan yang sebenarnya. Dari sini kita sudah mendapatkan gambaran, bagaimana kira-kira maksud dari originasi, terminasi, dan transit.</p>
+<p>Lalu, kapan sebuah operator perlu membangun jaringan interkoneksinya sendiri ? Dari data statistik operator X tiap bulan, tentu operator X bisa melihat kemana tujuan paling banyak alur traffic dari pelanggannya. Dan begitu juga darimana pelanggannya paling banyak menerima panggilan. Jika cost transit ini diperkirakan sudah akan lebih mahal daripada membangun infrastruktur interkoneksi langsung dengan operator tujuan, maka sudah saatnya infrastruktur interkoneksi langsung ini dibangun.</p>
+<p>Oh ya, dari tadi ini kita masih membicarakan panggilan suara (voice) yah, kalau untuk SMS, infrastruktur interkoneksi harus dibuat satu-persatu menuju operator tujuan, karena SMS ke operator lain tidak bisa disampaikan melalui jaringan transit.</p>
+<p>Lalu bagaimana dengan penentuan tarif interkoneksi ? Tunggu di bagian #2 yah...</p></div>
+
+        <div class="tags">
+            <p>This entry was tagged on  
+                <a href="http://blog.theprasojos.web.id/tag/interconnect-telekomunikasi-telco-billing-interkoneksi.html">#Interconnect_Telekomunikasi_Telco_Billing_Interkoneksi</a></p>
+        </div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = "jprasojos";
+    var disqus_title = "Telco Billing #1, Interconnect that matters...";
+    var disqus_url = "http://blog.theprasojos.web.id/2009/01/10/telco-billing-1-interconnect-that-matters/";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
           </section>
        </div>

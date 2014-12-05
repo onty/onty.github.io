@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>About</title>
+    <title>Glassfish for Tomcat and WebMethods - JPrasojo's blog</title>
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -16,6 +16,7 @@
 
     <!-- newsfeeds -->
         <link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Full Atom Feed" />
+        <link href="http://blog.theprasojos.web.id/feeds/java.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Categories Atom Feed" />
 
     <!-- assets -->
     <!--[if lt IE 9]>
@@ -50,24 +51,43 @@
     <div class="grid grid-pad">
        <div id="left-side" class="col-8-12">
           <section id="content" class="hyphenate">
-    <h1>About</h1>
-    
 
-    <p>Hello there, Assalamu'alaikum.</p>
-<p>Here we present our new homepage on internet. This blog tells about&nbsp;our
-family, yes...we are <strong>The Prasojo's</strong>. In this blog, you will find our
-story. The story starts from the very beginning when two young people
-met, and decided to marry :), until now we already had a lovely
-daughter. Well, it's a little bit late to start though, since the store
-already began in 2007;that means 1 year a go. Well, the idea just came
-yesterday when me and my wife had a little night chat. Hey, maybe it's
-gonna be great to have a family blog. Just want to write and share our
-daily life to all. And later after all of our kids and daughter grow up,
-they can see history of their life on internet, and opens it every time
-they want. Great idea...and here we are, <strong>The Prasojo's</strong>..........</p>
-<p>We welcome you to our virtual house. Hope you all enjoy our writings,
-and hopefully shares the same happiness as we have here.</p>
+    <h1 class="title">Glassfish for Tomcat and WebMethods</h1>
 
+        <div class="date">
+            <p>written on Sat 01 December 2007
+            by <a rel="author" href="http://blog.theprasojos.web.id/pages/aboutme.html">Lintang JP</a></p>
+        </div>
+
+    <div class="clearboth"><p>These recent days I've been played around with Glassfish in my project. I have to build connectivity between our existing Card Management for Telco company product, created with pure jsp (yes, jsp treated as PHP, spaghetti or whatever you name it) to integrate with SAP. Our client provides WebMethods Integration server 6.5 as our only and only way to interact with the SAP. OK then, I grabbed some code from my previous project with Tomcat and WebMethods 6.1 and try to reuse them in this project. Well, it works. But this code only deals with connectivity. Tomcat contacts WebMethods, and that's it. All transaction maintained by WebMethods, no need to think about rollback, commit, or anything, we apply that on WebMethods's flow services. So simple and cool !. But this current project is different. Installed WebMethods dont have any license of JDBC Adapter, it only has SAP Adapter. So in order to save to database or whatever to our Card Management system, we have to build our own connectivity method. Previously we thought about creating Stored Procedure inside our database that later can be invoked by WebMethods's JDBC Adapter, but the client doesnt want to buy the license. Hmm....</p>
+<p>Besides just store to database, our Card Management product also have to provide interfaces so that later on, it could synchronize any document with SAP. So SAP will hit our services if..let's say some PO created in SAP. In here, I <em>need to provide them with webservices</em> to access all of our Card Management API in proper way.</p>
+<p>On other side, our Card Management also must be able to synchronize any action triggered from our side. Ok, I can use my previous code just to call the WebMethods's service, but I can not predict how long will it take. WebMethods will continue our request to SAP, and then SAP done some process inside, and after that it will returns a value to us. Based on those values, we must done an action, and after we finished done those action in our side, we must push the result back to SAP, send our document number also. I cant imagine how long the users will be wait for these sequence action. They will bury us :D</p>
+<p>I see that we can divide this process by synchronous and asynchronous action. There's some action that we need to retrieve the results back from SAP immediately, such as get price. I can't do anything for this action. Saving the price list in our Card Management will blow our mandays. And other process where the users dont care whether they get the result in real time or not. They can check back later to see what happen to their process. So, in here, I <em>need a messaging service</em>.</p>
+<p>So, two needs, webservice and messaging. I was thought that I will install a several products for this. Spring webservice framework to make my life easier when creating webservices (their POJO style's are really cool and simple) and ActiveMQ to provide the messaging broker. All can be integrated within our tomcat instance. But,later I also have own more concern. I must not change too many configuration on currently running tomcat instance, since it runs stable right now. And also, user portal and backend integrations are 2 different thing. The users must not feel any <strong>'world wide wait'</strong> thing when the backend process works hard to full fill their request. So here I decided to install one more instance of application servers for integration needs. And after some browsing, I decide to install Glassfish V2.</p>
+<p>Why glassfish ? well, let's say, first I impressed with it's admin console. JBoss guys should really pay attention on this admin console. And secondly, I fall in love with it's support of WebServices. Glassfish support WebServices monitoring. Here I can monitor who called my webservices, on what time, what data sent, and what data returned. This is very useful when reconcile any lost datas. And the third part is, this Glassfish thing has a great messaging supports based on Sun's IMQ. I also browsed the net for this feature, and many guys out there recommends it. Last but not least, Glassfish V2 is JEE 5 compliance app.server (if not the RI itself). Creating WebServices, session EJB's and MDB's are easier with Annotations. Say good bye to deployment descriptor.</p>
+<p>Ok, that's my review, maybe I'll write more about this later.</p></div>
+
+        <div class="tags">
+            <p>This entry was tagged on  
+                <a href="http://blog.theprasojos.web.id/tag/.html">#</a></p>
+        </div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = "jprasojos";
+    var disqus_title = "Glassfish for Tomcat and WebMethods";
+    var disqus_url = "http://blog.theprasojos.web.id/2007/12/01/glassfish-for-tomcat-and-webmethods/";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
           </section>
        </div>

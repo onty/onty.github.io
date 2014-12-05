@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>About</title>
+    <title>Solaris, SNMP, and OpenNMS - JPrasojo's blog</title>
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -16,6 +16,7 @@
 
     <!-- newsfeeds -->
         <link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Full Atom Feed" />
+        <link href="http://blog.theprasojos.web.id/feeds/unixlinux.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Categories Atom Feed" />
 
     <!-- assets -->
     <!--[if lt IE 9]>
@@ -50,24 +51,46 @@
     <div class="grid grid-pad">
        <div id="left-side" class="col-8-12">
           <section id="content" class="hyphenate">
-    <h1>About</h1>
-    
 
-    <p>Hello there, Assalamu'alaikum.</p>
-<p>Here we present our new homepage on internet. This blog tells about&nbsp;our
-family, yes...we are <strong>The Prasojo's</strong>. In this blog, you will find our
-story. The story starts from the very beginning when two young people
-met, and decided to marry :), until now we already had a lovely
-daughter. Well, it's a little bit late to start though, since the store
-already began in 2007;that means 1 year a go. Well, the idea just came
-yesterday when me and my wife had a little night chat. Hey, maybe it's
-gonna be great to have a family blog. Just want to write and share our
-daily life to all. And later after all of our kids and daughter grow up,
-they can see history of their life on internet, and opens it every time
-they want. Great idea...and here we are, <strong>The Prasojo's</strong>..........</p>
-<p>We welcome you to our virtual house. Hope you all enjoy our writings,
-and hopefully shares the same happiness as we have here.</p>
+    <h1 class="title">Solaris, SNMP, and OpenNMS</h1>
 
+        <div class="date">
+            <p>written on Sun 03 June 2007
+            by <a rel="author" href="http://blog.theprasojos.web.id/pages/aboutme.html">Lintang JP</a></p>
+        </div>
+
+    <div class="clearboth"><p>These day, I explore about SNMP. After wikipedia-ing in <a href="http://en.wikipedia.org/wiki/Simple_Network_Management_Protocol">here</a>, I try to install one of the recomended software called OpenNMS. After tried the live demo, it looks cool. So I decided to download it in <a href="http://downloads.sourceforge.net/opennms/opennms-1.3.2-1-sol10-sparc-local.gz?modtime=1168971264&amp;big_mirror=0">here</a>.</p>
+<p>I followed all the installation step guide from <a href="http://www.opennms.org/documentation/InstallUnStable.html">here</a>. I also need to download and install the pre requisites package such as rrdtool, and the postgresql. Fortunately, blastwave.org has great tools called pkg-get, yeap, sounds familiar with you Debian users ? I also thought that only Nexenta OS has this such-thing tools, but now, all solaris distro can use this tools I guess, well, at least I tried that one and it works for Solaris in both Sparc and Intel machine.</p>
+<p>Ok, back to the tools. If we followed the step exactly, and goes to this step : install -dis, I got an error said that fail to load the iplike.so because libgcc_so.1 not found. That's some problem I usually got on linux box. If this is linux box, I just have to locate it, insert the path to /etc/ld.so.conf, and run the /sbin/ldconfig as root. But this is solaris box, cant do that, so, after googling, I found the crle command. I tried that to point the location for shared object files. Still no works. Howcome ? Dont ask me, it just doesnt work:p, So...again, googling, and found same problem in <a href="http://www.experts-exchange.com/Software/Server_Software/Web_Servers/Q_22464371.html">here</a>. So the problem will be solved by just copying the .so files to /usr/lib ? And, it works. This is weird, I alredy put the /usr/lib within the crle command like this :</p>
+<div class="highlight"><pre>-bash-3.00# crle -l /usr/local/lib:/usr/sfw/lib:/lib:/usr/lib/:/opt/opennms/lib:/usr/sfw/lib/gcc/sparc-sun-solaris2.10/3.4.3/
+</pre></div>
+
+
+<p>Ah, no idea, so I run the install -dis again, and this time it works.....</p>
+<p>Next, playing around with OpenNMS and try to setup the weblogic snmp agent to send trap message to the OpenNMS poller. We'll see....</p>
+<p>originally posted 4/11/07</p></div>
+
+        <div class="tags">
+            <p>This entry was tagged on  
+                <a href="http://blog.theprasojos.web.id/tag/.html">#</a></p>
+        </div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = "jprasojos";
+    var disqus_title = "Solaris, SNMP, and OpenNMS";
+    var disqus_url = "http://blog.theprasojos.web.id/2007/06/03/solaris-snmp-and-opennms/";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
           </section>
        </div>

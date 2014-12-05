@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>About</title>
+    <title>Apache Httpd and Tomcat integration using mod_jk, part 2 - JPrasojo's blog</title>
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -16,6 +16,7 @@
 
     <!-- newsfeeds -->
         <link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Full Atom Feed" />
+        <link href="http://blog.theprasojos.web.id/feeds/unixlinux.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Categories Atom Feed" />
 
     <!-- assets -->
     <!--[if lt IE 9]>
@@ -50,24 +51,126 @@
     <div class="grid grid-pad">
        <div id="left-side" class="col-8-12">
           <section id="content" class="hyphenate">
-    <h1>About</h1>
-    
 
-    <p>Hello there, Assalamu'alaikum.</p>
-<p>Here we present our new homepage on internet. This blog tells about&nbsp;our
-family, yes...we are <strong>The Prasojo's</strong>. In this blog, you will find our
-story. The story starts from the very beginning when two young people
-met, and decided to marry :), until now we already had a lovely
-daughter. Well, it's a little bit late to start though, since the store
-already began in 2007;that means 1 year a go. Well, the idea just came
-yesterday when me and my wife had a little night chat. Hey, maybe it's
-gonna be great to have a family blog. Just want to write and share our
-daily life to all. And later after all of our kids and daughter grow up,
-they can see history of their life on internet, and opens it every time
-they want. Great idea...and here we are, <strong>The Prasojo's</strong>..........</p>
-<p>We welcome you to our virtual house. Hope you all enjoy our writings,
-and hopefully shares the same happiness as we have here.</p>
+    <h1 class="title">Apache Httpd and Tomcat integration using mod_jk, part 2</h1>
 
+        <div class="date">
+            <p>written on Sun 03 June 2007
+            by <a rel="author" href="http://blog.theprasojos.web.id/pages/aboutme.html">Lintang JP</a></p>
+        </div>
+
+    <div class="clearboth"><p>This posting splitted because somehow blogspot just cut it. I don't know why but when I previewed the posting, blogspot just cut the postings, so I splitted it into 2 parts.</p>
+<p>Ok, now we create workers.properties file.</p>
+<div class="highlight"><pre>onty@phoenix:/opt/httpd-2.2.4$ vi conf/workers.properties
+\------------------------------------------------------------------------------------
+worker.list=router,jkstatus
+# Define a worker using ajp13
+worker.worker1.port=8009
+worker.worker1.host=localhost
+worker.worker1.type=ajp13
+worker.worker1.lbfactor=1
+# Define prefered failover node for worker1
+worker.worker1.redirect=worker2
+# Define another worker using ajp13
+worker.worker2.port=8009
+worker.worker2.host=localhost
+worker.worker2.type=ajp13
+worker.worker2.lbfactor=1
+
+# Define the LB worker
+worker.router.type=lb
+worker.router.balance_workers=worker1,worker2
+# Define the status worker
+worker.jkstatus.type=status
+
+\------------------------------------------------------------------------------------
+</pre></div>
+
+
+<p>This file defines all our workers. Our 'router' worker will be a load balancer worker for other workers, including worker1 and worker2.</p>
+<p>Now, we install (unzip, exactly) our apache. We use apache-5.2.23. We will modify the directory structure little bit, as shown like this.</p>
+<p><img alt="" src="http://bp0.blogger.com/_02IFrF9Xz98/RmKTVamjjKI/AAAAAAAABkI/CptR2eLPrpA/s320/opt-structure.png" />
+Give attention to tomcat1 and tomcat2 directory, and also directories inside it.We will use 2 instance of tomcat1 and tomcat2 as worker 'worker1' and 'worker2'. We also need to configure each server.xml in tomcat1 and tomcat2 so that they're not using the same port.</p>
+<div class="highlight"><pre><span class="n">Tomcat1</span> <span class="o">:</span>
+<span class="n">Server</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;8005&quot;</span> <span class="n">shutdown</span><span class="o">=</span><span class="s2">&quot;SHUTDOWN&quot;</span>
+<span class="o">..</span>
+<span class="o">..</span>
+<span class="n">Connector</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;8009&quot;</span>
+<span class="n">enableLookups</span><span class="o">=</span><span class="s2">&quot;false&quot;</span> <span class="n">redirectPort</span><span class="o">=</span><span class="s2">&quot;8443&quot;</span> <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;AJP/1.3&quot;</span>
+<span class="o">..</span>
+<span class="o">..</span>
+
+<span class="n">Connector</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;8080&quot;</span> <span class="n">maxHttpHeaderSize</span><span class="o">=</span><span class="s2">&quot;8192&quot;</span>
+<span class="n">maxThreads</span><span class="o">=</span><span class="s2">&quot;150&quot;</span> <span class="n">minSpareThreads</span><span class="o">=</span><span class="s2">&quot;25&quot;</span> <span class="n">maxSpareThreads</span><span class="o">=</span><span class="s2">&quot;75&quot;</span>
+<span class="n">enableLookups</span><span class="o">=</span><span class="s2">&quot;false&quot;</span> <span class="n">redirectPort</span><span class="o">=</span><span class="s2">&quot;8443&quot;</span> <span class="n">acceptCount</span><span class="o">=</span><span class="s2">&quot;100&quot;</span>
+<span class="n">connectionTimeout</span><span class="o">=</span><span class="s2">&quot;20000&quot;</span> <span class="n">disableUploadTimeout</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+
+<span class="n">Tomcat2</span> <span class="o">:</span>
+<span class="n">Server</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;9005&quot;</span> <span class="n">shutdown</span><span class="o">=</span><span class="s2">&quot;SHUTDOWN&quot;</span>
+<span class="o">..</span>
+<span class="o">..</span>
+<span class="n">Connector</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;9009&quot;</span>
+<span class="n">enableLookups</span><span class="o">=</span><span class="s2">&quot;false&quot;</span> <span class="n">redirectPort</span><span class="o">=</span><span class="s2">&quot;8443&quot;</span> <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;AJP/1.3&quot;</span>
+<span class="o">..</span>
+<span class="o">..</span>
+
+<span class="n">Connector</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;8080&quot;</span> <span class="n">maxHttpHeaderSize</span><span class="o">=</span><span class="s2">&quot;8192&quot;</span>
+<span class="n">maxThreads</span><span class="o">=</span><span class="s2">&quot;150&quot;</span> <span class="n">minSpareThreads</span><span class="o">=</span><span class="s2">&quot;25&quot;</span> <span class="n">maxSpareThreads</span><span class="o">=</span><span class="s2">&quot;75&quot;</span>
+<span class="n">enableLookups</span><span class="o">=</span><span class="s2">&quot;false&quot;</span> <span class="n">redirectPort</span><span class="o">=</span><span class="s2">&quot;8443&quot;</span> <span class="n">acceptCount</span><span class="o">=</span><span class="s2">&quot;100&quot;</span>
+<span class="n">connectionTimeout</span><span class="o">=</span><span class="s2">&quot;20000&quot;</span> <span class="n">disableUploadTimeout</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+</pre></div>
+
+
+<p>One more thing, we need to create startup and shutdown file for each tomcat instance. We call it start1.sh, start2.sh, stop1.sh, stop2.sh</p>
+<div class="highlight"><pre>start1.sh
+#!/bin/bash
+export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat1
+export JAVA_HOME=/opt/jdk1.6.0
+./startup.sh
+start2.sh
+#!/bin/bash
+export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat2
+export JAVA_HOME=/opt/jdk1.6.0
+./startup.sh
+stop1.sh
+#!/bin/bash
+export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat1
+export JAVA_HOME=/opt/jdk1.6.0
+./shutdown.sh
+stop2.sh
+#!/bin/bash
+export CATALINA_BASE=/opt/apache-tomcat-5.5.23-cluster/tomcat2
+export JAVA_HOME=/opt/jdk1.6.0
+./shutdown.sh
+</pre></div>
+
+
+<p>Basically, these file just aimed to setup environment variable named CATALINA_BASE to point which tomcat instance we want to start/stop.</p>
+<p>Now, lets try our installation. Start both tomcat instance, and also start your httpd server. Point out the browser to http://localhost/tomcat-docs/ and see if the request handled correctly. Httpd will redirect the request so that can be served by tomcat. Also point the browser to http://localhost/jkmanager/. This context path shows us the Load Balancing status for our tomcat instance.</p>
+<p>Feel free to drop any comments about this posting.
+Thanks, good luck trying !</p></div>
+
+        <div class="tags">
+            <p>This entry was tagged on  
+                <a href="http://blog.theprasojos.web.id/tag/.html">#</a></p>
+        </div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = "jprasojos";
+    var disqus_title = "Apache Httpd and Tomcat integration using mod_jk, part 2";
+    var disqus_url = "http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-2/";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
           </section>
        </div>

@@ -1,123 +1,116 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="">	
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="author" content="Lintang JP" />
-    <meta name="robots" content="index, follow"/>
+	<meta charset="utf-8"/>
+	<title>Ngabuburit dengan PHP - JPrasojo's blog</title>	
+	<meta name="author" content="Lintang JP">
+	
 
-    <meta property="og:title" content="Ngabuburit dengan PHP"/>
-    <meta property="og:url" content="/ngabuburit-dengan-php.html"/>
-    <meta property="og:site_name" content="JPrasojo's blog"/>
-    <meta property="og:type" content="article"/>
+  <meta name="description" content="Assalamu'alaikum ... hari minggu, lagi nunggu buka di kantor, sambil nunggu burning suse ma xandros desktop, bosan mau ngapain, jadi ngisi blog deh. mau cerita tentang PHP, one of the most powerfull programming language in the web environments.di project yg sekarang, aku make php dan xml (ini sih mungkin ...">
 
-    <link rel="canonical" href="/ngabuburit-dengan-php.html" />
 
-    <title>Ngabuburit dengan PHP | JPrasojo's blog</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+	  <script type="text/javascript" src="/theme/js/custom_scripts.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="/theme/css/main.css" />
 
-    <script type="text/javascript">var switchTo5x=true;</script>
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript">
-        stLight.options({
-            publisher: "",
-            doNotHash: false,
-            doNotCopy: false,
-            hashAddressBar: false
-        });
-    </script>
 </head>
+	
+<body>
 
-<body id="index">
-    <div class="row-fluid">
-        <div class="span10 offset1">
-            <header id="banner" >
-                <h1>
-                    <a href="/">JPrasojo's blog </a>
-                </h1>
-                <nav class="navbar">
-                    <div class="navbar-inner">
-                        <ul class="nav">
-                            <li ><a href="/pages/hello-world.html">About</a></li>
-                            <li ><a href="/category/family.html">Family</a></li>
-                            <li ><a href="/category/java.html">Java</a></li>
-                            <li class="active"><a href="/category/renungan.html">Renungan</a></li>
-                            <li ><a href="/category/telco.html">Telco</a></li>
-                            <li ><a href="/category/travelling.html">Travelling</a></li>
-                            <li ><a href="/category/unixlinux.html">Unix/Linux</a></li>
-                        </ul>
-
-                    </div>
-                </nav>
-            </header><!-- /#banner -->
-        </div>
-    </div>
-
-    <div class="row-fluid">
-        <div class="span10 offset1">
-            <div class="row-fluid">
-<div class="span10 offset1">
-  <section>
-    <article>
-      <header>
-        <h1 class="entry-title">
-          <a href="/ngabuburit-dengan-php.html" rel="bookmark"
-             title="Permalink to Ngabuburit dengan PHP">Ngabuburit dengan PHP</a></h1>
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+	      <nav class="pages">
+			  <a href="/pages/hello-world.html">About</a>
+	      </nav>
+		<a href="" class="title">JPrasojo's blog</a>
       </header>
-      <div class="entry-content">
-<footer class="post-info">
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>Ngabuburit dengan PHP</h1>
+		
+<div class="metadata">
+  <time datetime="2004-10-04T17:49:00+01:00" pubdate>Mon 04 October 2004</time>
     <address class="vcard author">
-        by <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
+      by <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
     </address>
-
-    in <a href="/category/renungan.html">Renungan</a>
-
-    on 2004-10-04
-
-        |
-        tags:         <a href="/tag/.html"></a>
-
-
-
-    
-</footer><!-- /.post-info -->
-
-        <p>Assalamu'alaikum ...</p>
+  in <a href="/category/renungan.html">Renungan</a>
+<p class="tags">tagged <a href="/tag/.html"></a></p></div>		
+		<p>Assalamu'alaikum ...</p>
 <p>hari minggu, lagi nunggu buka di kantor, sambil nunggu burning suse ma xandros desktop, bosan mau ngapain, jadi ngisi blog deh. mau cerita tentang PHP, one of the most powerfull programming language in the web environments.di project yg sekarang, aku make php dan xml (ini sih mungkin biasa ya),mbikin monitoring tools(baca:kulit) buat aplikasi sms gateway nya kannel.benernya kannel dah nyediain sih, interface cgi mereka, namun biar bisa dijual, kayaknya interface yg mereka sediain gak cukup "menarik", makanya php datang sebagai pahlawan bertopeng :p. Tau kan, di kannel mereka nge bind port tertentu buat monitoring sms gateway mereka, kalo disini sih port 13000, tergantug settingan adminport di kannel.conf nya.Nah, tantangannya adalah bagaimana informasi status gateway yg update tiap detik tuh bisa diterima langsung di klien tanpa halaman web yg dibangun tuh "berkedip", you know, blinking, kalo kita ngerefresh halamannya kan jelek, masak tiap detik refresh. Nah, untuk yg satu ini, salut deh buat microsoft, yg, harus diakui, bener bener paling bagus ngimplementasiin XML di browser mereka. Dengan javascript timer, dan microsoft XMLHTTP, it's done, jadi deh. Jadi ceritanya tuh, kita tetep ngupdate info, narik ke client lewat browser, tapi nggak dengan cara ngerefresh satu halaman. Untuk monitoring seperti ini, kan informasinya harus realtime, berarti butuh koneksi terus menerus antara klien dengan server kannel. Kalo lewat web, setiap kita minta koneksi ke server, kan selanjutnya udah, putus, walaupun masih ada objek session, tapi gak ada gunanya, soalnya kita bener bener minta info yg terbaru dari server. Jadi, konsepnya, kita tetep minta info ke server tiap detik, via javascript timer dan XMLHTTP tadi, tapi lewat "jalan belakang, dimana user juga gak tau bahwa web browsernya sedang ngerequest halaman terus menerus ke server, yg mereka tau ada tulisan berisi status yg keupdate terus di layar mereka. Kalo di mozilla, entahlah, belum tau. YG jelas, implementasi XML Data Island di Mozilla gak sebagus dan semudah punya Microsoft (omongan jujur dari pecinta linux :p ).</p>
 <p>Selain itu, aku juga make php buat generate report dengan format excel dan pdf, bikin chart juga dengan library jpgraph. Agar php support format pdf, harus download dulu library dari pdflib, setelah itu, untuk memulai, ada library/class php bagus milik fpdf di http://www.fpdf.org, cool, kita bisa masukin gambar juga di pdf kita.</p>
 <p>Masalah lain ada pada waktu generate pdf.Kan di aplikasi web itu aku juga bikin graph chart dari library jpgraph gd, file yg terbentuk kan berasal dari php, jadi nggak murni file grafik, cuman di set content-type nya berupa grafik. Ehh, si fpdf nggak mau, errornya bilang, bahwa file grafik hasil generate dari php itu nggak ditemukan. Hmm, pusing juga, padahal path nya bener loh. Akhirnya aku ngoprek lagi tuh jpgraph, sampai pada settingan dimana jpgraph mendukung cache, jadi file hasil generate tadi bisa disimpan sebagai cache berbentuk FILE ASLI bertipe...macem macem sih, kebetulan punyaku berformat png, ya udah deh, tinggal set pdfnya supaya ngambil gambar dari file asli di direktori cache tadi, beres...</p>
-<p>eh, dah dulu yak, dah buka nih....mau cari minum dulu di pantry, bye,.....</p>
+<p>eh, dah dulu yak, dah buka nih....mau cari minum dulu di pantry, bye,.....</p>	
 
-      </div><!-- /.entry-content -->
+	</article>
 
-    </article>
-  </section>
-</div>
-            </div>
-        </div>
-    </div>
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
 
-    <footer id="site-footer">
-        <div class="row-fluid">
-            <div class="span10 offset1">
-                <address>
-                    <p>
-                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                    </p>
-                    <p>
-                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
-                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
-                    </p>
-                </address>
-            </div>
-        </div>
-    </footer>
 
-    <script src="//code.jquery.com/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" id="sidebar-container-fixed">
+
+	            <aside>
+	              <h2>About</h2>
+			      <p>
+                    Just an ordinary telecom engineer, working for Online Charging System..
+			      </p>
+			    </aside>
+
+  	          <nav>
+	            <h2>Categories</h2>
+	            <ul>
+	                <li ><a href="/category/java.html">Java</a></li>
+	                <li class="active"><a href="/category/renungan.html">Renungan</a></li>
+	                <li ><a href="/category/telco.html">Telco</a></li>
+	                <li ><a href="/category/unixlinux.html">Unix/Linux</a></li>
+	            </ul>
+	          </nav>
+
+	            <aside>
+	            <h2>Social</h2>
+			      <ul class="social">
+				    <li><a href="https://twitter.com/jprasojo">Twitter</a><i></i></li>
+				    <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a><i></i></li>
+			      </ul>
+			    </aside>
+
+	            <aside>
+	              <h2>Blogroll</h2>
+	              <ul>
+	                  <li><a href="http://getpelican.com/">Pelican</a></li>
+	                  <li><a href="http://travel.theprasojos.web.id">My Travelling Logs</a></li>
+	                  <li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
+	                  <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+	              </ul>
+	            </aside>
+	        </div>
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  Lintang JP - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
 </body>
 </html>

@@ -1,60 +1,119 @@
-<!doctype html>
-<html lang="">	
-<head>
-	<meta charset="utf-8"/>
-	<title>Solaris Jumpstart on Linux - JPrasojo's blog</title>	
-	<meta name="author" content="Lintang JP">
-	
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="Intro : - Linux, Debian based (mine: Lenny), hostname : pegasus, act as the Solaris jumpstart server. - Solaris, Solaris 10, hostname: solclient, will be the machine to be installed. - IP addresses range 192.168.10.x (class C), make sure you use standard network class IP, this is where the standard broadcast address ...">
+    <title>  Solaris Jumpstart on Linux
+ | JPrasojo's blog</title>
+
+    <meta name="author" content="Lintang JP"/>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"/>
+    <link rel="stylesheet" href="/theme/css/jquery.mglass.css"/>
+    <link rel="stylesheet" href="/theme/css/pygment-solarized-dark.css"/>
+    <link rel="stylesheet" href="/theme/css/style.css"/>
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'/>
 
 
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
-	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-		
+    <!-- Feeds -->
 
 
-</head>
-	
-<body>
+  </head>
+
+  <body>
 
     <div class="container">
-	  
-	  <header role="banner">
-	    <div class="feeds">
-	    </div>
-	      <nav class="pages">
-			  <a href="/pages/hello-world.html">About</a>
-	      </nav>
-		<a href="" class="title">JPrasojo's blog</a>
-      </header>
-	
-	  <div class="wrapper">
 
-		  <div role="main" class="content">
-	<article class="full">
-		
-		<h1>Solaris Jumpstart on Linux</h1>
-		
-<div class="metadata">
-  <time datetime="2010-08-10T00:00:00+01:00" pubdate>Tue 10 August 2010</time>
-    <address class="vcard author">
-      by <a class="url fn" href="/author/lintang-jp.html">Lintang JP</a>
-    </address>
-  in <a href="/category/unixlinux.html">Unix/Linux</a>
-<p class="tags">tagged <a href="/tag/jumpstart-unix-linux-stuff-solaris.html">jumpstart Unix Linux stuff solaris</a></p></div>		
-		<p><strong><em>Intro :</em></strong>
+      <div class="page-header">
+        <h1><a href="">JPrasojo's blog</a> <small></small></h1>
+      </div>
+
+      <nav class="navbar navbar-default">
+
+        <!-- Hamburger menu for mobile -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#plumage-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="" title="">JPrasojo's blog</a>
+        </div>
+
+        <!-- Menus and search forms -->
+        <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
+
+          <ul class="nav navbar-nav">
+<li >
+                  <a href="/pages/hello-world.html">About</a>
+                </li>
+<li >
+                  <a href="/category/java.html">Java</a>
+                </li>
+<li >
+                  <a href="/category/renungan.html">Renungan</a>
+                </li>
+<li >
+                  <a href="/category/telco.html">Telco</a>
+                </li>
+<li  class="active" >
+                  <a href="/category/unixlinux.html">Unix/Linux <span class="sr-only">(current)</span></a>
+                </li>
+          </ul>
+
+
+
+        </div>
+
+      </nav>
+
+    </div>
+
+
+    <div class="container main">
+
+
+      <div class="row">
+        <div class=" col-md-9  ">
+  <h1>
+    <a href="/solaris-jumpstart-on-linux.html" rel="bookmark" title="Permalink to Solaris Jumpstart on Linux">Solaris Jumpstart on Linux</a>
+  </h1>
+        </div>
+      </div>
+
+      <div class="row">
+
+
+        <div class=" col-md-9 " id="content" role="main">
+  
+
+  <div>
+    <p><strong><em>Intro :</em>
+</strong>
 - Linux, Debian based (mine: Lenny), hostname : pegasus, act as the Solaris jumpstart server.
 - Solaris, Solaris 10, hostname: solclient, will be the machine to be installed.
 - IP addresses range 192.168.10.x (class C), make sure you use standard network class IP, this is where the standard broadcast address (192.168.10.255) comes into play during arp broadcast.
 - solclient will broadcast arp request, replied by pegasus's rarpd, and then and IP address will be assigned. solclient will then download the minimum kernel using tftp. The kernel file name will be the ip address of the solclient. For example, if the assigned IP is 192.168.10.5, and then the kernel name will be C0A80A05. Another way is to use this command:</p>
-<div class="highlight"><pre>elinpra@pegasus &gt; printf &quot;XXXXn&quot; 192 168 10 5
+<div class="highlight"><pre><span></span>elinpra@pegasus &gt; printf &quot;XXXXn&quot; 192 168 10 5
 C0A80A05
 </pre></div>
 
 
 <p>This file should be stored inside the root directory of tftp. Check the tftp setting on <strong>/etc/inetd.conf</strong>. Here is mine:</p>
-<div class="highlight"><pre>elinpra@pegasus &gt; cat /etc/inetd.conf
+<div class="highlight"><pre><span></span>elinpra@pegasus &gt; cat /etc/inetd.conf
 tftp dgram udp4 wait nobody /usr/sbin/tcpd /usr/sbin/in.tftpd /srv/tftp/
 </pre></div>
 
@@ -62,18 +121,18 @@ tftp dgram udp4 wait nobody /usr/sbin/tcpd /usr/sbin/in.tftpd /srv/tftp/
 <p>Then, the file C0A80A05 should be put in<strong> /srv/tftp</strong>.</p>
 <p>Steps :</p>
 <p>1. Install bootparamd, rarpd, tftpd and nfs-kernel-server in Linux server (pegasus)</p>
-<div class="highlight"><pre>root@pegasus &gt; apt-get install bootparamd rarpd tftpd nfs-kernel-server
+<div class="highlight"><pre><span></span>root@pegasus &gt; apt-get install bootparamd rarpd tftpd nfs-kernel-server
 </pre></div>
 
 
 <p>2. Run iptables -F, make sure no firewall in Linux server</p>
-<div class="highlight"><pre>root@pegasus &gt; iptables -F
+<div class="highlight"><pre><span></span>root@pegasus &gt; iptables -F
 </pre></div>
 
 
 <p>3. Check the mac address of the solaris client.
 Try boot from {ok}, see the mac address during booting (if the system is currently up, go to init 0 mode) :</p>
-<div class="highlight"><pre>ok boot net
+<div class="highlight"><pre><span></span>ok boot net
 
 Resetting ...
 LOM event: 56d 21h39m43s host reset
@@ -88,69 +147,69 @@ Back to lom&gt; or sc&gt; using &#39;break&#39; command.
 
 
 <p>4. Set <strong>/etc/ethers</strong> and <strong>/etc/hosts</strong> in Linux server with the mac address and hostname of the solaris client.</p>
-<div class="highlight"><pre>elinpra@pegasus &gt; echo &quot;0:3:ba:b0:b1:71 solclient&quot; &gt;&gt; /etc/ethers
+<div class="highlight"><pre><span></span>elinpra@pegasus &gt; echo &quot;0:3:ba:b0:b1:71 solclient&quot; &gt;&gt; /etc/ethers
 elinpra@pegasus &gt; echo &quot;192.168.10.5 solclient&quot; &gt;&gt; /etc/hosts
 </pre></div>
 
 
 <p>5. Start the rarpd if has not started yet.( I’m using debian based linux here )</p>
-<div class="highlight"><pre>root@pegasus &gt; /etc/init.d/rarpd start
+<div class="highlight"><pre><span></span>root@pegasus &gt; /etc/init.d/rarpd start
 </pre></div>
 
 
 <p>6. If you're installing using Solaris iso file, mount the iso file to a directory using the following command, otherwise if using Solaris CD/DVD, directly go to step 8:</p>
-<div class="highlight"><pre>root@pegasus &gt; mkdir -p /mnt/sol10
+<div class="highlight"><pre><span></span>root@pegasus &gt; mkdir -p /mnt/sol10
 root@pegasus &gt; mount -o loop solaris_iso_file.iso /mnt/sol10
 root@pegasus &gt; cd /mnt/sol10
 </pre></div>
 
 
 <p>7. If you have the Solaris 10 CD, insert it on pegasus, do the following steps :</p>
-<div class="highlight"><pre>root@pegasus &gt; cd /mnt/cdrom/ (to your solaris cdrom directory)
+<div class="highlight"><pre><span></span>root@pegasus &gt; cd /mnt/cdrom/ (to your solaris cdrom directory)
 </pre></div>
 
 
 <p>8. Find the suitable kernel for your machine type. Mine is SunFire v120, so it will be sun4u type. If your hardware is T5220, T2000 etc then you need sun4v kernel.
 Locate the kernel on directory Solaris_10/Tools/Boot/platform/sun4u/inetboot for sun4u, or Solaris_10/Tools/Boot/platform/sun4v/inetboot for sun4v.
 Copy it to <strong>/srv/tftp</strong> and make symbolic link to that file into C0A80A05.</p>
-<div class="highlight"><pre>root@pegasus &gt; cp inetboot /srv/tftp
+<div class="highlight"><pre><span></span>root@pegasus &gt; cp inetboot /srv/tftp
 root@pegasus &gt; ln -s /srv/tftp/inetboot /srv/tftp/C0A80A05
 </pre></div>
 
 
 <p>9. Start tftpd daemon in pegasus :</p>
-<div class="highlight"><pre>root@pegasus &gt; /etc/init.d/openbsd-inetd restart
+<div class="highlight"><pre><span></span>root@pegasus &gt; /etc/init.d/openbsd-inetd restart
 </pre></div>
 
 
 <p>10. start nfs service in pegasus :</p>
-<div class="highlight"><pre>root@pegasus &gt; /etc/init.d/nfs-kernel-server start
+<div class="highlight"><pre><span></span>root@pegasus &gt; /etc/init.d/nfs-kernel-server start
 </pre></div>
 
 
 <p>11. Prepare nfs mount so that solclient later on can download the entire installation package using nfs mount. Set the mount root into where the cdrom or iso files are mounted. Make sure that the nfs mount root from solclient is /sol10.</p>
-<div class="highlight"><pre>root@pegasus &gt; exportfs *:/mnt/cdrom -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync exportfs *:/mnt -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync 
+<div class="highlight"><pre><span></span>root@pegasus &gt; exportfs *:/mnt/cdrom -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync exportfs *:/mnt -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync 
 </pre></div>
 
 
 <p>Check if the nfs shares can be mounted correctly.</p>
-<div class="highlight"><pre>root@pegasus &gt; mount -t nfs4 pegasus:/sol10 /tmp/somewhere
+<div class="highlight"><pre><span></span>root@pegasus &gt; mount -t nfs4 pegasus:/sol10 /tmp/somewhere
 </pre></div>
 
 
 <p>Verify in your mount list:</p>
-<div class="highlight"><pre>root@pegasus &gt; df -kh 
+<div class="highlight"><pre><span></span>root@pegasus &gt; df -kh 
 </pre></div>
 
 
 <p>Go to /tmp/somewhere, and make sure there’s a directory called sol10/, if not, then the nfs root stil wrong. </p>
 <p>13. Configure bootparams in /etc/bootparams, fill in this entry: </p>
-<div class="highlight"><pre>solclient root=pegasus:/sol10/Solaris_10/Tools/Boot install=pegasus:/sol10/ boottype=:in 
+<div class="highlight"><pre><span></span>solclient root=pegasus:/sol10/Solaris_10/Tools/Boot install=pegasus:/sol10/ boottype=:in 
 </pre></div>
 
 
 <p>14. You might want to see what's happen in your pegasus using tcpdump: </p>
-<div class="highlight"><pre><span class="n">root</span><span class="nv">@pegasus</span> &gt; <span class="n">tcpdump</span> -<span class="n">i</span> <span class="n">eth0</span> 
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span> &gt; <span class="n">tcpdump</span> -<span class="n">i</span> <span class="n">eth0</span> 
 <span class="n">tcpdump:</span> <span class="n">verbose</span> <span class="n">output</span> <span class="n">suppressed</span>, <span class="k">use</span> -<span class="n">v</span> <span class="o">or</span> -<span class="n">vv</span> <span class="k">for</span> <span class="n">full</span> <span class="n">protocol</span> <span class="n">decode</span> 
 <span class="n">listening</span> <span class="n">on</span> <span class="n">eth0</span>, <span class="n">link-type</span> <span class="n">EN10MB</span> (<span class="n">Ethernet</span>), <span class="n">capture</span> <span class="n">size</span> <span class="mi">96</span> <span class="nb">bytes</span> 
 <span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">16.385289</span> <span class="n">arp</span> <span class="n">who-has</span> <span class="n">osol1</span> (<span class="n">Broadcast</span>) <span class="n">tell</span> <span class="n">osol1</span> 
@@ -179,7 +238,7 @@ root@pegasus &gt; ln -s /srv/tftp/inetboot /srv/tftp/C0A80A05
 
 
 <p>15. Boot your solclient from ok prompt: </p>
-<div class="highlight"><pre><span class="n">ok</span> <span class="n">boot</span> <span class="n">net</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span> <span class="n">install</span> 
+<div class="highlight"><pre><span></span><span class="n">ok</span> <span class="n">boot</span> <span class="n">net</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span> <span class="n">install</span> 
 <span class="n">Boot</span> <span class="nl">device</span><span class="p">:</span> <span class="o">/</span><span class="n">pci</span><span class="mf">@1f</span><span class="p">,</span><span class="mi">0</span><span class="o">/</span><span class="n">pci</span><span class="mi">@1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">network</span><span class="p">@</span><span class="n">c</span><span class="p">,</span><span class="mi">1</span> <span class="n">File</span> <span class="n">and</span> <span class="nl">args</span><span class="p">:</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span> <span class="n">install</span> 
 <span class="mi">3</span><span class="n">a000</span> <span class="n">Using</span> <span class="n">RARP</span><span class="o">/</span><span class="n">BOOTPARAMS</span><span class="p">...</span> 
 <span class="n">Internet</span> <span class="n">address</span> <span class="nl">is</span><span class="p">:</span> <span class="mf">192.168.10.5</span> 
@@ -311,69 +370,125 @@ root@pegasus &gt; ln -s /srv/tftp/inetboot /srv/tftp/C0A80A05
 <span class="mf">9.</span> <span class="n">Traditional</span> <span class="n">Chinese</span> 
 
 <span class="n">Please</span> <span class="n">make</span> <span class="n">a</span> <span class="n">choice</span> <span class="p">(</span><span class="mi">0</span> <span class="o">-</span> <span class="mi">9</span><span class="p">),</span> <span class="n">or</span> <span class="n">press</span> <span class="n">h</span> <span class="n">or</span> <span class="o">?</span> <span class="k">for</span> <span class="nl">help</span><span class="p">:</span> 
-</pre></div>	
-
-	</article>
-
-    <p>
-	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
-	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-	</p>
+</pre></div>
+  </div>
 
 
-		  </div>	
-		  
-		  <div class="sidebar">
-		    <div class="sidebar-container" >
 
-	            <aside>
-	              <h2>About</h2>
-			      <p>
-                    Just an ordinary telecom engineer, working for Online Charging System..
-			      </p>
-			    </aside>
+        </div>
 
-  	          <nav>
-	            <h2>Categories</h2>
-	            <ul>
-	                <li ><a href="/category/java.html">Java</a></li>
-	                <li ><a href="/category/renungan.html">Renungan</a></li>
-	                <li ><a href="/category/telco.html">Telco</a></li>
-	                <li class="active"><a href="/category/unixlinux.html">Unix/Linux</a></li>
-	            </ul>
-	          </nav>
+          <div class="col-md-3">
+  <div class="well">
 
-	            <aside>
-	            <h2>Social</h2>
-			      <ul class="social">
-				    <li><a href="https://twitter.com/jprasojo">Twitter</a><i></i></li>
-				    <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a><i></i></li>
-			      </ul>
-			    </aside>
+    <p><abbr title="2010-08-10T00:00:00+01:00"><i class="fa fa-calendar"></i> Tue 10 August 2010</abbr></p>
 
-	            <aside>
-	              <h2>Blogroll</h2>
-	              <ul>
-	                  <li><a href="http://getpelican.com/">Pelican</a></li>
-	                  <li><a href="http://travel.theprasojos.web.id">My Travelling Logs</a></li>
-	                  <li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
-	                  <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
-	              </ul>
-	            </aside>
-	        </div>
-		  </div>
+      <p><address>
+        <i class="fa fa-user"></i> By
+          <a href="/author/lintang-jp.html" rel="author">Lintang JP</a>
+      </address></p>
 
-	  </div>
+    <hr/>
 
-      <footer>
-		<p role="contentinfo">
-		  Lintang JP - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
-    	</p>
+      <p>
+              <a href="/category/unixlinux.html" rel="tag"
+                  data-toggle="tooltip" class="label label-info"
+                  title="14 articles in this category">Unix/Linux</a>
+            <a href="/tag/jumpstart-unix-linux-stuff-solaris.html" data-toggle="tooltip"
+      class="label label-default"
+      title="1 article with this tag">jumpstart Unix Linux stuff solaris</a>
+      </p>
+      <hr/>
 
-	  </footer>	
 
-	</div>
-	
 
-</body>
+  </div>
+            
+          </div>
+
+      </div>
+
+    </div>
+
+    <!-- TODO: make footer sticky -->
+    <footer class="container-fluid">
+      <div class="container">
+        <div class="row">
+
+            <div class="col-md-2">
+                <h5>Social</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="https://twitter.com/jprasojo">
+      <i class="fa fa-twitter"></i>
+    Twitter
+  </a></li>
+                  <li>  <a href="https://www.linkedin.com/in/lintangprasojo">
+      <img src="https://icons.better-idea.org/icon?url=www.linkedin.com&size=16" width="16" height="16" class="icon" alt="www.linkedin.com icon"/>
+    Linkedin
+  </a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Links</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="http://getpelican.com/">
+      <img src="https://icons.better-idea.org/icon?url=getpelican.com&size=16" width="16" height="16" class="icon" alt="getpelican.com icon"/>
+    Pelican
+  </a></li>
+                  <li>  <a href="http://travel.theprasojos.web.id">
+      <img src="https://icons.better-idea.org/icon?url=travel.theprasojos.web.id&size=16" width="16" height="16" class="icon" alt="travel.theprasojos.web.id icon"/>
+    My Travelling Logs
+  </a></li>
+                  <li>  <a href="https://vhynaulia.wordpress.com/">
+      <img src="https://icons.better-idea.org/icon?url=vhynaulia.wordpress.com&size=16" width="16" height="16" class="icon" alt="vhynaulia.wordpress.com icon"/>
+    Blognya TePot
+  </a></li>
+                  <li>  <a href="http://theprasojos.wordpress.com">
+      <img src="https://icons.better-idea.org/icon?url=theprasojos.wordpress.com&size=16" width="16" height="16" class="icon" alt="theprasojos.wordpress.com icon"/>
+    Theprasojos Family
+  </a></li>
+                </ul>
+            </div>
+
+          <div class="col-md-2">
+            <h5>Browse content by</h5>
+            <ul class="list-unstyled">
+            </ul>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Copyright notice</h5>
+            <p>© Copyright 2004-2014 Lintang JP.</p>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Disclaimer</h5>
+              <p>All opinions expressed in this site are my own personal opinions and are not endorsed by, nor do they represent the opinions of my previous, current and future employers or any of its affiliates, partners or customers.</p>
+          </div>
+
+          <div class="col-md-2">
+          </div>
+
+        </div>
+      </div>
+
+      <h5 class="text-right"><a href="#"><i class="fa fa-arrow-up"></i> Back to top</a></h5>
+
+      <div class="container">
+        <div class="row col-md-12 text-muted text-center">
+          Site generated by <a href="https://getpelican.com"> Pelican</a>.<br/>
+          <a href="https://github.com/kdeldycke/plumage"> Plumage</a> theme by <a href="https://kevin.deldycke.com">Kevin Deldycke</a>.
+        </div>
+      </div>
+
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+    <script src="/theme/js/jquery.mglass.js"></script>
+    <script src="/theme/js/application.js"></script>
+
+  </body>
 </html>

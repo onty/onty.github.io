@@ -1,326 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+    <title>  Unix/Linux
+ | JPrasojo's blog</title>
 
-        <title>JPrasojo's blog - Articles in the Unix/Linux category</title>
+    <meta name="author" content="Lintang JP"/>
 
-            <link href="http://blog.theprasojos.web.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Full Atom Feed" />
-            <link href="http://blog.theprasojos.web.id/feeds/unixlinux.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo's blog Categories Atom Feed" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"/>
+    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/jquery.mglass.css"/>
+    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/pygment-solarized-dark.css"/>
+    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/style.css"/>
 
-        <!-- Bootstrap Core CSS -->
-        <link href="http://blog.theprasojos.web.id/theme/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="http://blog.theprasojos.web.id/theme/css/clean-blog.min.css" rel="stylesheet">
-
-        <!-- Code highlight color scheme -->
-            <link href="http://blog.theprasojos.web.id/theme/css/code_blocks/darkly.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'/>
 
 
-        <!-- Custom Fonts -->
-        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="icon" href="http://theprasojos.blogs.or.id/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="http://theprasojos.blogs.or.id/favicon.ico" type="image/x-icon">
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <!-- Feeds -->
+      <link href="http://theprasojos.blogs.or.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo&#39;s blog - All posts - Atom Feed"/>
+      <link href="http://theprasojos.blogs.or.id/feeds/unixlinux.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo&#39;s blog - Category: Unix/Linux - Atom Feed"/>
 
-		<meta property="og:locale" content="en">
-		<meta property="og:site_name" content="JPrasojo's blog">
-</head>
 
-<body>
+  </head>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="http://blog.theprasojos.web.id/">JPrasojo's blog</a>
-            </div>
+  <body>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-
-                            <li><a href="http://blog.theprasojos.web.id/pages/hello-world.html">About</a></li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('http://blog.theprasojos.web.id/theme/images/home-bg.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1>Articles in the Unix/Linux category</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2010/08/14/bye-bye-opensolaris/" rel="bookmark" title="Permalink to Bye bye OpenSolaris ?">
-                <h2 class="post-title">
-                    Bye bye OpenSolaris ?
-                </h2>
-            </a>
-                <p>So, I heard that OpenSolaris will be dead a.k.a discontinued.
-Me my self, currently has no reason to use OpenSolaris. Why ? Simple ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Sat 14 August 2010
-<p>There are <a href="http://blog.theprasojos.web.id/2010/08/14/bye-bye-opensolaris/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2010/08/10/solaris-jumpstart-on-linux/" rel="bookmark" title="Permalink to Solaris Jumpstart on Linux">
-                <h2 class="post-title">
-                    Solaris Jumpstart on Linux
-                </h2>
-            </a>
-                <p><strong><em>Intro :</em>
-</strong>
-- Linux, Debian based (mine: Lenny), hostname : pegasus, act as the Solaris jumpstart server.
-- ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Tue 10 August 2010
-<p>There are <a href="http://blog.theprasojos.web.id/2010/08/10/solaris-jumpstart-on-linux/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2010/04/05/playing-around-with-low-end-vps-box/" rel="bookmark" title="Permalink to Playing around with low end VPS box">
-                <h2 class="post-title">
-                    Playing around with low end VPS box
-                </h2>
-            </a>
-                <p>Last week I just bought a VPS account for playing around with. It feels so great having our own shell account with root login so that ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Mon 05 April 2010
-<p>There are <a href="http://blog.theprasojos.web.id/2010/04/05/playing-around-with-low-end-vps-box/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2009/12/26/verifying-your-wordpresscom-blog-on-google-webmaster-central/" rel="bookmark" title="Permalink to Verifying your wordpress.com blog on google webmaster central">
-                <h2 class="post-title">
-                    Verifying your wordpress.com blog on google webmaster central
-                </h2>
-            </a>
-                <p>Google webmaster is one of google's great application for every webmaster's to dig more on their on websites. Especially if the ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Sat 26 December 2009
-<p>There are <a href="http://blog.theprasojos.web.id/2009/12/26/verifying-your-wordpresscom-blog-on-google-webmaster-central/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2009/05/18/quick-guide-on-unix-task-scheduling-with-at-and-batch-command/" rel="bookmark" title="Permalink to Quick guide on UNIX task scheduling with at and batch command">
-                <h2 class="post-title">
-                    Quick guide on UNIX task scheduling with at and batch command
-                </h2>
-            </a>
-                <p>While task scheduling in UNIX commonly uses Crontab facilities, UNIX based system (actually, Windows provide it too, at.exe) also ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Mon 18 May 2009
-<p>There are <a href="http://blog.theprasojos.web.id/2009/05/18/quick-guide-on-unix-task-scheduling-with-at-and-batch-command/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2008/12/22/bye-bye-apache-welcome-nginx/" rel="bookmark" title="Permalink to Bye bye apache, welcome Nginx">
-                <h2 class="post-title">
-                    Bye bye apache, welcome Nginx
-                </h2>
-            </a>
-                <p>Bagi saya, php tetap memiliki kenangan yang indah dalam mengisi hari-hari pemrograman saya terdahulu. Programming language yang ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Mon 22 December 2008
-<p>There are <a href="http://blog.theprasojos.web.id/2008/12/22/bye-bye-apache-welcome-nginx/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2007/11/13/ruby-install-on-dsl-linux/" rel="bookmark" title="Permalink to Ruby Install on DSL Linux">
-                <h2 class="post-title">
-                    Ruby Install on DSL Linux
-                </h2>
-            </a>
-                <p>Went home earlier than before today, after a day full of meeting with client. I missed my linux. Got a bling about ruby. This stuff ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Tue 13 November 2007
-<p>There are <a href="http://blog.theprasojos.web.id/2007/11/13/ruby-install-on-dsl-linux/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2007/08/09/simplymepis/" rel="bookmark" title="Permalink to SimplyMepis">
-                <h2 class="post-title">
-                    SimplyMepis
-                </h2>
-            </a>
-                <p>Beberapa hari ini nyoba SimplyMepis, nice distro. As easy as Mandrake, but as powerful as Debian. Such a perfect combination. We can ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Thu 09 August 2007
-<p>There are <a href="http://blog.theprasojos.web.id/2007/08/09/simplymepis/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-1/" rel="bookmark" title="Permalink to Apache Httpd and Tomcat integration using mod_jk, part 1">
-                <h2 class="post-title">
-                    Apache Httpd and Tomcat integration using mod_jk, part 1
-                </h2>
-            </a>
-                <p>In my other blog, I've wrote about howto use mod_jk2 to integrate httpd and tomcat. The article can be accesed <a ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Sun 03 June 2007
-<p>There are <a href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-1/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-2/" rel="bookmark" title="Permalink to Apache Httpd and Tomcat integration using mod_jk, part 2">
-                <h2 class="post-title">
-                    Apache Httpd and Tomcat integration using mod_jk, part 2
-                </h2>
-            </a>
-                <p>This posting splitted because somehow blogspot just cut it. I don't know why but when I previewed the posting, blogspot just cut the ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Sun 03 June 2007
-<p>There are <a href="http://blog.theprasojos.web.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-2/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2007/06/03/my-outdated-mac-osx-1041/" rel="bookmark" title="Permalink to My (Outdated) Mac OS.X 10.4.1">
-                <h2 class="post-title">
-                    My (Outdated) Mac OS.X 10.4.1
-                </h2>
-            </a>
-                <p>I think this picture will describe enough for us ...</p>
-<p><img alt="" src="http://jroller.com/resources/j/JPrasojo/myMac.jpg" ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Sun 03 June 2007
-<p>There are <a href="http://blog.theprasojos.web.id/2007/06/03/my-outdated-mac-osx-1041/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2007/06/03/nexenta-alpha-5/" rel="bookmark" title="Permalink to Nexenta Alpha 5">
-                <h2 class="post-title">
-                    Nexenta Alpha 5
-                </h2>
-            </a>
-                <p>Hehe, alhamdulillah, seneng juga bisa nyobain nexenta alpha 5 walau hanya di vmware. Sempat kaget nggak nemu pkgadd, malah nemu ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Sun 03 June 2007
-<p>There are <a href="http://blog.theprasojos.web.id/2007/06/03/nexenta-alpha-5/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2007/06/03/solaris-snmp-and-opennms/" rel="bookmark" title="Permalink to Solaris, SNMP, and OpenNMS">
-                <h2 class="post-title">
-                    Solaris, SNMP, and OpenNMS
-                </h2>
-            </a>
-                <p>These day, I explore about SNMP. After wikipedia-ing in <a ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Sun 03 June 2007
-<p>There are <a href="http://blog.theprasojos.web.id/2007/06/03/solaris-snmp-and-opennms/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://blog.theprasojos.web.id/2007/06/01/toratoolkit-for-oracle-installation/" rel="bookmark" title="Permalink to Tora(Toolkit for Oracle) Installation">
-                <h2 class="post-title">
-                    Tora(Toolkit for Oracle) Installation
-                </h2>
-            </a>
-                <p>Yesterday I managed to install my laptop with Tora. I'm using Kubuntu Feisty Fawn.For you who doesnt have any idea what kind of ...
-            <p class="post-meta">Posted by
-                    <a href="http://blog.theprasojos.web.id/author/lintang-jp.html">Lintang JP</a>
-                 on Fri 01 June 2007
-<p>There are <a href="http://blog.theprasojos.web.id/2007/06/01/toratoolkit-for-oracle-installation/#disqus_thread">comments</a>.</p>            </p>
-        </div>
-        <hr>
 
-    <hr>
-            </div>
+      <div class="page-header">
+        <h1><a href="http://theprasojos.blogs.or.id">JPrasojo's blog</a> <small></small></h1>
+      </div>
+
+      <nav class="navbar navbar-default">
+
+        <!-- Hamburger menu for mobile -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#plumage-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://theprasojos.blogs.or.id" title="">JPrasojo's blog</a>
         </div>
+
+        <!-- Menus and search forms -->
+        <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
+
+          <ul class="nav navbar-nav">
+<li >
+                  <a href="http://theprasojos.blogs.or.id/pages/hello-world.html">About</a>
+                </li>
+<li >
+                  <a href="http://theprasojos.blogs.or.id/category/java.html">Java</a>
+                </li>
+<li >
+                  <a href="http://theprasojos.blogs.or.id/category/renungan.html">Renungan</a>
+                </li>
+<li >
+                  <a href="http://theprasojos.blogs.or.id/category/telco.html">Telco</a>
+                </li>
+<li  class="active" >
+                  <a href="http://theprasojos.blogs.or.id/category/unixlinux.html">Unix/Linux <span class="sr-only">(current)</span></a>
+                </li>
+          </ul>
+
+
+
+        </div>
+
+      </nav>
+
     </div>
 
-    <hr>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                    </ul>
-                    <p class="copyright text-muted">Blog powered by <a href="http://getpelican.com">Pelican</a>,
-                which takes great advantage of <a href="http://python.org">Python</a>.</p>
-                </div>
-            </div>
+    <div class="container main">
+
+
+      <div class="row">
+        <div class=" col-md-12  ">
+  <h1>
+    <a  href="http://theprasojos.blogs.or.id/category/unixlinux.html" rel="bookmark" title="Permalink to Unix/Linux articles">Unix/Linux articles</a>
+  </h1>
         </div>
+      </div>
+
+      <div class="row">
+
+
+        <div class=" col-md-12 " id="content" role="main">
+  <dl class="dl-horizontal">
+      <dt><abbr class="published" title="2010-08-14T00:00:00+01:00">Sat 14 August 2010</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2010/08/14/bye-bye-opensolaris/">Bye bye OpenSolaris ?</a></dd>
+      <dt><abbr class="published" title="2010-08-10T00:00:00+01:00">Tue 10 August 2010</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2010/08/10/solaris-jumpstart-on-linux/">Solaris Jumpstart on Linux</a></dd>
+      <dt><abbr class="published" title="2010-04-05T00:00:00+01:00">Mon 05 April 2010</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2010/04/05/playing-around-with-low-end-vps-box/">Playing around with low end VPS box</a></dd>
+      <dt><abbr class="published" title="2009-12-26T00:00:00+00:00">Sat 26 December 2009</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2009/12/26/verifying-your-wordpresscom-blog-on-google-webmaster-central/">Verifying your wordpress.com blog on google webmaster central</a></dd>
+      <dt><abbr class="published" title="2009-05-18T00:00:00+01:00">Mon 18 May 2009</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2009/05/18/quick-guide-on-unix-task-scheduling-with-at-and-batch-command/">Quick guide on UNIX task scheduling with at and batch command</a></dd>
+      <dt><abbr class="published" title="2008-12-22T00:00:00+00:00">Mon 22 December 2008</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2008/12/22/bye-bye-apache-welcome-nginx/">Bye bye apache, welcome Nginx</a></dd>
+      <dt><abbr class="published" title="2007-11-13T00:00:00+00:00">Tue 13 November 2007</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2007/11/13/ruby-install-on-dsl-linux/">Ruby Install on DSL Linux</a></dd>
+      <dt><abbr class="published" title="2007-08-09T00:00:00+01:00">Thu 09 August 2007</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2007/08/09/simplymepis/">SimplyMepis</a></dd>
+      <dt><abbr class="published" title="2007-06-03T00:00:00+01:00">Sun 03 June 2007</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-1/">Apache Httpd and Tomcat integration using mod_jk, part 1</a></dd>
+      <dt><abbr class="published" title="2007-06-03T00:00:00+01:00">Sun 03 June 2007</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2007/06/03/apache-httpd-and-tomcat-integration-using-mod_jk-part-2/">Apache Httpd and Tomcat integration using mod_jk, part 2</a></dd>
+      <dt><abbr class="published" title="2007-06-03T00:00:00+01:00">Sun 03 June 2007</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2007/06/03/my-outdated-mac-osx-1041/">My (Outdated) Mac OS.X 10.4.1</a></dd>
+      <dt><abbr class="published" title="2007-06-03T00:00:00+01:00">Sun 03 June 2007</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2007/06/03/nexenta-alpha-5/">Nexenta Alpha 5</a></dd>
+      <dt><abbr class="published" title="2007-06-03T00:00:00+01:00">Sun 03 June 2007</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2007/06/03/solaris-snmp-and-opennms/">Solaris, SNMP, and OpenNMS</a></dd>
+      <dt><abbr class="published" title="2007-06-01T00:00:00+01:00">Fri 01 June 2007</abbr></dt>
+      <dd><a href="http://theprasojos.blogs.or.id/2007/06/01/toratoolkit-for-oracle-installation/">Tora(Toolkit for Oracle) Installation</a></dd>
+  </dl>
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <!-- TODO: make footer sticky -->
+    <footer class="container-fluid">
+      <div class="container">
+        <div class="row">
+
+            <div class="col-md-2">
+                <h5>Social</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="https://twitter.com/jprasojo">
+      <i class="fa fa-twitter"></i>
+    Twitter
+  </a></li>
+                  <li>  <a href="https://www.linkedin.com/in/lintangprasojo">
+      <img src="https://icons.better-idea.org/icon?url=www.linkedin.com&size=16" width="16" height="16" class="icon" alt="www.linkedin.com icon"/>
+    Linkedin
+  </a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Links</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="http://getpelican.com/">
+      <img src="https://icons.better-idea.org/icon?url=getpelican.com&size=16" width="16" height="16" class="icon" alt="getpelican.com icon"/>
+    Pelican
+  </a></li>
+                  <li>  <a href="http://travel.theprasojos.web.id">
+      <img src="https://icons.better-idea.org/icon?url=travel.theprasojos.web.id&size=16" width="16" height="16" class="icon" alt="travel.theprasojos.web.id icon"/>
+    My Travelling Logs
+  </a></li>
+                  <li>  <a href="https://vhynaulia.wordpress.com/">
+      <img src="https://icons.better-idea.org/icon?url=vhynaulia.wordpress.com&size=16" width="16" height="16" class="icon" alt="vhynaulia.wordpress.com icon"/>
+    Blognya TePot
+  </a></li>
+                  <li>  <a href="http://theprasojos.wordpress.com">
+      <img src="https://icons.better-idea.org/icon?url=theprasojos.wordpress.com&size=16" width="16" height="16" class="icon" alt="theprasojos.wordpress.com icon"/>
+    Theprasojos Family
+  </a></li>
+                </ul>
+            </div>
+
+          <div class="col-md-2">
+            <h5>Browse content by</h5>
+            <ul class="list-unstyled">
+            </ul>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Copyright notice</h5>
+            <p>© Copyright 2007-2010 Lintang JP.</p>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Disclaimer</h5>
+              <p>All opinions expressed in this site are my own personal opinions and are not endorsed by, nor do they represent the opinions of my previous, current and future employers or any of its affiliates, partners or customers.</p>
+          </div>
+
+          <div class="col-md-2">
+              <h5>Feeds</h5>
+              <ul class="list-unstyled">
+                  <li><small><a href="http://theprasojos.blogs.or.id/feeds/all.atom.xml"><i class="fa fa-rss"></i> All posts (Atom)</a></small></li>
+                  <li><small><a href="http://theprasojos.blogs.or.id/feeds/unixlinux.atom.xml"><i class="fa fa-rss"></i> Category: Unix/Linux (Atom)</a></small></li>
+              </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <h5 class="text-right"><a href="#"><i class="fa fa-arrow-up"></i> Back to top</a></h5>
+
+      <div class="container">
+        <div class="row col-md-12 text-muted text-center">
+          Site generated by <a href="https://getpelican.com"> Pelican</a>.<br/>
+          <a href="https://github.com/kdeldycke/plumage"> Plumage</a> theme by <a href="https://kevin.deldycke.com">Kevin Deldycke</a>.
+        </div>
+      </div>
+
     </footer>
 
-    <!-- jQuery -->
-    <script src="http://blog.theprasojos.web.id/theme/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="http://blog.theprasojos.web.id/theme/js/bootstrap.min.js"></script>
-
-        <!-- Custom Theme JavaScript -->
-        <script src="http://blog.theprasojos.web.id/theme/js/clean-blog.min.js"></script>
-
     <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-56589451-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
-<script type="text/javascript">
-    var disqus_shortname = 'jprasojos';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
-</script>
-</body>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+    ga('create', 'UA-56589451-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+    <script src="http://theprasojos.blogs.or.id/theme/js/jquery.mglass.js"></script>
+    <script src="http://theprasojos.blogs.or.id/theme/js/application.js"></script>
+
+  </body>
 </html>

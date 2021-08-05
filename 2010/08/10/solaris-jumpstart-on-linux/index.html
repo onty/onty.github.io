@@ -1,206 +1,146 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="en">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Solaris Jumpstart on Linux - LJP's blog</title>	
+	<meta name="author" content="Lintang JP">
+	
 
-    <title>  Solaris Jumpstart on Linux
- | JPrasojo's blog</title>
-
-    <meta name="author" content="Lintang JP"/>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"/>
-    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/jquery.mglass.css"/>
-    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/pygment-solarized-dark.css"/>
-    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/style.css"/>
-
-    <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
-    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'/>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'/>
+  <meta name="description" content="Intro : - Linux, Debian based (mine: Lenny), hostname : pegasus, act as the Solaris jumpstart server. - Solaris, Solaris 10, hostname: solclient, will be the machine to be installed. - IP addresses range 192.168.10.x (class C), make sure you use standard network class IP, this is where the standard broadcast address …">
 
 
-    <link rel="icon" href="http://theprasojos.blogs.or.id/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="http://theprasojos.blogs.or.id/favicon.ico" type="image/x-icon">
 
-    <!-- Feeds -->
-      <link href="http://theprasojos.blogs.or.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo&#39;s blog - All posts - Atom Feed"/>
-      <link href="http://theprasojos.blogs.or.id/feeds/unixlinux.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo&#39;s blog - Category: Unix/Linux - Atom Feed"/>
+	<link rel="stylesheet" href="https://blog.theprasojos.id/theme/css/main.css" type="text/css" />
+		
+	  <script type="text/javascript" src="https://blog.theprasojos.id/theme/js/custom_scripts.js"></script>
 
 
-  </head>
-
-  <body>
+    <link href="https://blog.theprasojos.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="LJP's blog Atom Feed" />
+</head>
+	
+<body>
 
     <div class="container">
+	  
+	  <header>
+	    <div class="feeds">
+	      <a href="https://blog.theprasojos.id/feeds/all.atom.xml" rel="alternate"><img src="https://blog.theprasojos.id/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+		<a href="https://blog.theprasojos.id" class="title">LJP's blog</a>
+      </header>
+	
+	  <div class="wrapper">
 
-      <div class="page-header">
-        <h1><a href="http://theprasojos.blogs.or.id">JPrasojo's blog</a> <small></small></h1>
-      </div>
-
-      <nav class="navbar navbar-default">
-
-        <!-- Hamburger menu for mobile -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#plumage-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="http://theprasojos.blogs.or.id" title="">JPrasojo's blog</a>
-        </div>
-
-        <!-- Menus and search forms -->
-        <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
-
-          <ul class="nav navbar-nav">
-<li >
-                  <a href="http://theprasojos.blogs.or.id/pages/hello-world.html">About</a>
-                </li>
-<li >
-                  <a href="http://theprasojos.blogs.or.id/category/java.html">Java</a>
-                </li>
-<li >
-                  <a href="http://theprasojos.blogs.or.id/category/renungan.html">Renungan</a>
-                </li>
-<li >
-                  <a href="http://theprasojos.blogs.or.id/category/telco.html">Telco</a>
-                </li>
-<li  class="active" >
-                  <a href="http://theprasojos.blogs.or.id/category/unixlinux.html">Unix/Linux <span class="sr-only">(current)</span></a>
-                </li>
-          </ul>
-
-
-
-        </div>
-
-      </nav>
-
-    </div>
-
-
-    <div class="container main">
-
-
-      <div class="row">
-        <div class=" col-md-9  ">
-  <h1>
-    <a href="http://theprasojos.blogs.or.id/2010/08/10/solaris-jumpstart-on-linux/" rel="bookmark" title="Permalink to Solaris Jumpstart on Linux">Solaris Jumpstart on Linux</a>
-  </h1>
-        </div>
-      </div>
-
-      <div class="row">
-
-
-        <div class=" col-md-9 " id="content" role="main">
-  
-
-  <div>
-    <p><strong><em>Intro :</em>
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>Solaris Jumpstart on Linux</h1>
+		
+<div class="metadata">
+  <time datetime="2010-08-10T00:00:00+01:00">Tue 10 August 2010</time>
+    <address class="vcard author">
+      by <a class="url fn" href="https://blog.theprasojos.id/author/lintang-jp.html">Lintang JP</a>
+    </address>
+  in <a href="https://blog.theprasojos.id/category/unixlinux.html">Unix/Linux</a>
+<p class="tags">tagged <a href="https://blog.theprasojos.id/tag/jumpstart-unix-linux-stuff-solaris.html">jumpstart Unix Linux stuff solaris</a></p></div>		
+		<p><strong><em>Intro :</em>
 </strong>
 - Linux, Debian based (mine: Lenny), hostname : pegasus, act as the Solaris jumpstart server.
 - Solaris, Solaris 10, hostname: solclient, will be the machine to be installed.
 - IP addresses range 192.168.10.x (class C), make sure you use standard network class IP, this is where the standard broadcast address (192.168.10.255) comes into play during arp broadcast.
 - solclient will broadcast arp request, replied by pegasus's rarpd, and then and IP address will be assigned. solclient will then download the minimum kernel using tftp. The kernel file name will be the ip address of the solclient. For example, if the assigned IP is 192.168.10.5, and then the kernel name will be C0A80A05. Another way is to use this command:</p>
-<div class="highlight"><pre><span></span>elinpra@pegasus &gt; printf &quot;XXXXn&quot; 192 168 10 5
-C0A80A05
+<div class="highlight"><pre><span></span><span class="n">elinpra</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">printf</span><span class="w"> </span><span class="ss">&quot;XXXXn&quot;</span><span class="w"> </span><span class="mi">192</span><span class="w"> </span><span class="mi">168</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="n">C0A80A05</span><span class="w"></span>
 </pre></div>
 
 
 <p>This file should be stored inside the root directory of tftp. Check the tftp setting on <strong>/etc/inetd.conf</strong>. Here is mine:</p>
-<div class="highlight"><pre><span></span>elinpra@pegasus &gt; cat /etc/inetd.conf
-tftp dgram udp4 wait nobody /usr/sbin/tcpd /usr/sbin/in.tftpd /srv/tftp/
+<div class="highlight"><pre><span></span><span class="n">elinpra</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">inetd</span><span class="p">.</span><span class="n">conf</span><span class="w"></span>
+<span class="n">tftp</span><span class="w"> </span><span class="n">dgram</span><span class="w"> </span><span class="n">udp4</span><span class="w"> </span><span class="n">wait</span><span class="w"> </span><span class="n">nobody</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">tcpd</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="ow">in</span><span class="p">.</span><span class="n">tftpd</span><span class="w"> </span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">tftp</span><span class="o">/</span><span class="w"></span>
 </pre></div>
 
 
 <p>Then, the file C0A80A05 should be put in<strong> /srv/tftp</strong>.</p>
 <p>Steps :</p>
 <p>1. Install bootparamd, rarpd, tftpd and nfs-kernel-server in Linux server (pegasus)</p>
-<div class="highlight"><pre><span></span>root@pegasus &gt; apt-get install bootparamd rarpd tftpd nfs-kernel-server
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="k">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">bootparamd</span><span class="w"> </span><span class="n">rarpd</span><span class="w"> </span><span class="n">tftpd</span><span class="w"> </span><span class="n">nfs</span><span class="o">-</span><span class="n">kernel</span><span class="o">-</span><span class="n">server</span><span class="w"></span>
 </pre></div>
 
 
 <p>2. Run iptables -F, make sure no firewall in Linux server</p>
-<div class="highlight"><pre><span></span>root@pegasus &gt; iptables -F
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">iptables</span><span class="w"> </span><span class="o">-</span><span class="n">F</span><span class="w"></span>
 </pre></div>
 
 
 <p>3. Check the mac address of the solaris client.
 Try boot from {ok}, see the mac address during booting (if the system is currently up, go to init 0 mode) :</p>
-<div class="highlight"><pre><span></span>ok boot net
+<div class="highlight"><pre><span></span><span class="nv">ok</span> <span class="nv">boot</span> <span class="nv">net</span>
 
-Resetting ...
-LOM event: 56d 21h39m43s host reset
+<span class="nv">Resetting</span> ...
+<span class="nv">LOM</span> <span class="nv">event</span>: <span class="mi">56</span><span class="nv">d</span> <span class="mi">21</span><span class="nv">h39m43s</span> <span class="nv">host</span> <span class="nv">reset</span>
 
 þ
-Sun Fire V120 (UltraSPARC-IIe 648MHz), No Keyboard
-OpenBoot 4.0, 1024 MB memory installed, Serial #61911409.
-Ethernet address 0:3:ba:b0:b1:71, Host ID: 83b0b171.
+<span class="nv">Sun</span> <span class="nv">Fire</span> <span class="nv">V120</span> <span class="ss">(</span><span class="nv">UltraSPARC</span><span class="o">-</span><span class="nv">IIe</span> <span class="mi">648</span><span class="nv">MHz</span><span class="ss">)</span>, <span class="nv">No</span> <span class="nv">Keyboard</span>
+<span class="nv">OpenBoot</span> <span class="mi">4</span>.<span class="mi">0</span>, <span class="mi">1024</span> <span class="nv">MB</span> <span class="nv">memory</span> <span class="nv">installed</span>, <span class="nv">Serial</span> <span class="sc">#61911409</span>.
+<span class="nv">Ethernet</span> <span class="nv">address</span> <span class="mi">0</span>:<span class="mi">3</span>:<span class="nv">ba</span>:<span class="nv">b0</span>:<span class="nv">b1</span>:<span class="mi">71</span>, <span class="nv">Host</span> <span class="nv">ID</span>: <span class="mi">83</span><span class="nv">b0b171</span>.
 
-Back to lom&gt; or sc&gt; using &#39;break&#39; command.
+<span class="nv">Back</span> <span class="nv">to</span> <span class="nv">lom</span><span class="o">&gt;</span> <span class="nv">or</span> <span class="nv">sc</span><span class="o">&gt;</span> <span class="nv">using</span> <span class="s1">&#39;</span><span class="s">break</span><span class="s1">&#39;</span> <span class="nv">command</span>.
 </pre></div>
 
 
 <p>4. Set <strong>/etc/ethers</strong> and <strong>/etc/hosts</strong> in Linux server with the mac address and hostname of the solaris client.</p>
-<div class="highlight"><pre><span></span>elinpra@pegasus &gt; echo &quot;0:3:ba:b0:b1:71 solclient&quot; &gt;&gt; /etc/ethers
-elinpra@pegasus &gt; echo &quot;192.168.10.5 solclient&quot; &gt;&gt; /etc/hosts
+<div class="highlight"><pre><span></span><span class="n">elinpra</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="ss">&quot;0:3:ba:b0:b1:71 solclient&quot;</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ethers</span><span class="w"></span>
+<span class="n">elinpra</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="ss">&quot;192.168.10.5 solclient&quot;</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">hosts</span><span class="w"></span>
 </pre></div>
 
 
 <p>5. Start the rarpd if has not started yet.( I’m using debian based linux here )</p>
-<div class="highlight"><pre><span></span>root@pegasus &gt; /etc/init.d/rarpd start
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">init</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">rarpd</span><span class="w"> </span><span class="k">start</span><span class="w"></span>
 </pre></div>
 
 
 <p>6. If you're installing using Solaris iso file, mount the iso file to a directory using the following command, otherwise if using Solaris CD/DVD, directly go to step 8:</p>
-<div class="highlight"><pre><span></span>root@pegasus &gt; mkdir -p /mnt/sol10
-root@pegasus &gt; mount -o loop solaris_iso_file.iso /mnt/sol10
-root@pegasus &gt; cd /mnt/sol10
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">mkdir</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">sol10</span><span class="w"></span>
+<span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">mount</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">solaris_iso_file</span><span class="p">.</span><span class="n">iso</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">sol10</span><span class="w"></span>
+<span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">sol10</span><span class="w"></span>
 </pre></div>
 
 
 <p>7. If you have the Solaris 10 CD, insert it on pegasus, do the following steps :</p>
-<div class="highlight"><pre><span></span>root@pegasus &gt; cd /mnt/cdrom/ (to your solaris cdrom directory)
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">cdrom</span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="k">to</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">solaris</span><span class="w"> </span><span class="n">cdrom</span><span class="w"> </span><span class="n">directory</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 
 
 <p>8. Find the suitable kernel for your machine type. Mine is SunFire v120, so it will be sun4u type. If your hardware is T5220, T2000 etc then you need sun4v kernel.
 Locate the kernel on directory Solaris_10/Tools/Boot/platform/sun4u/inetboot for sun4u, or Solaris_10/Tools/Boot/platform/sun4v/inetboot for sun4v.
 Copy it to <strong>/srv/tftp</strong> and make symbolic link to that file into C0A80A05.</p>
-<div class="highlight"><pre><span></span>root@pegasus &gt; cp inetboot /srv/tftp
-root@pegasus &gt; ln -s /srv/tftp/inetboot /srv/tftp/C0A80A05
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="n">inetboot</span><span class="w"> </span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">tftp</span><span class="w"></span>
+<span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="k">ln</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">tftp</span><span class="o">/</span><span class="n">inetboot</span><span class="w"> </span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">tftp</span><span class="o">/</span><span class="n">C0A80A05</span><span class="w"></span>
 </pre></div>
 
 
 <p>9. Start tftpd daemon in pegasus :</p>
-<div class="highlight"><pre><span></span>root@pegasus &gt; /etc/init.d/openbsd-inetd restart
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">init</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">openbsd</span><span class="o">-</span><span class="n">inetd</span><span class="w"> </span><span class="n">restart</span><span class="w"></span>
 </pre></div>
 
 
 <p>10. start nfs service in pegasus :</p>
-<div class="highlight"><pre><span></span>root@pegasus &gt; /etc/init.d/nfs-kernel-server start
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">init</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">nfs</span><span class="o">-</span><span class="n">kernel</span><span class="o">-</span><span class="n">server</span><span class="w"> </span><span class="k">start</span><span class="w"></span>
 </pre></div>
 
 
 <p>11. Prepare nfs mount so that solclient later on can download the entire installation package using nfs mount. Set the mount root into where the cdrom or iso files are mounted. Make sure that the nfs mount root from solclient is /sol10.</p>
-<div class="highlight"><pre><span></span>root@pegasus &gt; exportfs *:/mnt/cdrom -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync exportfs *:/mnt -o fsid=0,ro,no_root_squash,crossmnt,no_subtree_check,sync 
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="err">@</span><span class="n">pegasus</span> <span class="o">&gt;</span> <span class="n">exportfs</span> <span class="o">*</span><span class="p">:</span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">cdrom</span> <span class="o">-</span><span class="n">o</span> <span class="n">fsid</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ro</span><span class="p">,</span><span class="n">no_root_squash</span><span class="p">,</span><span class="n">crossmnt</span><span class="p">,</span><span class="n">no_subtree_check</span><span class="p">,</span><span class="n">sync</span> <span class="n">exportfs</span> <span class="o">*</span><span class="p">:</span><span class="o">/</span><span class="n">mnt</span> <span class="o">-</span><span class="n">o</span> <span class="n">fsid</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ro</span><span class="p">,</span><span class="n">no_root_squash</span><span class="p">,</span><span class="n">crossmnt</span><span class="p">,</span><span class="n">no_subtree_check</span><span class="p">,</span><span class="n">sync</span> 
 </pre></div>
 
 
 <p>Check if the nfs shares can be mounted correctly.</p>
-<div class="highlight"><pre><span></span>root@pegasus &gt; mount -t nfs4 pegasus:/sol10 /tmp/somewhere
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">mount</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="n">nfs4</span><span class="w"> </span><span class="nl">pegasus</span><span class="p">:</span><span class="o">/</span><span class="n">sol10</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">somewhere</span><span class="w"></span>
 </pre></div>
 
 
 <p>Verify in your mount list:</p>
-<div class="highlight"><pre><span></span>root@pegasus &gt; df -kh 
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">-</span><span class="n">kh</span><span class="w"> </span>
 </pre></div>
 
 
@@ -212,9 +152,9 @@ root@pegasus &gt; ln -s /srv/tftp/inetboot /srv/tftp/C0A80A05
 
 <p>14. You might want to see what's happen in your pegasus using tcpdump: </p>
 <div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span> &gt; <span class="n">tcpdump</span> -<span class="n">i</span> <span class="n">eth0</span> 
-<span class="n">tcpdump:</span> <span class="n">verbose</span> <span class="n">output</span> <span class="n">suppressed</span>, <span class="k">use</span> -<span class="n">v</span> <span class="o">or</span> -<span class="n">vv</span> <span class="k">for</span> <span class="n">full</span> <span class="n">protocol</span> <span class="n">decode</span> 
+<span class="n">tcpdump:</span> <span class="n">verbose</span> <span class="n">output</span> <span class="n">suppressed</span>, <span class="k">use</span> -<span class="n">v</span> <span class="o">or</span> -<span class="n">vv</span> <span class="k">for</span> <span class="nb">full</span> <span class="n">protocol</span> <span class="nb">decode</span> 
 <span class="n">listening</span> <span class="n">on</span> <span class="n">eth0</span>, <span class="n">link-type</span> <span class="n">EN10MB</span> (<span class="n">Ethernet</span>), <span class="n">capture</span> <span class="n">size</span> <span class="mi">96</span> <span class="nb">bytes</span> 
-<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">16.385289</span> <span class="n">arp</span> <span class="n">who-has</span> <span class="n">osol1</span> (<span class="n">Broadcast</span>) <span class="n">tell</span> <span class="n">osol1</span> 
+<span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">16.385289</span> <span class="n">arp</span> <span class="n">who-has</span> <span class="n">osol1</span> (<span class="n">Broadcast</span>) <span class="nb">tell</span> <span class="n">osol1</span> 
 <span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">16.786701</span> <span class="n">IP</span> <span class="n">pegasus</span> &gt; <span class="n">OSPF-ALL</span>.<span class="n">MCAST</span>.<span class="n">NET:</span> <span class="n">OSPFv2</span>, <span class="n">Hello</span>, <span class="n">length:</span> <span class="mi">44</span>
 <span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">17.904404</span> <span class="n">IP</span> <span class="n">solclient</span>.<span class="n">syslog</span> &gt; <span class="mf">255.255.255.255</span>.<span class="n">sunrpc:</span> [|<span class="n">syslog</span>] 
 <span class="mi">10</span>:<span class="mi">35</span>:<span class="mf">18.666258</span> <span class="n">IP</span> <span class="n">osol2</span><span class="mf">.58847</span> &gt; <span class="n">resolver</span>.<span class="n">ao</span>.<span class="n">ericsson</span>.<span class="n">se</span>.<span class="n">domain:</span> <span class="mi">57879</span>+ <span class="n">TXT</span>? <span class="n">_nfsv4idmapdomain</span>. (<span class="mi">35</span>) 
@@ -254,8 +194,8 @@ root@pegasus &gt; ln -s /srv/tftp/inetboot /srv/tftp/C0A80A05
 <span class="n">module</span> <span class="o">/</span><span class="n">platform</span><span class="o">/</span><span class="n">sun4u</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">sparcv9</span><span class="o">/</span><span class="nl">genunix</span><span class="p">:</span> <span class="n">text</span> <span class="n">at</span> <span class="p">[</span><span class="mh">0x10a0970</span><span class="p">,</span> <span class="mh">0x12615bf</span><span class="p">]</span> <span class="n">da</span> 
 <span class="n">module</span> <span class="o">/</span><span class="n">platform</span><span class="o">/</span><span class="n">SUNW</span><span class="p">,</span><span class="n">UltraAX</span><span class="o">-</span><span class="n">i2</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">misc</span><span class="o">/</span><span class="n">sparcv9</span><span class="o">/</span><span class="nl">platmod</span><span class="p">:</span> <span class="n">text</span> <span class="n">at</span> <span class="p">[</span><span class="mh">0x12615c0</span> 
 <span class="n">module</span> <span class="o">/</span><span class="n">platform</span><span class="o">/</span><span class="n">sun4u</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">cpu</span><span class="o">/</span><span class="n">sparcv9</span><span class="o">/</span><span class="n">SUNW</span><span class="p">,</span><span class="n">UltraSPARC</span><span class="o">-</span><span class="nl">IIe</span><span class="p">:</span> <span class="n">text</span> <span class="n">at</span> <span class="p">[</span><span class="mh">0x126184</span> 
-<span class="n">SunOS</span> <span class="n">Release</span> <span class="mf">5.10</span> <span class="n">Version</span> <span class="n">Generic_139555</span><span class="o">-</span><span class="mi">08</span> <span class="mi">64</span><span class="o">-</span><span class="n">bit</span> 
-<span class="n">Copyright</span> <span class="mi">1983</span><span class="o">-</span><span class="mi">2009</span> <span class="n">Sun</span> <span class="n">Microsystems</span><span class="p">,</span> <span class="n">Inc</span><span class="p">.</span> <span class="n">All</span> <span class="n">rights</span> <span class="n">reserved</span><span class="p">.</span> 
+<span class="n">SunOS</span> <span class="n">Release</span> <span class="mf">5.10</span> <span class="n">Version</span> <span class="n">Generic_139555</span><span class="mi">-08</span> <span class="mi">64</span><span class="o">-</span><span class="n">bit</span> 
+<span class="n">Copyright</span> <span class="mi">1983-2009</span> <span class="n">Sun</span> <span class="n">Microsystems</span><span class="p">,</span> <span class="n">Inc</span><span class="p">.</span> <span class="n">All</span> <span class="n">rights</span> <span class="n">reserved</span><span class="p">.</span> 
 <span class="n">Use</span> <span class="n">is</span> <span class="n">subject</span> <span class="n">to</span> <span class="n">license</span> <span class="n">terms</span><span class="p">.</span> 
 <span class="n">Ethernet</span> <span class="n">address</span> <span class="o">=</span> <span class="mi">0</span><span class="o">:</span><span class="mi">3</span><span class="o">:</span><span class="nl">ba</span><span class="p">:</span><span class="nl">b0</span><span class="p">:</span><span class="nl">b1</span><span class="p">:</span><span class="mi">71</span> 
 <span class="n">Using</span> <span class="k">default</span> <span class="n">device</span> <span class="n">instance</span> <span class="n">data</span> 
@@ -372,154 +312,87 @@ root@pegasus &gt; ln -s /srv/tftp/inetboot /srv/tftp/C0A80A05
 <span class="mf">9.</span> <span class="n">Traditional</span> <span class="n">Chinese</span> 
 
 <span class="n">Please</span> <span class="n">make</span> <span class="n">a</span> <span class="n">choice</span> <span class="p">(</span><span class="mi">0</span> <span class="o">-</span> <span class="mi">9</span><span class="p">),</span> <span class="n">or</span> <span class="n">press</span> <span class="n">h</span> <span class="n">or</span> <span class="o">?</span> <span class="k">for</span> <span class="nl">help</span><span class="p">:</span> 
-</pre></div>
-  </div>
+</pre></div>	
+
+	</article>
 
 
-    <div class="comments">
-      <div id="disqus_thread"></div>
-      <script type="text/javascript">
-        var disqus_shortname = 'jprasojos';
-        var disqus_identifier = "2010/08/10/solaris-jumpstart-on-linux/";
-        var disqus_title = "Solaris Jumpstart on Linux";
-        var disqus_url = "http://theprasojos.blogs.or.id/2010/08/10/solaris-jumpstart-on-linux/";
-        (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus</a>.</noscript>
-    </div>
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "2010/08/10/solaris-jumpstart-on-linux/";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = '//jprasojos.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
-        </div>
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" id="sidebar-container-fixed">
 
-          <div class="col-md-3">
-  <div class="well">
+	            <aside>
+	              <h2>About</h2>
+			      <p>
+                    Just an ordinary telecom engineer, working for Online Charging System..
+			      </p>
+			    </aside>
 
-    <p><abbr title="2010-08-10T00:00:00+01:00"><i class="fa fa-calendar"></i> Tue 10 August 2010</abbr></p>
+  	          <nav>
+	            <h2>Categories</h2>
+	            <ul>
+	                <li ><a href="https://blog.theprasojos.id/category/4n6.html">4n6</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/homeserver.html">HomeServer</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/java.html">Java</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/renungan.html">Renungan</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/telco.html">Telco</a></li>
+	                <li class="active"><a href="https://blog.theprasojos.id/category/unixlinux.html">Unix/Linux</a></li>
+	            </ul>
+	          </nav>
 
-      <p><address>
-        <i class="fa fa-user"></i> By
-          <a href="http://theprasojos.blogs.or.id/author/lintang-jp.html" rel="author">Lintang JP</a>
-      </address></p>
+	            <aside>
+	            <h2>Social</h2>
+			      <ul class="social">
+				    <li><a href="https://twitter.com/jprasojo">Twitter</a><i></i></li>
+				    <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a><i></i></li>
+			      </ul>
+			    </aside>
 
-    <hr/>
+	            <aside>
+	              <h2>Blogroll</h2>
+	              <ul>
+	                  <li><a href="http://getpelican.com/">Pelican</a></li>
+	                  <li><a href="http://travel.theprasojos.id">My Travelling Logs</a></li>
+	                  <li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
+	                  <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+	              </ul>
+	            </aside>
+	        </div>
+		  </div>
 
-      <p>
-              <a href="http://theprasojos.blogs.or.id/category/unixlinux.html" rel="tag"
-                  data-toggle="tooltip" class="label label-info"
-                  title="14 articles in this category">Unix/Linux</a>
-            <a href="/tag/jumpstart-unix-linux-stuff-solaris.html" data-toggle="tooltip"
-      class="label label-default"
-      title="1 article with this tag">jumpstart Unix Linux stuff solaris</a>
-      </p>
-      <hr/>
+	  </div>
 
+      <footer>
+		<p role="contentinfo">
+		  Lintang JP - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
 
+	  </footer>	
 
-  </div>
-            
-          </div>
-
-      </div>
-
-    </div>
-
-    <!-- TODO: make footer sticky -->
-    <footer class="container-fluid">
-      <div class="container">
-        <div class="row">
-
-            <div class="col-md-2">
-                <h5>Social</h5>
-                <ul class="list-unstyled">
-                  <li>  <a href="https://twitter.com/jprasojo">
-      <i class="fa fa-twitter"></i>
-    Twitter
-  </a></li>
-                  <li>  <a href="https://www.linkedin.com/in/lintangprasojo">
-      <img src="https://icons.better-idea.org/icon?url=www.linkedin.com&size=16" width="16" height="16" class="icon" alt="www.linkedin.com icon"/>
-    Linkedin
-  </a></li>
-                </ul>
-            </div>
-            <div class="col-md-2">
-                <h5>Links</h5>
-                <ul class="list-unstyled">
-                  <li>  <a href="http://getpelican.com/">
-      <img src="https://icons.better-idea.org/icon?url=getpelican.com&size=16" width="16" height="16" class="icon" alt="getpelican.com icon"/>
-    Pelican
-  </a></li>
-                  <li>  <a href="http://travel.theprasojos.web.id">
-      <img src="https://icons.better-idea.org/icon?url=travel.theprasojos.web.id&size=16" width="16" height="16" class="icon" alt="travel.theprasojos.web.id icon"/>
-    My Travelling Logs
-  </a></li>
-                  <li>  <a href="https://vhynaulia.wordpress.com/">
-      <img src="https://icons.better-idea.org/icon?url=vhynaulia.wordpress.com&size=16" width="16" height="16" class="icon" alt="vhynaulia.wordpress.com icon"/>
-    Blognya TePot
-  </a></li>
-                  <li>  <a href="http://theprasojos.wordpress.com">
-      <img src="https://icons.better-idea.org/icon?url=theprasojos.wordpress.com&size=16" width="16" height="16" class="icon" alt="theprasojos.wordpress.com icon"/>
-    Theprasojos Family
-  </a></li>
-                </ul>
-            </div>
-
-          <div class="col-md-2">
-            <h5>Browse content by</h5>
-            <ul class="list-unstyled">
-            </ul>
-          </div>
-
-          <div class="col-md-2 text-muted">
-            <h5>Copyright notice</h5>
-            <p>© Copyright 2004-2014 Lintang JP.</p>
-          </div>
-
-          <div class="col-md-2 text-muted">
-            <h5>Disclaimer</h5>
-              <p>All opinions expressed in this site are my own personal opinions and are not endorsed by, nor do they represent the opinions of my previous, current and future employers or any of its affiliates, partners or customers.</p>
-          </div>
-
-          <div class="col-md-2">
-              <h5>Feeds</h5>
-              <ul class="list-unstyled">
-                  <li><small><a href="http://theprasojos.blogs.or.id/feeds/all.atom.xml"><i class="fa fa-rss"></i> All posts (Atom)</a></small></li>
-                  <li><small><a href="http://theprasojos.blogs.or.id/feeds/unixlinux.atom.xml"><i class="fa fa-rss"></i> Category: Unix/Linux (Atom)</a></small></li>
-              </ul>
-          </div>
-
-        </div>
-      </div>
-
-      <h5 class="text-right"><a href="#"><i class="fa fa-arrow-up"></i> Back to top</a></h5>
-
-      <div class="container">
-        <div class="row col-md-12 text-muted text-center">
-          Site generated by <a href="https://getpelican.com"> Pelican</a>.<br/>
-          <a href="https://github.com/kdeldycke/plumage"> Plumage</a> theme by <a href="https://kevin.deldycke.com">Kevin Deldycke</a>.
-        </div>
-      </div>
-
-    </footer>
-
+	</div>
     <script type="text/javascript">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-56589451-1', 'auto');
-    ga('send', 'pageview');
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-56589451-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
-    <script src="http://theprasojos.blogs.or.id/theme/js/jquery.mglass.js"></script>
-    <script src="http://theprasojos.blogs.or.id/theme/js/application.js"></script>
-
-  </body>
+</body>
 </html>

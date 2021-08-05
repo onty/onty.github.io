@@ -1,259 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="en">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Glassfish for Tomcat and WebMethods - LJP's blog</title>	
+	<meta name="author" content="Lintang JP">
+	
 
-    <title>  Glassfish for Tomcat and WebMethods
- | JPrasojo's blog</title>
-
-    <meta name="author" content="Lintang JP"/>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"/>
-    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/jquery.mglass.css"/>
-    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/pygment-solarized-dark.css"/>
-    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/style.css"/>
-
-    <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
-    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'/>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'/>
+  <meta name="description" content="These recent days I've been played around with Glassfish in my project. I have to build connectivity between our existing Card Management for Telco company product, created with pure jsp (yes, jsp treated as PHP, spaghetti or whatever you name it) to integrate with SAP. Our client provides WebMethods Integration …">
 
 
-    <link rel="icon" href="http://theprasojos.blogs.or.id/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="http://theprasojos.blogs.or.id/favicon.ico" type="image/x-icon">
 
-    <!-- Feeds -->
-      <link href="http://theprasojos.blogs.or.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo&#39;s blog - All posts - Atom Feed"/>
-      <link href="http://theprasojos.blogs.or.id/feeds/java.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo&#39;s blog - Category: Java - Atom Feed"/>
+	<link rel="stylesheet" href="https://blog.theprasojos.id/theme/css/main.css" type="text/css" />
+		
+	  <script type="text/javascript" src="https://blog.theprasojos.id/theme/js/custom_scripts.js"></script>
 
 
-  </head>
-
-  <body>
+    <link href="https://blog.theprasojos.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="LJP's blog Atom Feed" />
+</head>
+	
+<body>
 
     <div class="container">
+	  
+	  <header>
+	    <div class="feeds">
+	      <a href="https://blog.theprasojos.id/feeds/all.atom.xml" rel="alternate"><img src="https://blog.theprasojos.id/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+		<a href="https://blog.theprasojos.id" class="title">LJP's blog</a>
+      </header>
+	
+	  <div class="wrapper">
 
-      <div class="page-header">
-        <h1><a href="http://theprasojos.blogs.or.id">JPrasojo's blog</a> <small></small></h1>
-      </div>
-
-      <nav class="navbar navbar-default">
-
-        <!-- Hamburger menu for mobile -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#plumage-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="http://theprasojos.blogs.or.id" title="">JPrasojo's blog</a>
-        </div>
-
-        <!-- Menus and search forms -->
-        <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
-
-          <ul class="nav navbar-nav">
-<li >
-                  <a href="http://theprasojos.blogs.or.id/pages/hello-world.html">About</a>
-                </li>
-<li  class="active" >
-                  <a href="http://theprasojos.blogs.or.id/category/java.html">Java <span class="sr-only">(current)</span></a>
-                </li>
-<li >
-                  <a href="http://theprasojos.blogs.or.id/category/renungan.html">Renungan</a>
-                </li>
-<li >
-                  <a href="http://theprasojos.blogs.or.id/category/telco.html">Telco</a>
-                </li>
-<li >
-                  <a href="http://theprasojos.blogs.or.id/category/unixlinux.html">Unix/Linux</a>
-                </li>
-          </ul>
-
-
-
-        </div>
-
-      </nav>
-
-    </div>
-
-
-    <div class="container main">
-
-
-      <div class="row">
-        <div class=" col-md-9  ">
-  <h1>
-    <a href="http://theprasojos.blogs.or.id/2007/12/01/glassfish-for-tomcat-and-webmethods/" rel="bookmark" title="Permalink to Glassfish for Tomcat and WebMethods">Glassfish for Tomcat and WebMethods</a>
-  </h1>
-        </div>
-      </div>
-
-      <div class="row">
-
-
-        <div class=" col-md-9 " id="content" role="main">
-  
-
-  <div>
-    <p>These recent days I've been played around with Glassfish in my project. I have to build connectivity between our existing Card Management for Telco company product, created with pure jsp (yes, jsp treated as PHP, spaghetti or whatever you name it) to integrate with SAP. Our client provides WebMethods Integration server 6.5 as our only and only way to interact with the SAP. OK then, I grabbed some code from my previous project with Tomcat and WebMethods 6.1 and try to reuse them in this project. Well, it works. But this code only deals with connectivity. Tomcat contacts WebMethods, and that's it. All transaction maintained by WebMethods, no need to think about rollback, commit, or anything, we apply that on WebMethods's flow services. So simple and cool !. But this current project is different. Installed WebMethods dont have any license of JDBC Adapter, it only has SAP Adapter. So in order to save to database or whatever to our Card Management system, we have to build our own connectivity method. Previously we thought about creating Stored Procedure inside our database that later can be invoked by WebMethods's JDBC Adapter, but the client doesnt want to buy the license. Hmm....</p>
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>Glassfish for Tomcat and WebMethods</h1>
+		
+<div class="metadata">
+  <time datetime="2007-12-01T00:00:00+00:00">Sat 01 December 2007</time>
+    <address class="vcard author">
+      by <a class="url fn" href="https://blog.theprasojos.id/author/lintang-jp.html">Lintang JP</a>
+    </address>
+  in <a href="https://blog.theprasojos.id/category/java.html">Java</a>
+</div>		
+		<p>These recent days I've been played around with Glassfish in my project. I have to build connectivity between our existing Card Management for Telco company product, created with pure jsp (yes, jsp treated as PHP, spaghetti or whatever you name it) to integrate with SAP. Our client provides WebMethods Integration server 6.5 as our only and only way to interact with the SAP. OK then, I grabbed some code from my previous project with Tomcat and WebMethods 6.1 and try to reuse them in this project. Well, it works. But this code only deals with connectivity. Tomcat contacts WebMethods, and that's it. All transaction maintained by WebMethods, no need to think about rollback, commit, or anything, we apply that on WebMethods's flow services. So simple and cool !. But this current project is different. Installed WebMethods dont have any license of JDBC Adapter, it only has SAP Adapter. So in order to save to database or whatever to our Card Management system, we have to build our own connectivity method. Previously we thought about creating Stored Procedure inside our database that later can be invoked by WebMethods's JDBC Adapter, but the client doesnt want to buy the license. Hmm....</p>
 <p>Besides just store to database, our Card Management product also have to provide interfaces so that later on, it could synchronize any document with SAP. So SAP will hit our services if..let's say some PO created in SAP. In here, I <em>need to provide them with webservices</em> to access all of our Card Management API in proper way.</p>
 <p>On other side, our Card Management also must be able to synchronize any action triggered from our side. Ok, I can use my previous code just to call the WebMethods's service, but I can not predict how long will it take. WebMethods will continue our request to SAP, and then SAP done some process inside, and after that it will returns a value to us. Based on those values, we must done an action, and after we finished done those action in our side, we must push the result back to SAP, send our document number also. I cant imagine how long the users will be wait for these sequence action. They will bury us :D</p>
 <p>I see that we can divide this process by synchronous and asynchronous action. There's some action that we need to retrieve the results back from SAP immediately, such as get price. I can't do anything for this action. Saving the price list in our Card Management will blow our mandays. And other process where the users dont care whether they get the result in real time or not. They can check back later to see what happen to their process. So, in here, I <em>need a messaging service</em>.</p>
 <p>So, two needs, webservice and messaging. I was thought that I will install a several products for this. Spring webservice framework to make my life easier when creating webservices (their POJO style's are really cool and simple) and ActiveMQ to provide the messaging broker. All can be integrated within our tomcat instance. But,later I also have own more concern. I must not change too many configuration on currently running tomcat instance, since it runs stable right now. And also, user portal and backend integrations are 2 different thing. The users must not feel any <strong>'world wide wait'</strong> thing when the backend process works hard to full fill their request. So here I decided to install one more instance of application servers for integration needs. And after some browsing, I decide to install Glassfish V2.</p>
 <p>Why glassfish ? well, let's say, first I impressed with it's admin console. JBoss guys should really pay attention on this admin console. And secondly, I fall in love with it's support of WebServices. Glassfish support WebServices monitoring. Here I can monitor who called my webservices, on what time, what data sent, and what data returned. This is very useful when reconcile any lost datas. And the third part is, this Glassfish thing has a great messaging supports based on Sun's IMQ. I also browsed the net for this feature, and many guys out there recommends it. Last but not least, Glassfish V2 is JEE 5 compliance app.server (if not the RI itself). Creating WebServices, session EJB's and MDB's are easier with Annotations. Say good bye to deployment descriptor.</p>
-<p>Ok, that's my review, maybe I'll write more about this later.</p>
-  </div>
+<p>Ok, that's my review, maybe I'll write more about this later.</p>	
+
+	</article>
 
 
-    <div class="comments">
-      <div id="disqus_thread"></div>
-      <script type="text/javascript">
-        var disqus_shortname = 'jprasojos';
-        var disqus_identifier = "2007/12/01/glassfish-for-tomcat-and-webmethods/";
-        var disqus_title = "Glassfish for Tomcat and WebMethods";
-        var disqus_url = "http://theprasojos.blogs.or.id/2007/12/01/glassfish-for-tomcat-and-webmethods/";
-        (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus</a>.</noscript>
-    </div>
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "2007/12/01/glassfish-for-tomcat-and-webmethods/";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = '//jprasojos.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
-        </div>
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" id="sidebar-container-fixed">
 
-          <div class="col-md-3">
-  <div class="well">
+	            <aside>
+	              <h2>About</h2>
+			      <p>
+                    Just an ordinary telecom engineer, working for Online Charging System..
+			      </p>
+			    </aside>
 
-    <p><abbr title="2007-12-01T00:00:00+00:00"><i class="fa fa-calendar"></i> Sat 01 December 2007</abbr></p>
+  	          <nav>
+	            <h2>Categories</h2>
+	            <ul>
+	                <li ><a href="https://blog.theprasojos.id/category/4n6.html">4n6</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/homeserver.html">HomeServer</a></li>
+	                <li class="active"><a href="https://blog.theprasojos.id/category/java.html">Java</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/renungan.html">Renungan</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/telco.html">Telco</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/unixlinux.html">Unix/Linux</a></li>
+	            </ul>
+	          </nav>
 
-      <p><address>
-        <i class="fa fa-user"></i> By
-          <a href="http://theprasojos.blogs.or.id/author/lintang-jp.html" rel="author">Lintang JP</a>
-      </address></p>
+	            <aside>
+	            <h2>Social</h2>
+			      <ul class="social">
+				    <li><a href="https://twitter.com/jprasojo">Twitter</a><i></i></li>
+				    <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a><i></i></li>
+			      </ul>
+			    </aside>
 
-    <hr/>
+	            <aside>
+	              <h2>Blogroll</h2>
+	              <ul>
+	                  <li><a href="http://getpelican.com/">Pelican</a></li>
+	                  <li><a href="http://travel.theprasojos.id">My Travelling Logs</a></li>
+	                  <li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
+	                  <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+	              </ul>
+	            </aside>
+	        </div>
+		  </div>
 
-      <p>
-              <a href="http://theprasojos.blogs.or.id/category/java.html" rel="tag"
-                  data-toggle="tooltip" class="label label-info"
-                  title="4 articles in this category">Java</a>
-      </p>
-      <hr/>
+	  </div>
 
+      <footer>
+		<p role="contentinfo">
+		  Lintang JP - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
 
+	  </footer>	
 
-  </div>
-            
-          </div>
-
-      </div>
-
-    </div>
-
-    <!-- TODO: make footer sticky -->
-    <footer class="container-fluid">
-      <div class="container">
-        <div class="row">
-
-            <div class="col-md-2">
-                <h5>Social</h5>
-                <ul class="list-unstyled">
-                  <li>  <a href="https://twitter.com/jprasojo">
-      <i class="fa fa-twitter"></i>
-    Twitter
-  </a></li>
-                  <li>  <a href="https://www.linkedin.com/in/lintangprasojo">
-      <img src="https://icons.better-idea.org/icon?url=www.linkedin.com&size=16" width="16" height="16" class="icon" alt="www.linkedin.com icon"/>
-    Linkedin
-  </a></li>
-                </ul>
-            </div>
-            <div class="col-md-2">
-                <h5>Links</h5>
-                <ul class="list-unstyled">
-                  <li>  <a href="http://getpelican.com/">
-      <img src="https://icons.better-idea.org/icon?url=getpelican.com&size=16" width="16" height="16" class="icon" alt="getpelican.com icon"/>
-    Pelican
-  </a></li>
-                  <li>  <a href="http://travel.theprasojos.web.id">
-      <img src="https://icons.better-idea.org/icon?url=travel.theprasojos.web.id&size=16" width="16" height="16" class="icon" alt="travel.theprasojos.web.id icon"/>
-    My Travelling Logs
-  </a></li>
-                  <li>  <a href="https://vhynaulia.wordpress.com/">
-      <img src="https://icons.better-idea.org/icon?url=vhynaulia.wordpress.com&size=16" width="16" height="16" class="icon" alt="vhynaulia.wordpress.com icon"/>
-    Blognya TePot
-  </a></li>
-                  <li>  <a href="http://theprasojos.wordpress.com">
-      <img src="https://icons.better-idea.org/icon?url=theprasojos.wordpress.com&size=16" width="16" height="16" class="icon" alt="theprasojos.wordpress.com icon"/>
-    Theprasojos Family
-  </a></li>
-                </ul>
-            </div>
-
-          <div class="col-md-2">
-            <h5>Browse content by</h5>
-            <ul class="list-unstyled">
-            </ul>
-          </div>
-
-          <div class="col-md-2 text-muted">
-            <h5>Copyright notice</h5>
-            <p>© Copyright 2004-2014 Lintang JP.</p>
-          </div>
-
-          <div class="col-md-2 text-muted">
-            <h5>Disclaimer</h5>
-              <p>All opinions expressed in this site are my own personal opinions and are not endorsed by, nor do they represent the opinions of my previous, current and future employers or any of its affiliates, partners or customers.</p>
-          </div>
-
-          <div class="col-md-2">
-              <h5>Feeds</h5>
-              <ul class="list-unstyled">
-                  <li><small><a href="http://theprasojos.blogs.or.id/feeds/all.atom.xml"><i class="fa fa-rss"></i> All posts (Atom)</a></small></li>
-                  <li><small><a href="http://theprasojos.blogs.or.id/feeds/java.atom.xml"><i class="fa fa-rss"></i> Category: Java (Atom)</a></small></li>
-              </ul>
-          </div>
-
-        </div>
-      </div>
-
-      <h5 class="text-right"><a href="#"><i class="fa fa-arrow-up"></i> Back to top</a></h5>
-
-      <div class="container">
-        <div class="row col-md-12 text-muted text-center">
-          Site generated by <a href="https://getpelican.com"> Pelican</a>.<br/>
-          <a href="https://github.com/kdeldycke/plumage"> Plumage</a> theme by <a href="https://kevin.deldycke.com">Kevin Deldycke</a>.
-        </div>
-      </div>
-
-    </footer>
-
+	</div>
     <script type="text/javascript">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-56589451-1', 'auto');
-    ga('send', 'pageview');
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-56589451-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
-    <script src="http://theprasojos.blogs.or.id/theme/js/jquery.mglass.js"></script>
-    <script src="http://theprasojos.blogs.or.id/theme/js/application.js"></script>
-
-  </body>
+</body>
 </html>

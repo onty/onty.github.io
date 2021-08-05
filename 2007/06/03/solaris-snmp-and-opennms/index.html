@@ -1,109 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="en">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Solaris, SNMP, and OpenNMS - LJP's blog</title>	
+	<meta name="author" content="Lintang JP">
+	
 
-    <title>  Solaris, SNMP, and OpenNMS
- | JPrasojo's blog</title>
-
-    <meta name="author" content="Lintang JP"/>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"/>
-    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/jquery.mglass.css"/>
-    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/pygment-solarized-dark.css"/>
-    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/style.css"/>
-
-    <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
-    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'/>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'/>
+  <meta name="description" content="These day, I explore about SNMP. After wikipedia-ing in here, I try to install one of the recomended software called OpenNMS. After tried the live demo, it looks cool. So I decided to download it in here. I followed all the installation step guide from here. I also need to …">
 
 
-    <link rel="icon" href="http://theprasojos.blogs.or.id/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="http://theprasojos.blogs.or.id/favicon.ico" type="image/x-icon">
 
-    <!-- Feeds -->
-      <link href="http://theprasojos.blogs.or.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo&#39;s blog - All posts - Atom Feed"/>
-      <link href="http://theprasojos.blogs.or.id/feeds/unixlinux.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo&#39;s blog - Category: Unix/Linux - Atom Feed"/>
+	<link rel="stylesheet" href="https://blog.theprasojos.id/theme/css/main.css" type="text/css" />
+		
+	  <script type="text/javascript" src="https://blog.theprasojos.id/theme/js/custom_scripts.js"></script>
 
 
-  </head>
-
-  <body>
+    <link href="https://blog.theprasojos.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="LJP's blog Atom Feed" />
+</head>
+	
+<body>
 
     <div class="container">
+	  
+	  <header>
+	    <div class="feeds">
+	      <a href="https://blog.theprasojos.id/feeds/all.atom.xml" rel="alternate"><img src="https://blog.theprasojos.id/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+		<a href="https://blog.theprasojos.id" class="title">LJP's blog</a>
+      </header>
+	
+	  <div class="wrapper">
 
-      <div class="page-header">
-        <h1><a href="http://theprasojos.blogs.or.id">JPrasojo's blog</a> <small></small></h1>
-      </div>
-
-      <nav class="navbar navbar-default">
-
-        <!-- Hamburger menu for mobile -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#plumage-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="http://theprasojos.blogs.or.id" title="">JPrasojo's blog</a>
-        </div>
-
-        <!-- Menus and search forms -->
-        <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
-
-          <ul class="nav navbar-nav">
-<li >
-                  <a href="http://theprasojos.blogs.or.id/pages/hello-world.html">About</a>
-                </li>
-<li >
-                  <a href="http://theprasojos.blogs.or.id/category/java.html">Java</a>
-                </li>
-<li >
-                  <a href="http://theprasojos.blogs.or.id/category/renungan.html">Renungan</a>
-                </li>
-<li >
-                  <a href="http://theprasojos.blogs.or.id/category/telco.html">Telco</a>
-                </li>
-<li  class="active" >
-                  <a href="http://theprasojos.blogs.or.id/category/unixlinux.html">Unix/Linux <span class="sr-only">(current)</span></a>
-                </li>
-          </ul>
-
-
-
-        </div>
-
-      </nav>
-
-    </div>
-
-
-    <div class="container main">
-
-
-      <div class="row">
-        <div class=" col-md-9  ">
-  <h1>
-    <a href="http://theprasojos.blogs.or.id/2007/06/03/solaris-snmp-and-opennms/" rel="bookmark" title="Permalink to Solaris, SNMP, and OpenNMS">Solaris, SNMP, and OpenNMS</a>
-  </h1>
-        </div>
-      </div>
-
-      <div class="row">
-
-
-        <div class=" col-md-9 " id="content" role="main">
-  
-
-  <div>
-    <p>These day, I explore about SNMP. After wikipedia-ing in <a href="http://en.wikipedia.org/wiki/Simple_Network_Management_Protocol">here</a>, I try to install one of the recomended software called OpenNMS. After tried the live demo, it looks cool. So I decided to download it in <a href="http://downloads.sourceforge.net/opennms/opennms-1.3.2-1-sol10-sparc-local.gz?modtime=1168971264&amp;big_mirror=0">here</a>.</p>
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>Solaris, SNMP, and OpenNMS</h1>
+		
+<div class="metadata">
+  <time datetime="2007-06-03T00:00:00+01:00">Sun 03 June 2007</time>
+    <address class="vcard author">
+      by <a class="url fn" href="https://blog.theprasojos.id/author/lintang-jp.html">Lintang JP</a>
+    </address>
+  in <a href="https://blog.theprasojos.id/category/unixlinux.html">Unix/Linux</a>
+</div>		
+		<p>These day, I explore about SNMP. After wikipedia-ing in <a href="http://en.wikipedia.org/wiki/Simple_Network_Management_Protocol">here</a>, I try to install one of the recomended software called OpenNMS. After tried the live demo, it looks cool. So I decided to download it in <a href="http://downloads.sourceforge.net/opennms/opennms-1.3.2-1-sol10-sparc-local.gz?modtime=1168971264&amp;big_mirror=0">here</a>.</p>
 <p>I followed all the installation step guide from <a href="http://www.opennms.org/documentation/InstallUnStable.html">here</a>. I also need to download and install the pre requisites package such as rrdtool, and the postgresql. Fortunately, blastwave.org has great tools called pkg-get, yeap, sounds familiar with you Debian users ? I also thought that only Nexenta OS has this such-thing tools, but now, all solaris distro can use this tools I guess, well, at least I tried that one and it works for Solaris in both Sparc and Intel machine.</p>
 <p>Ok, back to the tools. If we followed the step exactly, and goes to this step : install -dis, I got an error said that fail to load the iplike.so because libgcc_so.1 not found. That's some problem I usually got on linux box. If this is linux box, I just have to locate it, insert the path to /etc/ld.so.conf, and run the /sbin/ldconfig as root. But this is solaris box, cant do that, so, after googling, I found the crle command. I tried that to point the location for shared object files. Still no works. Howcome ? Dont ask me, it just doesnt work:p, So...again, googling, and found same problem in <a href="http://www.experts-exchange.com/Software/Server_Software/Web_Servers/Q_22464371.html">here</a>. So the problem will be solved by just copying the .so files to /usr/lib ? And, it works. This is weird, I alredy put the /usr/lib within the crle command like this :</p>
 <div class="highlight"><pre><span></span>-bash-3.00# crle -l /usr/local/lib:/usr/sfw/lib:/lib:/usr/lib/:/opt/opennms/lib:/usr/sfw/lib/gcc/sparc-sun-solaris2.10/3.4.3/
@@ -112,151 +52,87 @@
 
 <p>Ah, no idea, so I run the install -dis again, and this time it works.....</p>
 <p>Next, playing around with OpenNMS and try to setup the weblogic snmp agent to send trap message to the OpenNMS poller. We'll see....</p>
-<p>originally posted 4/11/07</p>
-  </div>
+<p>originally posted 4/11/07</p>	
+
+	</article>
 
 
-    <div class="comments">
-      <div id="disqus_thread"></div>
-      <script type="text/javascript">
-        var disqus_shortname = 'jprasojos';
-        var disqus_identifier = "2007/06/03/solaris-snmp-and-opennms/";
-        var disqus_title = "Solaris, SNMP, and OpenNMS";
-        var disqus_url = "http://theprasojos.blogs.or.id/2007/06/03/solaris-snmp-and-opennms/";
-        (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus</a>.</noscript>
-    </div>
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "2007/06/03/solaris-snmp-and-opennms/";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = '//jprasojos.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
-        </div>
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" id="sidebar-container-fixed">
 
-          <div class="col-md-3">
-  <div class="well">
+	            <aside>
+	              <h2>About</h2>
+			      <p>
+                    Just an ordinary telecom engineer, working for Online Charging System..
+			      </p>
+			    </aside>
 
-    <p><abbr title="2007-06-03T00:00:00+01:00"><i class="fa fa-calendar"></i> Sun 03 June 2007</abbr></p>
+  	          <nav>
+	            <h2>Categories</h2>
+	            <ul>
+	                <li ><a href="https://blog.theprasojos.id/category/4n6.html">4n6</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/homeserver.html">HomeServer</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/java.html">Java</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/renungan.html">Renungan</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/telco.html">Telco</a></li>
+	                <li class="active"><a href="https://blog.theprasojos.id/category/unixlinux.html">Unix/Linux</a></li>
+	            </ul>
+	          </nav>
 
-      <p><address>
-        <i class="fa fa-user"></i> By
-          <a href="http://theprasojos.blogs.or.id/author/lintang-jp.html" rel="author">Lintang JP</a>
-      </address></p>
+	            <aside>
+	            <h2>Social</h2>
+			      <ul class="social">
+				    <li><a href="https://twitter.com/jprasojo">Twitter</a><i></i></li>
+				    <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a><i></i></li>
+			      </ul>
+			    </aside>
 
-    <hr/>
+	            <aside>
+	              <h2>Blogroll</h2>
+	              <ul>
+	                  <li><a href="http://getpelican.com/">Pelican</a></li>
+	                  <li><a href="http://travel.theprasojos.id">My Travelling Logs</a></li>
+	                  <li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
+	                  <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+	              </ul>
+	            </aside>
+	        </div>
+		  </div>
 
-      <p>
-              <a href="http://theprasojos.blogs.or.id/category/unixlinux.html" rel="tag"
-                  data-toggle="tooltip" class="label label-info"
-                  title="14 articles in this category">Unix/Linux</a>
-      </p>
-      <hr/>
+	  </div>
 
+      <footer>
+		<p role="contentinfo">
+		  Lintang JP - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
 
+	  </footer>	
 
-  </div>
-            
-          </div>
-
-      </div>
-
-    </div>
-
-    <!-- TODO: make footer sticky -->
-    <footer class="container-fluid">
-      <div class="container">
-        <div class="row">
-
-            <div class="col-md-2">
-                <h5>Social</h5>
-                <ul class="list-unstyled">
-                  <li>  <a href="https://twitter.com/jprasojo">
-      <i class="fa fa-twitter"></i>
-    Twitter
-  </a></li>
-                  <li>  <a href="https://www.linkedin.com/in/lintangprasojo">
-      <img src="https://icons.better-idea.org/icon?url=www.linkedin.com&size=16" width="16" height="16" class="icon" alt="www.linkedin.com icon"/>
-    Linkedin
-  </a></li>
-                </ul>
-            </div>
-            <div class="col-md-2">
-                <h5>Links</h5>
-                <ul class="list-unstyled">
-                  <li>  <a href="http://getpelican.com/">
-      <img src="https://icons.better-idea.org/icon?url=getpelican.com&size=16" width="16" height="16" class="icon" alt="getpelican.com icon"/>
-    Pelican
-  </a></li>
-                  <li>  <a href="http://travel.theprasojos.web.id">
-      <img src="https://icons.better-idea.org/icon?url=travel.theprasojos.web.id&size=16" width="16" height="16" class="icon" alt="travel.theprasojos.web.id icon"/>
-    My Travelling Logs
-  </a></li>
-                  <li>  <a href="https://vhynaulia.wordpress.com/">
-      <img src="https://icons.better-idea.org/icon?url=vhynaulia.wordpress.com&size=16" width="16" height="16" class="icon" alt="vhynaulia.wordpress.com icon"/>
-    Blognya TePot
-  </a></li>
-                  <li>  <a href="http://theprasojos.wordpress.com">
-      <img src="https://icons.better-idea.org/icon?url=theprasojos.wordpress.com&size=16" width="16" height="16" class="icon" alt="theprasojos.wordpress.com icon"/>
-    Theprasojos Family
-  </a></li>
-                </ul>
-            </div>
-
-          <div class="col-md-2">
-            <h5>Browse content by</h5>
-            <ul class="list-unstyled">
-            </ul>
-          </div>
-
-          <div class="col-md-2 text-muted">
-            <h5>Copyright notice</h5>
-            <p>© Copyright 2004-2014 Lintang JP.</p>
-          </div>
-
-          <div class="col-md-2 text-muted">
-            <h5>Disclaimer</h5>
-              <p>All opinions expressed in this site are my own personal opinions and are not endorsed by, nor do they represent the opinions of my previous, current and future employers or any of its affiliates, partners or customers.</p>
-          </div>
-
-          <div class="col-md-2">
-              <h5>Feeds</h5>
-              <ul class="list-unstyled">
-                  <li><small><a href="http://theprasojos.blogs.or.id/feeds/all.atom.xml"><i class="fa fa-rss"></i> All posts (Atom)</a></small></li>
-                  <li><small><a href="http://theprasojos.blogs.or.id/feeds/unixlinux.atom.xml"><i class="fa fa-rss"></i> Category: Unix/Linux (Atom)</a></small></li>
-              </ul>
-          </div>
-
-        </div>
-      </div>
-
-      <h5 class="text-right"><a href="#"><i class="fa fa-arrow-up"></i> Back to top</a></h5>
-
-      <div class="container">
-        <div class="row col-md-12 text-muted text-center">
-          Site generated by <a href="https://getpelican.com"> Pelican</a>.<br/>
-          <a href="https://github.com/kdeldycke/plumage"> Plumage</a> theme by <a href="https://kevin.deldycke.com">Kevin Deldycke</a>.
-        </div>
-      </div>
-
-    </footer>
-
+	</div>
     <script type="text/javascript">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-56589451-1', 'auto');
-    ga('send', 'pageview');
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-56589451-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
-    <script src="http://theprasojos.blogs.or.id/theme/js/jquery.mglass.js"></script>
-    <script src="http://theprasojos.blogs.or.id/theme/js/application.js"></script>
-
-  </body>
+</body>
 </html>

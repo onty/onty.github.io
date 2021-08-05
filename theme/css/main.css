@@ -130,6 +130,11 @@ header .pages a {
   transition: opacity 0s ease-in-out 0s;
 }
 
+.sidebar ol,
+.sidebar ul {
+  margin-left: 0;
+  color: #4D4D4C;
+}
 
 /* Titles */
 
@@ -256,10 +261,11 @@ ol.archive li .tags
 .social a[href*='linkedin.com'] + i:before {content: url('../images/icons/linkedin-18px.png'); }
 .social a[href*='github.com'] + i:before {content: url('../images/icons/github-18px.png'); }
 .social a[href*='google.com'] + i:before {content: url('../images/icons/google-18px.png'); }
+.social a[href*='keybase.io'] + i:before {content: url('../images/icons/keybase-18px.png'); }
 .social a[href*='delicious.com']:before {content: url('../images/icons/delicious-18px.png'); }
 .social a[href*='digg.com']:before {content: url('../images/icons/digg-18px.png'); }
 .social a[href*='facebook.com']:before {content: url('../images/icons/facebook-18px.png'); }
-.social a[href*='stackoverflow.com']:before {content: url('../images/icons/stackoverfow-18px.png'); }
+.social a[href*='stackoverflow.com']:before {content: url('../images/icons/stackoverflow-18px.png'); }
 .social a[href*='rss.xml']:before {content: url('../images/icons/feed-18px.png'); }
 .social a[href*='atom.xml']:before {content: url('../images/icons/feed-18px.png'); }
 

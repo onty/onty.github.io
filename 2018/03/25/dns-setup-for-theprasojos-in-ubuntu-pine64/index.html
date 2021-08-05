@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">	
+<head>
+	<meta charset="utf-8"/>
+	<title>DNS Setup for Theprasojos in Ubuntu-Pine64 - LJP's blog</title>	
+	<meta name="author" content="Lintang JP">
+	
+
+  <meta name="description" content="Long time I have not write on this blog, mostly because I can't remember how to configure the pelican in my mac (yeah, this blog uses pelican generator for html content, bye bye Wordpress, I guess you are no longer impress everyone by now). And luckily this blog's content is …">
+
+
+
+	<link rel="stylesheet" href="https://blog.theprasojos.id/theme/css/main.css" type="text/css" />
+		
+	  <script type="text/javascript" src="https://blog.theprasojos.id/theme/js/custom_scripts.js"></script>
+
+
+    <link href="https://blog.theprasojos.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="LJP's blog Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header>
+	    <div class="feeds">
+	      <a href="https://blog.theprasojos.id/feeds/all.atom.xml" rel="alternate"><img src="https://blog.theprasojos.id/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+		<a href="https://blog.theprasojos.id" class="title">LJP's blog</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>DNS Setup for Theprasojos in Ubuntu-Pine64</h1>
+		
+<div class="metadata">
+  <time datetime="2018-03-25T00:00:00+00:00">Sun 25 March 2018</time>
+    <address class="vcard author">
+      by <a class="url fn" href="https://blog.theprasojos.id/author/lintang-jp.html">Lintang JP</a>
+    </address>
+  in <a href="https://blog.theprasojos.id/category/homeserver.html">HomeServer</a>
+<p class="tags">tagged <a href="https://blog.theprasojos.id/tag/unix-linux-bind-server-internet-named.html">Unix Linux Bind Server Internet Named</a></p></div>		
+		<p>Long time I have not write on this blog, mostly because I can't remember how to configure the pelican in my mac (yeah, this blog uses pelican generator for html content, bye bye Wordpress, I guess you are no longer impress everyone by now). And luckily this blog's content is stored in a repos, making me easier to pull the content back. After some googling with keyword = 'pelican', I manage to get the set up back up and running.</p>
+<p>Now, the problem is my ego :p, with hi-speed broadband, unlimited, and IPv6 allocation, sometime I felt so ashamed if I don't have my own server kingdom. Paying AWS just for playing around is just too much. At home I have my Pine64, several Raspberry Pi, all of them lying around without any use, so that's why I decided to host my own DNS, mail server, and of course, this blog. Problem with the blog is that, since I put it under IPv6 range, then the web client should also have IPv6. Well ok, I don't have lots of requirements for the webserver since I use pure HTML. So I put the mirror on other place as well, no big deal, as long as they can server HTML, fine for me. Hence you can read this blog from http://onty.maclab.org too. This post will not cover the concept on how DNS works, but this is rather just me, sharing how my server is configured, that's all.</p>
+<p>Now, since my Pine64 has 2GB RAM, 64bit ARM CPU, 4 Core, and plenty of micro SD card space, I decided to use it as my Primary NS, Mail Server, and Web Server :D. My other old Raspberry Pi 1B is the Secondary NS. This old Raspberry 1B also hosts other functions, which is my radio streaming client, and it also runs Docker (yeah, Docker, you got it right) running tvheadend-server to receive digital TV (DVB-T2) broadcast here in Dublin. Pretty much stuff crammed into and old board, I don't care, and so far it serves its purpose very well :p. I can share this later, stay tuned.</p>
+<p>So, yeah, I am using ubuntu in my Pine64. Here's the uname -a result just to give a slight hint on what I use:</p>
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">uname</span><span class="w"> </span><span class="o">-</span><span class="n">a</span><span class="w"></span>
+<span class="n">Linux</span><span class="w"> </span><span class="n">pegasus</span><span class="w"> </span><span class="mf">3.10.105</span><span class="o">-</span><span class="mi">0</span><span class="o">-</span><span class="n">pine64</span><span class="o">-</span><span class="n">longsleep</span><span class="w"> </span><span class="n">#3</span><span class="w"> </span><span class="n">SMP</span><span class="w"> </span><span class="n">PREEMPT</span><span class="w"> </span><span class="n">Sat</span><span class="w"> </span><span class="n">Mar</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="mi">16</span><span class="err">:</span><span class="mi">05</span><span class="err">:</span><span class="mi">53</span><span class="w"> </span><span class="n">CET</span><span class="w"> </span><span class="mi">2017</span><span class="w"> </span><span class="n">aarch64</span><span class="w"> </span><span class="n">aarch64</span><span class="w"> </span><span class="n">aarch64</span><span class="w"> </span><span class="n">GNU</span><span class="o">/</span><span class="n">Linux</span><span class="w"></span>
+</pre></div>
+
+
+<p>And the CPU info :</p>
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="err">@</span><span class="n">pegasus</span><span class="p">:</span><span class="o">~</span><span class="c1"># cat /proc/cpuinfo</span>
+<span class="n">Processor</span>       <span class="p">:</span> <span class="n">AArch64</span> <span class="n">Processor</span> <span class="n">rev</span> <span class="mi">4</span> <span class="p">(</span><span class="n">aarch64</span><span class="p">)</span>
+<span class="n">processor</span>       <span class="p">:</span> <span class="mi">0</span>
+<span class="n">processor</span>       <span class="p">:</span> <span class="mi">1</span>
+<span class="n">processor</span>       <span class="p">:</span> <span class="mi">2</span>
+<span class="n">processor</span>       <span class="p">:</span> <span class="mi">3</span>
+<span class="n">Features</span>        <span class="p">:</span> <span class="n">fp</span> <span class="n">asimd</span> <span class="n">aes</span> <span class="n">pmull</span> <span class="n">sha1</span> <span class="n">sha2</span> <span class="n">crc32</span>
+<span class="n">CPU</span> <span class="n">implementer</span> <span class="p">:</span> <span class="mh">0x41</span>
+<span class="n">CPU</span> <span class="n">architecture</span><span class="p">:</span> <span class="n">AArch64</span>
+<span class="n">CPU</span> <span class="n">variant</span>     <span class="p">:</span> <span class="mh">0x0</span>
+<span class="n">CPU</span> <span class="n">part</span>        <span class="p">:</span> <span class="mh">0xd03</span>
+<span class="n">CPU</span> <span class="n">revision</span>    <span class="p">:</span> <span class="mi">4</span>
+<span class="n">Hardware</span>        <span class="p">:</span> <span class="n">sun50iw1p1</span>
+</pre></div>
+
+
+<p>And the Memory info :</p>
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="k">proc</span><span class="o">/</span><span class="n">meminfo</span><span class="w"></span>
+<span class="nl">MemTotal</span><span class="p">:</span><span class="w">        </span><span class="mi">2036424</span><span class="w"> </span><span class="n">kB</span><span class="w"></span>
+<span class="nl">MemFree</span><span class="p">:</span><span class="w">          </span><span class="mi">985348</span><span class="w"> </span><span class="n">kB</span><span class="w"></span>
+<span class="nl">Buffers</span><span class="p">:</span><span class="w">          </span><span class="mi">116548</span><span class="w"> </span><span class="n">kB</span><span class="w"></span>
+<span class="nl">Cached</span><span class="p">:</span><span class="w">           </span><span class="mi">628944</span><span class="w"> </span><span class="n">kB</span><span class="w"></span>
+</pre></div>
+
+
+<p>For the nameserver software, I used the famous Bind9. No particular reason why I used Bind9 instead of others like PowerDNS or djbdns. Kenny G once said it's just for <em>sentimental</em> reason :)</p>
+<p>So, I started by installing bind9 by using the most obvious command in Ubuntu.</p>
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@pegasus</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="k">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">bind9</span><span class="w"> </span><span class="n">bind9</span><span class="o">-</span><span class="n">utils</span><span class="w"></span>
+</pre></div>
+
+
+<p>Then the configuration festival begins. The main configuration file is stored at <em>/etc/named.conf</em> with the pointers to other configuration file. The idea here is to split the configuration file based on it's purpose so that if I wanted to add more zones , I will just have to touch particular part of the configuration without touching anything else. Better safe than sorry, right? So this below is the only content of my <em>/etc/named.conf</em> file.</p>
+<div class="highlight"><pre><span></span><span class="k">include</span> <span class="s2">&quot;</span><span class="s">/etc/bind/named.conf.options</span><span class="s2">&quot;</span><span class="c1">;</span>
+<span class="k">include</span> <span class="s2">&quot;</span><span class="s">/etc/bind/named.conf.local</span><span class="s2">&quot;</span><span class="c1">;</span>
+<span class="k">include</span> <span class="s2">&quot;</span><span class="s">/etc/bind/named.conf.default-zones</span><span class="s2">&quot;</span><span class="c1">;</span>
+</pre></div>
+
+
+<p>The first file referred to from the main <em>named.conf</em> is <em>named.conf.options</em>. This file contains the options to be configured for the running Bind9 daemon. It tells the Bind9 daemon on which interface it should listen to, where to store the bind9 cache, and where to forward any DNS query that belongs to outside our zone (here I used google's 8.8.8.8 and 8.8.4.4). It also defines the other name server in our network we would like to use as the secondary name server (on this case it's 192.168.9.50).</p>
+<div class="highlight"><pre><span></span><span class="n">options</span> <span class="p">{</span>
+        <span class="n">directory</span> <span class="s2">&quot;/var/cache/bind&quot;</span><span class="p">;</span>
+        <span class="n">forwarders</span> <span class="p">{</span>
+                <span class="mf">8.8</span><span class="o">.</span><span class="mf">8.8</span><span class="p">;</span>
+                <span class="mf">8.8</span><span class="o">.</span><span class="mf">4.4</span><span class="p">;</span>
+        <span class="p">};</span>
+        <span class="n">dnssec</span><span class="o">-</span><span class="n">validation</span> <span class="n">auto</span><span class="p">;</span>
+        <span class="n">auth</span><span class="o">-</span><span class="n">nxdomain</span> <span class="n">no</span><span class="p">;</span>    <span class="c1"># conform to RFC1035</span>
+        <span class="n">listen</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">v6</span> <span class="p">{</span> <span class="n">any</span><span class="p">;</span> <span class="p">};</span>
+        <span class="n">allow</span><span class="o">-</span><span class="n">query</span> <span class="p">{</span> <span class="n">any</span><span class="p">;</span> <span class="p">};</span>
+        <span class="n">allow</span><span class="o">-</span><span class="n">transfer</span> <span class="p">{</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">9.50</span><span class="p">;</span> <span class="n">localhost</span><span class="p">;</span> <span class="p">};</span>
+        <span class="n">also</span><span class="o">-</span><span class="n">notify</span> <span class="p">{</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">9.50</span><span class="p">;</span> <span class="p">};</span>
+        <span class="n">recursion</span> <span class="n">no</span><span class="p">;</span>
+        <span class="n">notify</span> <span class="n">yes</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>The <em>allow-transfer</em> option controls which server that we allowed to do the full zone transfer to. And the <em>also-notify</em> option controls which server (which is the secondary name server) that the primary server should <em>Notify</em> when there are some changes in this primary name server. The secondary nameserver then will check the serial number of the record from the primary name server and then request for the incremental changes of the zone record to be added/removed on it's record, making the two name server always sync each other.</p>
+<p>The next file is <em>/etc/named.conf.local</em>. This is where the zone is configured. So, I hijacked one of the domains in afraid.org called blogs.or.id and add 1 level domain above it (theprasojos), making it theprasojos.com.</p>
+<div class="highlight"><pre><span></span><span class="n">zone</span> <span class="s2">&quot;theprasojos.com&quot;</span> <span class="n">IN</span> <span class="p">{</span>
+        <span class="n">type</span> <span class="k">master</span><span class="p">;</span>
+        <span class="n">file</span> <span class="s2">&quot;/var/lib/bind/db.theprasojos.com&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">zone</span> <span class="s2">&quot;0.8.2.1.1.2.a.6.4.8.0.8.4.9.a.2.ip6.arpa&quot;</span> <span class="n">IN</span> <span class="p">{</span>
+        <span class="n">type</span> <span class="k">master</span><span class="p">;</span>
+        <span class="n">file</span> <span class="s2">&quot;/var/lib/bind/db.0.8.2.1.1.2.a.6.4.8.0.8.4.9.a.2.ip6.arpa&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>In the future, if more zones are to be added, then this is the only configuration file that needs to be touched.</p>
+<p>The last file referred by named.conf is named.conf.default-zones. This file contains the zones that was by default configured by Bind9, so normally we don't need to touch anything on this file. These configurations listed in this file comes by default with the installation of Bind9 itself.</p>
+<div class="highlight"><pre><span></span><span class="nv">zone</span> <span class="s2">&quot;</span><span class="s">.</span><span class="s2">&quot;</span> {
+        <span class="nv">type</span> <span class="nv">hint</span><span class="c1">;</span>
+        <span class="nv">file</span> <span class="s2">&quot;</span><span class="s">/etc/bind/db.root</span><span class="s2">&quot;</span><span class="c1">;</span>
+}<span class="c1">;</span>
+
+<span class="o">//</span> <span class="nv">be</span> <span class="nv">authoritative</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">localhost</span> <span class="nv">forward</span> <span class="nv">and</span> <span class="nv">reverse</span> <span class="nv">zones</span>, <span class="nv">and</span> <span class="k">for</span>
+<span class="o">//</span> <span class="nv">broadcast</span> <span class="nv">zones</span> <span class="nv">as</span> <span class="nv">per</span> <span class="nv">RFC</span> <span class="mi">1912</span>
+
+<span class="nv">zone</span> <span class="s2">&quot;</span><span class="s">localhost</span><span class="s2">&quot;</span> {
+        <span class="nv">type</span> <span class="nv">master</span><span class="c1">;</span>
+        <span class="nv">file</span> <span class="s2">&quot;</span><span class="s">/etc/bind/db.local</span><span class="s2">&quot;</span><span class="c1">;</span>
+}<span class="c1">;</span>
+
+<span class="nv">zone</span> <span class="s2">&quot;</span><span class="s">127.in-addr.arpa</span><span class="s2">&quot;</span> {
+        <span class="nv">type</span> <span class="nv">master</span><span class="c1">;</span>
+        <span class="nv">file</span> <span class="s2">&quot;</span><span class="s">/etc/bind/db.127</span><span class="s2">&quot;</span><span class="c1">;</span>
+}<span class="c1">;</span>
+
+<span class="nv">zone</span> <span class="s2">&quot;</span><span class="s">0.in-addr.arpa</span><span class="s2">&quot;</span> {
+        <span class="nv">type</span> <span class="nv">master</span><span class="c1">;</span>
+        <span class="nv">file</span> <span class="s2">&quot;</span><span class="s">/etc/bind/db.0</span><span class="s2">&quot;</span><span class="c1">;</span>
+}<span class="c1">;</span>
+
+<span class="nv">zone</span> <span class="s2">&quot;</span><span class="s">255.in-addr.arpa</span><span class="s2">&quot;</span> {
+        <span class="nv">type</span> <span class="nv">master</span><span class="c1">;</span>
+        <span class="nv">file</span> <span class="s2">&quot;</span><span class="s">/etc/bind/db.255</span><span class="s2">&quot;</span><span class="c1">;</span>
+}<span class="c1">;</span>
+</pre></div>
+
+
+<p>Now, back to our zone, theprasojos.com. As pointed by the second file <em>named.conf.local</em>, this is the configuration file list for our zone. Here's the content of <em>/var/lib/bind/db.theprasojos.com</em>. I put a random content there just to protect my network :)</p>
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="err">@</span><span class="n">pegasus</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">bind</span><span class="c1"># cat /var/lib/bind/db.theprasojos.com</span>
+<span class="o">$</span><span class="n">TTL</span> <span class="mi">1</span><span class="n">H</span>
+<span class="err">@</span>   <span class="n">IN</span> <span class="n">SOA</span>  <span class="err">@</span> <span class="n">lintang</span><span class="o">.</span><span class="n">jp</span><span class="o">.</span><span class="n">icloud</span><span class="o">.</span><span class="n">com</span><span class="o">.</span> <span class="p">(</span>
+                <span class="mi">21</span>   <span class="p">;</span> <span class="n">serial</span>
+                <span class="mi">1</span><span class="n">H</span>  <span class="p">;</span> <span class="n">refresh</span>
+                <span class="mi">1</span><span class="n">H</span>  <span class="p">;</span> <span class="n">retry</span>
+                <span class="mi">3</span><span class="n">D</span>  <span class="p">;</span> <span class="n">expire</span>
+                <span class="mi">2</span><span class="n">H</span> <span class="p">)</span>    <span class="p">;</span> <span class="n">minimum</span>
+<span class="err">@</span>            <span class="n">IN</span>   <span class="n">NS</span>     <span class="n">ns1</span><span class="o">.</span><span class="n">theprasojos</span><span class="o">.</span><span class="n">com</span><span class="o">.</span>
+<span class="err">@</span>            <span class="n">IN</span>   <span class="n">NS</span>     <span class="n">ns2</span><span class="o">.</span><span class="n">theprasojos</span><span class="o">.</span><span class="n">com</span><span class="o">.</span>
+<span class="mi">6</span>            <span class="n">IN</span>   <span class="n">AAAA</span>   <span class="mi">2</span><span class="n">a94</span><span class="p">:</span><span class="mi">8084</span><span class="p">:</span><span class="mi">6</span><span class="n">a21</span><span class="p">:</span><span class="mi">1280</span><span class="p">:</span><span class="mi">36</span><span class="n">c3</span><span class="p">:</span><span class="n">d2ff</span><span class="p">:</span><span class="n">fee4</span><span class="p">:</span><span class="n">cdf2</span>
+<span class="n">ns1</span>          <span class="n">IN</span>   <span class="n">AAAA</span>   <span class="mi">2</span><span class="n">a94</span><span class="p">:</span><span class="mi">8084</span><span class="p">:</span><span class="mi">6</span><span class="n">a21</span><span class="p">:</span><span class="mi">1280</span><span class="p">:</span><span class="mi">36</span><span class="n">c3</span><span class="p">:</span><span class="n">d2ff</span><span class="p">:</span><span class="n">fee4</span><span class="p">:</span><span class="n">cdf2</span>
+<span class="n">ns2</span>          <span class="n">IN</span>   <span class="n">AAAA</span>   <span class="mi">2</span><span class="n">a94</span><span class="p">:</span><span class="mi">8084</span><span class="p">:</span><span class="mi">6</span><span class="n">a21</span><span class="p">:</span><span class="mi">1280</span><span class="p">:</span><span class="mi">4</span><span class="n">ba</span><span class="p">:</span><span class="n">dd0</span><span class="p">:</span><span class="n">f892</span><span class="p">:</span><span class="n">fa91</span>
+<span class="n">nightwing</span>    <span class="n">IN</span>   <span class="n">AAAA</span>   <span class="mi">2</span><span class="n">a94</span><span class="p">:</span><span class="mi">8084</span><span class="p">:</span><span class="mi">6</span><span class="n">a21</span><span class="p">:</span><span class="mi">1280</span><span class="p">:</span><span class="n">ba27</span><span class="p">:</span><span class="n">ebff</span><span class="p">:</span><span class="n">fe40</span><span class="p">:</span><span class="n">c2e</span>
+<span class="err">@</span>            <span class="n">IN</span>   <span class="n">MX</span>     <span class="mi">10</span> <span class="n">mail</span>
+<span class="n">mail</span>         <span class="n">IN</span>   <span class="n">AAAA</span>   <span class="mi">2</span><span class="n">a94</span><span class="p">:</span><span class="mi">8084</span><span class="p">:</span><span class="mi">6</span><span class="n">a21</span><span class="p">:</span><span class="mi">1280</span><span class="p">:</span><span class="mi">36</span><span class="n">c3</span><span class="p">:</span><span class="n">d2ff</span><span class="p">:</span><span class="n">fee4</span><span class="p">:</span><span class="n">cdf2</span>
+<span class="n">mail</span><span class="o">.</span><span class="n">_domainkey</span> <span class="n">IN</span>      <span class="n">TXT</span>     <span class="p">(</span> <span class="s2">&quot;v=DKIM1; k=rsa; &quot;</span>
+          <span class="s2">&quot;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDPdw2AmI8Ybbj5jNpbuqEcMW0VJoh+VU1fIO6b0+Yp5HPuat/DP4YakTdnSn0alzW0OpaFYdgj4ztTg/2NGzIqjHmDrrHUaw+Z6PsZaTT8UvG+R1icT5A8xH57xgU9yCaZdZQ4ZTs2IcFjajHvdzHNqYRFdlHf+c9aZpUC7B0+yQIDAQAB&quot;</span> <span class="p">)</span>
+<span class="err">@</span>            <span class="n">IN</span>   <span class="n">TXT</span>    <span class="s2">&quot;v=spf1 mx -all&quot;</span>
+<span class="err">@</span>            <span class="n">IN</span>   <span class="n">TXT</span>    <span class="s2">&quot;PTR test&quot;</span>
+</pre></div>
+
+
+<p>Now, it happens that my ISP only grants a bunch of world-routable IPv6 to me, so this explains why I only have IPv6 content in it. There you can see I have several record with type = AAAA which points to IPv6 address. I also put several TXT record for my mail server which will be covered later on.</p>
+<p>And finally below is the reverse zone record that I have. Again, since I only have IPv6 allocation, the content looks weird, but hey, it worked perfectly :)</p>
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="err">@</span><span class="n">pegasus</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">bind</span><span class="c1"># cat /var/lib/bind/db.0.8.2.1.1.2.a.6.4.8.0.8.4.9.a.2.ip6.arpa</span>
+<span class="o">$</span><span class="n">TTL</span> <span class="mi">1</span><span class="n">H</span>
+<span class="err">@</span>   <span class="n">IN</span> <span class="n">SOA</span>  <span class="err">@</span> <span class="n">lintang</span><span class="o">.</span><span class="n">jp</span><span class="o">.</span><span class="n">icloud</span><span class="o">.</span><span class="n">com</span><span class="o">.</span> <span class="p">(</span>
+                <span class="mi">21</span>   <span class="p">;</span> <span class="n">serial</span>
+                <span class="mi">1</span><span class="n">H</span>  <span class="p">;</span> <span class="n">refresh</span>
+                <span class="mi">1</span><span class="n">H</span>  <span class="p">;</span> <span class="n">retry</span>
+                <span class="mi">3</span><span class="n">D</span>  <span class="p">;</span> <span class="n">expire</span>
+                <span class="mi">2</span><span class="n">H</span> <span class="p">)</span>    <span class="p">;</span> <span class="n">minimum</span>
+<span class="err">@</span>       <span class="n">IN</span>   <span class="n">NS</span>     <span class="n">ns1</span><span class="o">.</span><span class="n">theprasojos</span><span class="o">.</span><span class="n">com</span><span class="o">.</span>
+<span class="err">@</span>       <span class="n">IN</span>   <span class="n">NS</span>     <span class="n">ns2</span><span class="o">.</span><span class="n">theprasojos</span><span class="o">.</span><span class="n">com</span><span class="o">.</span>
+
+<span class="mf">2.</span><span class="n">f</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="mf">4.</span><span class="n">e</span><span class="o">.</span><span class="n">e</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="mf">2.</span><span class="n">d</span><span class="o">.</span><span class="mf">3.</span><span class="n">c</span><span class="o">.</span><span class="mf">6.3</span>    <span class="n">IN</span>    <span class="n">PTR</span>    <span class="n">ns1</span><span class="o">.</span><span class="n">theprasojos</span><span class="o">.</span><span class="n">com</span><span class="o">.</span>
+<span class="mf">2.</span><span class="n">f</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="mf">4.</span><span class="n">e</span><span class="o">.</span><span class="n">e</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="mf">2.</span><span class="n">d</span><span class="o">.</span><span class="mf">3.</span><span class="n">c</span><span class="o">.</span><span class="mf">6.3</span>    <span class="n">IN</span>    <span class="n">PTR</span>    <span class="n">mail</span><span class="o">.</span><span class="n">theprasojos</span><span class="o">.</span><span class="n">com</span><span class="o">.</span>
+<span class="mf">1.9</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="mf">2.9</span><span class="o">.</span><span class="mf">8.</span><span class="n">f</span><span class="o">.</span><span class="mf">0.</span><span class="n">d</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="mf">0.</span><span class="n">a</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="mf">4.0</span>    <span class="n">IN</span>    <span class="n">PTR</span>    <span class="n">ns2</span><span class="o">.</span><span class="n">theprasojos</span><span class="o">.</span><span class="n">com</span><span class="o">.</span>
+<span class="n">e</span><span class="o">.</span><span class="mf">2.</span><span class="n">c</span><span class="o">.</span><span class="mf">0.0</span><span class="o">.</span><span class="mf">4.</span><span class="n">e</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">e</span><span class="o">.</span><span class="mf">7.2</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">b</span>    <span class="n">IN</span>    <span class="n">PTR</span>    <span class="n">nightwing</span><span class="o">.</span><span class="n">theprasojos</span><span class="o">.</span><span class="n">com</span><span class="o">.</span>
+</pre></div>
+
+
+<p>Btw, you might ask how did I construct those PTR record and the PTR zone file name ? I used the following tools provided <a href="http://rdns6.com/zone">here</a> . It gives a good hint on how to construct the PTR record for IPv6 address.</p>
+<p>Now it's time to test it. The DNS propagation will take some time. I used the tool <a href="https://dnsmap.io">here</a> instead of those provided by Google. This is just to make sure that my zone is handled well only by Google's NS, but also other name server as well.</p>
+<p>We can also test it from console. See below result :</p>
+<div class="highlight"><pre><span></span>$ dig -t ns +noall +answer theprasojos.com <span class="m">8</span>.8.8.8
+theprasojos.com. <span class="m">3424</span>   IN  NS  ns2.theprasojos.com.
+theprasojos.com. <span class="m">3424</span>   IN  NS  ns1.theprasojos.com.
+</pre></div>
+
+
+<p>And for the aaaa record :</p>
+<div class="highlight"><pre><span></span>$ dig -t aaaa +noall +answer www.theprasojos.com <span class="m">8</span>.8.4.4
+www.theprasojos.com. <span class="m">3518</span>   IN  AAAA    2a94:8084:6a21:1280:36c3:d2ff:fee4:cdf2
+</pre></div>
+
+
+<p>And so on, so forth :)</p>
+<p>Finally, last step is to make Bind9 running everytime the server starts. Since I use systemd, then the following file is required (/lib/systemd/system/bind9.service):</p>
+<div class="highlight"><pre><span></span><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">BIND Domain Name Server</span>
+<span class="na">Documentation</span><span class="o">=</span><span class="s">man:named(8)</span>
+<span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
+
+<span class="k">[Service]</span>
+<span class="na">EnvironmentFile</span><span class="o">=</span><span class="s">/etc/default/bind9</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/sbin/named -f $OPTIONS</span>
+<span class="na">ExecReload</span><span class="o">=</span><span class="s">/usr/sbin/rndc reload</span>
+<span class="na">ExecStop</span><span class="o">=</span><span class="s">/usr/sbin/rndc stop</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</pre></div>
+
+
+<p>And then the symbolic link :</p>
+<div class="highlight"><pre><span></span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">multi</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">target</span><span class="p">.</span><span class="n">wants</span><span class="o">/</span><span class="n">bind9</span><span class="p">.</span><span class="kr">service</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">bind9</span><span class="p">.</span><span class="kr">service</span>
+</pre></div>
+
+
+<p>That's it. Thanks for reading.</p>	
+
+	</article>
+
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "2018/03/25/dns-setup-for-theprasojos-in-ubuntu-pine64/";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = '//jprasojos.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
+
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" id="sidebar-container-fixed">
+
+	            <aside>
+	              <h2>About</h2>
+			      <p>
+                    Just an ordinary telecom engineer, working for Online Charging System..
+			      </p>
+			    </aside>
+
+  	          <nav>
+	            <h2>Categories</h2>
+	            <ul>
+	                <li ><a href="https://blog.theprasojos.id/category/4n6.html">4n6</a></li>
+	                <li class="active"><a href="https://blog.theprasojos.id/category/homeserver.html">HomeServer</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/java.html">Java</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/renungan.html">Renungan</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/telco.html">Telco</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/unixlinux.html">Unix/Linux</a></li>
+	            </ul>
+	          </nav>
+
+	            <aside>
+	            <h2>Social</h2>
+			      <ul class="social">
+				    <li><a href="https://twitter.com/jprasojo">Twitter</a><i></i></li>
+				    <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a><i></i></li>
+			      </ul>
+			    </aside>
+
+	            <aside>
+	              <h2>Blogroll</h2>
+	              <ul>
+	                  <li><a href="http://getpelican.com/">Pelican</a></li>
+	                  <li><a href="http://travel.theprasojos.id">My Travelling Logs</a></li>
+	                  <li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
+	                  <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+	              </ul>
+	            </aside>
+	        </div>
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  Lintang JP - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-56589451-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+</body>
+</html>

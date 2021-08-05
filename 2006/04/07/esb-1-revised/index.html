@@ -1,155 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="en">	
+<head>
+	<meta charset="utf-8"/>
+	<title>ESB #1 (Revised) - LJP's blog</title>	
+	<meta name="author" content="Lintang JP">
+	
 
-    <title>  ESB #1 (Revised)
- | JPrasojo's blog</title>
-
-    <meta name="author" content="Lintang JP"/>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"/>
-    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/jquery.mglass.css"/>
-    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/pygment-solarized-dark.css"/>
-    <link rel="stylesheet" href="http://theprasojos.blogs.or.id/theme/css/style.css"/>
-
-    <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
-    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'/>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'/>
+  <meta name="description" content="Baru dapet chm tentang ESB(Enterprise Service Bus), karangan Dave Chappel dari mas Ari. Nih ulasan bab pertamanya : Bab pertama ngejelasin tentang apa itu ESB(Enterprise Service Bus). Tahun-tahun sebelumnya kita mengenal istilah Service Oriented Architecture (SOA), Enterprise Application Integration (EAI), Business-to-Business (B2B), dan web services. Semua teknologi ini intinya …">
 
 
-    <link rel="icon" href="http://theprasojos.blogs.or.id/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="http://theprasojos.blogs.or.id/favicon.ico" type="image/x-icon">
 
-    <!-- Feeds -->
-      <link href="http://theprasojos.blogs.or.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo&#39;s blog - All posts - Atom Feed"/>
-      <link href="http://theprasojos.blogs.or.id/feeds/java.atom.xml" type="application/atom+xml" rel="alternate" title="JPrasojo&#39;s blog - Category: Java - Atom Feed"/>
+	<link rel="stylesheet" href="https://blog.theprasojos.id/theme/css/main.css" type="text/css" />
+		
+	  <script type="text/javascript" src="https://blog.theprasojos.id/theme/js/custom_scripts.js"></script>
 
 
-  </head>
-
-  <body>
+    <link href="https://blog.theprasojos.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="LJP's blog Atom Feed" />
+</head>
+	
+<body>
 
     <div class="container">
+	  
+	  <header>
+	    <div class="feeds">
+	      <a href="https://blog.theprasojos.id/feeds/all.atom.xml" rel="alternate"><img src="https://blog.theprasojos.id/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+		<a href="https://blog.theprasojos.id" class="title">LJP's blog</a>
+      </header>
+	
+	  <div class="wrapper">
 
-      <div class="page-header">
-        <h1><a href="http://theprasojos.blogs.or.id">JPrasojo's blog</a> <small></small></h1>
-      </div>
-
-      <nav class="navbar navbar-default">
-
-        <!-- Hamburger menu for mobile -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#plumage-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="http://theprasojos.blogs.or.id" title="">JPrasojo's blog</a>
-        </div>
-
-        <!-- Menus and search forms -->
-        <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
-
-          <ul class="nav navbar-nav">
-<li >
-                  <a href="http://theprasojos.blogs.or.id/pages/hello-world.html">About</a>
-                </li>
-<li  class="active" >
-                  <a href="http://theprasojos.blogs.or.id/category/java.html">Java <span class="sr-only">(current)</span></a>
-                </li>
-<li >
-                  <a href="http://theprasojos.blogs.or.id/category/renungan.html">Renungan</a>
-                </li>
-<li >
-                  <a href="http://theprasojos.blogs.or.id/category/telco.html">Telco</a>
-                </li>
-<li >
-                  <a href="http://theprasojos.blogs.or.id/category/unixlinux.html">Unix/Linux</a>
-                </li>
-          </ul>
-
-
-
-        </div>
-
-      </nav>
-
-    </div>
-
-
-    <div class="container main">
-
-
-      <div class="row">
-        <div class=" col-md-9  ">
-  <h1>
-    <a href="http://theprasojos.blogs.or.id/2006/04/07/esb-1-revised/" rel="bookmark" title="Permalink to ESB #1 (Revised)">ESB #1 (Revised)</a>
-  </h1>
-        </div>
-      </div>
-
-      <div class="row">
-
-
-        <div class=" col-md-9 " id="content" role="main">
-  
-
-  <div>
-    <p>Baru dapet chm tentang ESB(Enterprise Service Bus), karangan Dave Chappel dari <a href="http://arih.wordpress.com">mas Ari</a>. Nih ulasan bab pertamanya :</p>
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>ESB #1 (Revised)</h1>
+		
+<div class="metadata">
+  <time datetime="2006-04-07T00:00:00+01:00">Fri 07 April 2006</time>
+    <address class="vcard author">
+      by <a class="url fn" href="https://blog.theprasojos.id/author/lintang-jp.html">Lintang JP</a>
+    </address>
+  in <a href="https://blog.theprasojos.id/category/java.html">Java</a>
+</div>		
+		<p>Baru dapet chm tentang ESB(Enterprise Service Bus), karangan Dave Chappel dari <a href="http://arih.wordpress.com">mas Ari</a>. Nih ulasan bab pertamanya :</p>
 <p>Bab pertama ngejelasin tentang apa itu ESB(Enterprise Service Bus). Tahun-tahun sebelumnya kita mengenal istilah Service Oriented Architecture (SOA), Enterprise Application Integration (EAI), Business-to-Business (B2B), dan web services. Semua teknologi ini intinya sama, yaitu improvisasi hasil bisnis dari integrasi sistem-sistem yang telah ada sebelumnya. Sedangkan konsep ESB lebih kepada "..loosely coupled, highly distributed integration network that can scale beyond the limits of a hub-and-spoke EAI broker" . Jadi ketika bicara tentang ESB, maka didalamnya akan meliputi :</p>
-<div class="highlight"><pre><span></span>1. Messaging
+<div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Messaging</span>
 
-2. Web Services
+<span class="mf">2.</span> <span class="n">Web</span> <span class="n">Services</span>
 
-3. Transformasi data
+<span class="mf">3.</span> <span class="n">Transformasi</span> <span class="kd">data</span>
 
-4. Intelligent Routing yang mampu meneruskan message dari node satu ke yang lain tanpa melalui mekanisme broadcast.
+<span class="mf">4.</span> <span class="nb">Int</span><span class="n">elligent</span> <span class="n">Routing</span> <span class="n">yang</span> <span class="n">mampu</span> <span class="n">meneruskan</span> <span class="n">message</span> <span class="n">dari</span> <span class="n">node</span> <span class="n">satu</span> <span class="n">ke</span> <span class="n">yang</span> <span class="n">lain</span> <span class="nb">tan</span><span class="n">pa</span> <span class="n">melalui</span> <span class="n">mekanisme</span> <span class="n">broadcast</span><span class="mf">.</span>
 </pre></div>
 
 
 <p>Lebih lanjut dijelaskan dalam halaman berikutnya, tentang konsep-konsep apa saja yang telah diakomodir oleh generasi integrasi sebelumnya (SOA, EAI, B2B) sebagai berikut :</p>
-<div class="highlight"><pre><span></span>1.It must adapt to suit the needs of general-purpose integration projects across a variety of integration situations, large and small. Adaptability includes providing a durable architecture that is capable of withstanding evolutions in protocols, interface technology, and even process modeling trends.
+<div class="highlight"><pre><span></span><span class="mf">1.</span><span class="n">It</span> <span class="n">must</span> <span class="n">adapt</span> <span class="kr">to</span> <span class="n">suit</span> <span class="n">the</span> <span class="n">needs</span> <span class="n">of</span> <span class="n">general</span><span class="o">-</span><span class="n">purpose</span> <span class="nb">int</span><span class="n">egration</span> <span class="n">projects</span> <span class="n">across</span> <span class="n">a</span> <span class="n">variety</span> <span class="n">of</span> <span class="nb">int</span><span class="n">egration</span> <span class="n">situations</span><span class="p">,</span> <span class="n">large</span> <span class="ow">and</span> <span class="n">small</span><span class="mf">.</span> <span class="n">Adaptability</span> <span class="n">includes</span> <span class="n">providing</span> <span class="n">a</span> <span class="n">durable</span> <span class="n">architecture</span> <span class="n">that</span> <span class="n">is</span> <span class="n">capable</span> <span class="n">of</span> <span class="n">withstanding</span> <span class="n">evolutions</span> <span class="n">in</span> <span class="n">protocols</span><span class="p">,</span> <span class="nb">int</span><span class="n">erface</span> <span class="n">technology</span><span class="p">,</span> <span class="ow">and</span> <span class="n">even</span> <span class="n">process</span> <span class="n">modeling</span> <span class="n">trends</span><span class="mf">.</span>
 
 
-2.It must link together applications that span the extended enterprise using a single unified approach and a common infrastructure.
+<span class="mf">2.</span><span class="n">It</span> <span class="n">must</span> <span class="n">link</span> <span class="kr">toget</span><span class="n">her</span> <span class="n">applications</span> <span class="n">that</span> <span class="n">span</span> <span class="n">the</span> <span class="n">extended</span> <span class="n">enterprise</span> <span class="n">using</span> <span class="n">a</span> <span class="nb">sin</span><span class="n">gle</span> <span class="n">unified</span> <span class="n">approach</span> <span class="ow">and</span> <span class="n">a</span> <span class="n">common</span> <span class="n">infrastructure</span><span class="mf">.</span>
 
 
-3.It must extend beyond the boundaries of a single corporate IT data center and into automating partner relationships such as B2B and supply-chain scenarios.
+<span class="mf">3.</span><span class="n">It</span> <span class="n">must</span> <span class="n">extend</span> <span class="n">beyond</span> <span class="n">the</span> <span class="n">boundaries</span> <span class="n">of</span> <span class="n">a</span> <span class="nb">sin</span><span class="n">gle</span> <span class="n">corporate</span> <span class="n">IT</span> <span class="kd">data</span> <span class="n">center</span> <span class="ow">and</span> <span class="nb">int</span><span class="n">o</span> <span class="n">automating</span> <span class="n">partner</span> <span class="n">relationships</span> <span class="n">such</span> <span class="n">as</span> <span class="n">B2B</span> <span class="ow">and</span> <span class="n">supply</span><span class="o">-</span><span class="n">chain</span> <span class="n">scenarios</span><span class="mf">.</span>
 
 
-4.It must have simplicity of design and low barriers to entry, enabling the everyday IT professional to become a self-empowered integration architect.
+<span class="mf">4.</span><span class="n">It</span> <span class="n">must</span> <span class="n">have</span> <span class="n">simplicity</span> <span class="n">of</span> <span class="n">design</span> <span class="ow">and</span> <span class="n">low</span> <span class="n">barriers</span> <span class="kr">to</span> <span class="n">entry</span><span class="p">,</span> <span class="n">enabling</span> <span class="n">the</span> <span class="n">everyday</span> <span class="n">IT</span> <span class="n">professional</span> <span class="kr">to</span> <span class="n">become</span> <span class="n">a</span> <span class="n">self</span><span class="o">-</span><span class="n">empowered</span> <span class="nb">int</span><span class="n">egration</span> <span class="n">architect</span><span class="mf">.</span>
 
 
-5.It must provide an SOA across the pervasive integration that enables integration architects to have a broad, abstract view of corporate application assets and automated business processes.
+<span class="mf">5.</span><span class="n">It</span> <span class="n">must</span> <span class="n">provide</span> <span class="n">an</span> <span class="n">SOA</span> <span class="n">across</span> <span class="n">the</span> <span class="n">pervasive</span> <span class="nb">int</span><span class="n">egration</span> <span class="n">that</span> <span class="n">enables</span> <span class="nb">int</span><span class="n">egration</span> <span class="n">architects</span> <span class="kr">to</span> <span class="n">have</span> <span class="n">a</span> <span class="n">broad</span><span class="p">,</span> <span class="nb">abs</span><span class="n">tract</span> <span class="n">view</span> <span class="n">of</span> <span class="n">corporate</span> <span class="n">application</span> <span class="n">assets</span> <span class="ow">and</span> <span class="n">automated</span> <span class="n">business</span> <span class="n">processes</span><span class="mf">.</span>
 
 
-6.It needs the flexibility and ability to react to and meet the needs of changing business requirements and competitive pressures.
+<span class="mf">6.</span><span class="n">It</span> <span class="n">needs</span> <span class="n">the</span> <span class="n">flexibility</span> <span class="ow">and</span> <span class="n">ability</span> <span class="kr">to</span> <span class="n">react</span> <span class="kr">to</span> <span class="ow">and</span> <span class="n">meet</span> <span class="n">the</span> <span class="n">needs</span> <span class="n">of</span> <span class="n">changing</span> <span class="n">business</span> <span class="n">requirements</span> <span class="ow">and</span> <span class="n">competitive</span> <span class="n">pressures</span><span class="mf">.</span>
 </pre></div>
 
 
 <p>Gambar berikut menunjukkan lebih jelas tentang posisi ESB dan teknologi integrasi pendahulunya.</p>
 <p><a href="http://jroller.com/resources/j/JPrasojo/Clipboard01.jpg">2</a></p>
-<div class="highlight"><pre><span></span>1. Traditional EAI Brokers.
-Arsitektur EAI Broker seperti ini memiliki keunggulan dimana semua fungsi-fungsi yang disediakannya (termasuk manajemen routing dan bisnis rule) dapat diatur secara terpusat. Tetapi buku ini mengatakan bahwa arsitektur ini kurang cocok untuk level integrasi antar departemen atau unit bisnis yang berbeda. Lebih lanjut dijelaskan dalam bab 2 mengenai ini.
+<div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Traditional</span> <span class="n">EAI</span> <span class="n">Brokers</span><span class="mf">.</span>
+<span class="n">Arsitektur</span> <span class="n">EAI</span> <span class="n">Broker</span> <span class="n">seperti</span> <span class="n">ini</span> <span class="n">memiliki</span> <span class="n">keunggulan</span> <span class="kd">dim</span><span class="n">ana</span> <span class="n">semua</span> <span class="n">fungsi</span><span class="o">-</span><span class="n">fungsi</span> <span class="n">yang</span> <span class="n">disediakannya</span> <span class="p">(</span><span class="n">termasuk</span> <span class="n">manajemen</span> <span class="n">routing</span> <span class="n">dan</span> <span class="n">bisnis</span> <span class="n">rule</span><span class="p">)</span> <span class="n">dapat</span> <span class="n">diatur</span> <span class="n">secara</span> <span class="n">terpusat</span><span class="mf">.</span> <span class="n">Tetapi</span> <span class="n">buku</span> <span class="n">ini</span> <span class="n">mengatakan</span> <span class="n">bahwa</span> <span class="n">arsitektur</span> <span class="n">ini</span> <span class="n">kurang</span> <span class="n">cocok</span> <span class="n">untuk</span> <span class="n">level</span> <span class="nb">int</span><span class="n">egrasi</span> <span class="n">antar</span> <span class="n">departemen</span> <span class="n">atau</span> <span class="n">unit</span> <span class="n">bisnis</span> <span class="n">yang</span> <span class="n">berbeda</span><span class="mf">.</span> <span class="n">Lebih</span> <span class="n">lanjut</span> <span class="n">dijelaskan</span> <span class="n">dalam</span> <span class="n">bab</span> <span class="mf">2</span> <span class="n">mengenai</span> <span class="n">ini</span><span class="mf">.</span>
 
-2. Application Server.
-Application server dapat menghubungkan protokol-protokol yang berbeda dengan baik, namun hasilnya adalah sebuah aplikasi yang saling bergantung satu sama lain, yaitu antara integration logic dan application logic.
-
-
-3. Message Oriented Middleware.
-Menyediakan konektivitas yang baik, loosely coupled, dengan gaya asinkron, antar aplikasi. Hal ini memungkinkan beberapa aplikasi yang kecepatan responsenya berbeda, menjadi tidak saling menunggu satu sama lain. Namun, arsitektur MOM ini membutuhkan pemrograman low-level yang cukup lumayan, sehingga bisa jadi waktu development akan lama. Belum lagi masalah perbedaan fisik network yang menyebabkan beberapa infrastruktur MOM tertentu menjadi tidak bisa diandalkan.
+<span class="mf">2.</span> <span class="n">Application</span> <span class="n">Server</span><span class="mf">.</span>
+<span class="n">Application</span> <span class="n">server</span> <span class="n">dapat</span> <span class="n">menghubungkan</span> <span class="n">protokol</span><span class="o">-</span><span class="n">protokol</span> <span class="n">yang</span> <span class="n">berbeda</span> <span class="n">dengan</span> <span class="n">baik</span><span class="p">,</span> <span class="n">namun</span> <span class="n">hasilnya</span> <span class="n">adalah</span> <span class="n">sebuah</span> <span class="n">aplikasi</span> <span class="n">yang</span> <span class="n">saling</span> <span class="n">bergantung</span> <span class="n">satu</span> <span class="n">sama</span> <span class="n">lain</span><span class="p">,</span> <span class="n">yaitu</span> <span class="n">antara</span> <span class="nb">int</span><span class="n">egration</span> <span class="nb">log</span><span class="n">ic</span> <span class="n">dan</span> <span class="n">application</span> <span class="nb">log</span><span class="n">ic</span><span class="mf">.</span>
 
 
-4. Yang terakhir, ESB.
-Disini, kita tidak lagi bicara tentang pemrograman, tetapi lebih ke arah bagaimana sebuah service di konfigurasi. Di ESB juga terdapat pemisahan arsitektur yang jelas antara business logic(proses bisnis aplikasi) dengan integration logic(routing dan transformasi format data).
+<span class="mf">3.</span> <span class="n">Message</span> <span class="ow">Or</span><span class="n">iented</span> <span class="n">Middleware</span><span class="mf">.</span>
+<span class="n">Menyediakan</span> <span class="n">konektivitas</span> <span class="n">yang</span> <span class="n">baik</span><span class="p">,</span> <span class="n">loosely</span> <span class="n">coupled</span><span class="p">,</span> <span class="n">dengan</span> <span class="n">gaya</span> <span class="n">asinkron</span><span class="p">,</span> <span class="n">antar</span> <span class="n">aplikasi</span><span class="mf">.</span> <span class="n">Hal</span> <span class="n">ini</span> <span class="n">memungkinkan</span> <span class="n">beberapa</span> <span class="n">aplikasi</span> <span class="n">yang</span> <span class="n">kecepatan</span> <span class="n">responsenya</span> <span class="n">berbeda</span><span class="p">,</span> <span class="n">menjadi</span> <span class="n">tidak</span> <span class="n">saling</span> <span class="n">menunggu</span> <span class="n">satu</span> <span class="n">sama</span> <span class="n">lain</span><span class="mf">.</span> <span class="n">Namun</span><span class="p">,</span> <span class="n">arsitektur</span> <span class="n">MOM</span> <span class="n">ini</span> <span class="n">membutuhkan</span> <span class="n">pemrograman</span> <span class="n">low</span><span class="o">-</span><span class="n">level</span> <span class="n">yang</span> <span class="n">cukup</span> <span class="n">lumayan</span><span class="p">,</span> <span class="n">sehingga</span> <span class="n">bisa</span> <span class="n">jadi</span> <span class="n">waktu</span> <span class="n">development</span> <span class="n">akan</span> <span class="n">lama</span><span class="mf">.</span> <span class="n">Belum</span> <span class="n">lagi</span> <span class="n">masalah</span> <span class="n">perbedaan</span> <span class="n">fisik</span> <span class="n">network</span> <span class="n">yang</span> <span class="n">menyebabkan</span> <span class="n">beberapa</span> <span class="n">infrastruktur</span> <span class="n">MOM</span> <span class="n">tertentu</span> <span class="n">menjadi</span> <span class="n">tidak</span> <span class="n">bisa</span> <span class="n">diandalkan</span><span class="mf">.</span>
+
+
+<span class="mf">4.</span> <span class="n">Yang</span> <span class="n">terakhir</span><span class="p">,</span> <span class="n">ESB</span><span class="mf">.</span>
+<span class="n">Disini</span><span class="p">,</span> <span class="n">kita</span> <span class="n">tidak</span> <span class="n">lagi</span> <span class="n">bicara</span> <span class="n">tentang</span> <span class="n">pemrograman</span><span class="p">,</span> <span class="n">tetapi</span> <span class="n">lebih</span> <span class="n">ke</span> <span class="n">arah</span> <span class="n">bagaimana</span> <span class="n">sebuah</span> <span class="n">service</span> <span class="n">di</span> <span class="n">konfigurasi</span><span class="mf">.</span> <span class="n">Di</span> <span class="n">ESB</span> <span class="n">juga</span> <span class="n">terdapat</span> <span class="n">pemisahan</span> <span class="n">arsitektur</span> <span class="n">yang</span> <span class="n">jelas</span> <span class="n">antara</span> <span class="n">business</span> <span class="nb">log</span><span class="n">ic</span><span class="p">(</span><span class="n">proses</span> <span class="n">bisnis</span> <span class="n">aplikasi</span><span class="p">)</span> <span class="n">dengan</span> <span class="nb">int</span><span class="n">egration</span> <span class="nb">log</span><span class="n">ic</span><span class="p">(</span><span class="n">routing</span> <span class="n">dan</span> <span class="n">transformasi</span> <span class="kr">for</span><span class="n">mat</span> <span class="kd">data</span><span class="p">)</span><span class="mf">.</span>
 </pre></div>
 
 
@@ -159,7 +99,7 @@ Disini, kita tidak lagi bicara tentang pemrograman, tetapi lebih ke arah bagaima
 <p><strong>ESB Architecture</strong></p>
 <p>Berikut karakteristik dari ESB :</p>
 <p><strong>Pervasiveness. </strong></p>
-<div class="highlight"><pre><span></span>An ESB can be adapted to suit the needs of general-purpose integration projects across a variety of integration situations. It is capable of building out integration projects that can span an entire organization and its business partners.
+<div class="highlight"><pre><span></span><span class="n">An</span> <span class="n">ESB</span> <span class="n">can</span> <span class="n">be</span> <span class="n">adapted</span> <span class="n">to</span> <span class="n">suit</span> <span class="n">the</span> <span class="n">needs</span> <span class="n">of</span> <span class="n">general</span><span class="o">-</span><span class="n">purpose</span> <span class="n">integration</span> <span class="n">projects</span> <span class="n">across</span> <span class="n">a</span> <span class="n">variety</span> <span class="n">of</span> <span class="n">integration</span> <span class="n">situations</span><span class="o">.</span> <span class="n">It</span> <span class="k">is</span> <span class="n">capable</span> <span class="n">of</span> <span class="n">building</span> <span class="n">out</span> <span class="n">integration</span> <span class="n">projects</span> <span class="n">that</span> <span class="n">can</span> <span class="n">span</span> <span class="n">an</span> <span class="n">entire</span> <span class="n">organization</span> <span class="ow">and</span> <span class="n">its</span> <span class="n">business</span> <span class="n">partners</span><span class="o">.</span>
 </pre></div>
 
 
@@ -200,151 +140,87 @@ Incremental adoption. An ESB can be used for small projects. </strong></p>
 <p><strong>
 XML support. </strong></p>
 <div class="highlight"><pre><span></span>An ESB can take advantage of XML as its &quot;native&quot; datatype.
-</pre></div>
-  </div>
+</pre></div>	
+
+	</article>
 
 
-    <div class="comments">
-      <div id="disqus_thread"></div>
-      <script type="text/javascript">
-        var disqus_shortname = 'jprasojos';
-        var disqus_identifier = "2006/04/07/esb-1-revised/";
-        var disqus_title = "ESB #1 (Revised)";
-        var disqus_url = "http://theprasojos.blogs.or.id/2006/04/07/esb-1-revised/";
-        (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus</a>.</noscript>
-    </div>
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "2006/04/07/esb-1-revised/";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = '//jprasojos.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
-        </div>
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" id="sidebar-container-fixed">
 
-          <div class="col-md-3">
-  <div class="well">
+	            <aside>
+	              <h2>About</h2>
+			      <p>
+                    Just an ordinary telecom engineer, working for Online Charging System..
+			      </p>
+			    </aside>
 
-    <p><abbr title="2006-04-07T00:00:00+01:00"><i class="fa fa-calendar"></i> Fri 07 April 2006</abbr></p>
+  	          <nav>
+	            <h2>Categories</h2>
+	            <ul>
+	                <li ><a href="https://blog.theprasojos.id/category/4n6.html">4n6</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/homeserver.html">HomeServer</a></li>
+	                <li class="active"><a href="https://blog.theprasojos.id/category/java.html">Java</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/renungan.html">Renungan</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/telco.html">Telco</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/unixlinux.html">Unix/Linux</a></li>
+	            </ul>
+	          </nav>
 
-      <p><address>
-        <i class="fa fa-user"></i> By
-          <a href="http://theprasojos.blogs.or.id/author/lintang-jp.html" rel="author">Lintang JP</a>
-      </address></p>
+	            <aside>
+	            <h2>Social</h2>
+			      <ul class="social">
+				    <li><a href="https://twitter.com/jprasojo">Twitter</a><i></i></li>
+				    <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a><i></i></li>
+			      </ul>
+			    </aside>
 
-    <hr/>
+	            <aside>
+	              <h2>Blogroll</h2>
+	              <ul>
+	                  <li><a href="http://getpelican.com/">Pelican</a></li>
+	                  <li><a href="http://travel.theprasojos.id">My Travelling Logs</a></li>
+	                  <li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
+	                  <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+	              </ul>
+	            </aside>
+	        </div>
+		  </div>
 
-      <p>
-              <a href="http://theprasojos.blogs.or.id/category/java.html" rel="tag"
-                  data-toggle="tooltip" class="label label-info"
-                  title="4 articles in this category">Java</a>
-      </p>
-      <hr/>
+	  </div>
 
+      <footer>
+		<p role="contentinfo">
+		  Lintang JP - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
 
+	  </footer>	
 
-  </div>
-            
-          </div>
-
-      </div>
-
-    </div>
-
-    <!-- TODO: make footer sticky -->
-    <footer class="container-fluid">
-      <div class="container">
-        <div class="row">
-
-            <div class="col-md-2">
-                <h5>Social</h5>
-                <ul class="list-unstyled">
-                  <li>  <a href="https://twitter.com/jprasojo">
-      <i class="fa fa-twitter"></i>
-    Twitter
-  </a></li>
-                  <li>  <a href="https://www.linkedin.com/in/lintangprasojo">
-      <img src="https://icons.better-idea.org/icon?url=www.linkedin.com&size=16" width="16" height="16" class="icon" alt="www.linkedin.com icon"/>
-    Linkedin
-  </a></li>
-                </ul>
-            </div>
-            <div class="col-md-2">
-                <h5>Links</h5>
-                <ul class="list-unstyled">
-                  <li>  <a href="http://getpelican.com/">
-      <img src="https://icons.better-idea.org/icon?url=getpelican.com&size=16" width="16" height="16" class="icon" alt="getpelican.com icon"/>
-    Pelican
-  </a></li>
-                  <li>  <a href="http://travel.theprasojos.web.id">
-      <img src="https://icons.better-idea.org/icon?url=travel.theprasojos.web.id&size=16" width="16" height="16" class="icon" alt="travel.theprasojos.web.id icon"/>
-    My Travelling Logs
-  </a></li>
-                  <li>  <a href="https://vhynaulia.wordpress.com/">
-      <img src="https://icons.better-idea.org/icon?url=vhynaulia.wordpress.com&size=16" width="16" height="16" class="icon" alt="vhynaulia.wordpress.com icon"/>
-    Blognya TePot
-  </a></li>
-                  <li>  <a href="http://theprasojos.wordpress.com">
-      <img src="https://icons.better-idea.org/icon?url=theprasojos.wordpress.com&size=16" width="16" height="16" class="icon" alt="theprasojos.wordpress.com icon"/>
-    Theprasojos Family
-  </a></li>
-                </ul>
-            </div>
-
-          <div class="col-md-2">
-            <h5>Browse content by</h5>
-            <ul class="list-unstyled">
-            </ul>
-          </div>
-
-          <div class="col-md-2 text-muted">
-            <h5>Copyright notice</h5>
-            <p>© Copyright 2004-2014 Lintang JP.</p>
-          </div>
-
-          <div class="col-md-2 text-muted">
-            <h5>Disclaimer</h5>
-              <p>All opinions expressed in this site are my own personal opinions and are not endorsed by, nor do they represent the opinions of my previous, current and future employers or any of its affiliates, partners or customers.</p>
-          </div>
-
-          <div class="col-md-2">
-              <h5>Feeds</h5>
-              <ul class="list-unstyled">
-                  <li><small><a href="http://theprasojos.blogs.or.id/feeds/all.atom.xml"><i class="fa fa-rss"></i> All posts (Atom)</a></small></li>
-                  <li><small><a href="http://theprasojos.blogs.or.id/feeds/java.atom.xml"><i class="fa fa-rss"></i> Category: Java (Atom)</a></small></li>
-              </ul>
-          </div>
-
-        </div>
-      </div>
-
-      <h5 class="text-right"><a href="#"><i class="fa fa-arrow-up"></i> Back to top</a></h5>
-
-      <div class="container">
-        <div class="row col-md-12 text-muted text-center">
-          Site generated by <a href="https://getpelican.com"> Pelican</a>.<br/>
-          <a href="https://github.com/kdeldycke/plumage"> Plumage</a> theme by <a href="https://kevin.deldycke.com">Kevin Deldycke</a>.
-        </div>
-      </div>
-
-    </footer>
-
+	</div>
     <script type="text/javascript">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-56589451-1', 'auto');
-    ga('send', 'pageview');
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-56589451-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
-    <script src="http://theprasojos.blogs.or.id/theme/js/jquery.mglass.js"></script>
-    <script src="http://theprasojos.blogs.or.id/theme/js/application.js"></script>
-
-  </body>
+</body>
 </html>

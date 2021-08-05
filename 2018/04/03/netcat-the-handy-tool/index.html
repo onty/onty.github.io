@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Netcat the handy tool - LJP's blog</title>	
+	<meta name="author" content="Lintang JP">
+	
+
+  <meta name="description" content="Netcat/nc is a command line based tool known as the swiss-army knife utility for networking. It can do lots of things when it comes to networking matters. In Forensic field, netcat or commonly known as nc is mostly used to open up a port as an I/O destination …">
+
+
+
+	<link rel="stylesheet" href="https://blog.theprasojos.id/theme/css/main.css" type="text/css" />
+		
+	  <script type="text/javascript" src="https://blog.theprasojos.id/theme/js/custom_scripts.js"></script>
+
+
+    <link href="https://blog.theprasojos.id/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="LJP's blog Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header>
+	    <div class="feeds">
+	      <a href="https://blog.theprasojos.id/feeds/all.atom.xml" rel="alternate"><img src="https://blog.theprasojos.id/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+		<a href="https://blog.theprasojos.id" class="title">LJP's blog</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>Netcat the handy tool</h1>
+		
+<div class="metadata">
+  <time datetime="2018-04-03T00:00:00+01:00">Tue 03 April 2018</time>
+    <address class="vcard author">
+      by <a class="url fn" href="https://blog.theprasojos.id/author/lintang-jp.html">Lintang JP</a>
+    </address>
+  in <a href="https://blog.theprasojos.id/category/4n6.html">4n6</a>
+<p class="tags">tagged <a href="https://blog.theprasojos.id/tag/4n6-unix-linux-netcat-server-forensic.html">4n6 Unix Linux netcat Server Forensic</a></p></div>		
+		<p>Netcat/nc is a command line based tool known as the swiss-army knife utility for networking. It can do lots of things when it comes to networking matters. In Forensic field, netcat or commonly known as nc is mostly used to open up a port as an I/O destination mostly to perform a remote forensic task. See the following simple example :</p>
+<p>Run this on server :</p>
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<p>Run this on client :</p>
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<p>The example above will redirect whatever command output from the client into the server.</p>
+<p>nc can also be used to execute a reverse shell command. A listener on the server side can be open to receive any incoming remote-shell connection from the client. The possibilities of what can be done using a reverse shell tunnel is just unimaginable. It's like you have a shell account where the world has access to your machine.</p>
+<p>Now, obviously security and integrity concern are valid here. At least the following case :</p>
+<ol>
+<li>
+<p>Sending forensic data in plaintext can be a very thick pixie dust when it comes to criminal case. Here's how to send the data over the ssl channel. I remember one of my lecturer in UCD told me this, he was one of the ex-Scotland Yard forensic investigator. Pixie dust is where the other side is trying to undermine the proposed evidence by questioning it's integrity. Anything that doesn't sound very well can be questionable and be put into pixie dust.</p>
+</li>
+<li>
+<p>There's also another important concept called the fruit of a poisonous tree. If the remote system's binary has already been compromised, then executing nc using the 'poisoned' binary might raises a concern too.</p>
+</li>
+</ol>	
+
+	</article>
+
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "2018/04/03/netcat-the-handy-tool/";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = '//jprasojos.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
+
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" id="sidebar-container-fixed">
+
+	            <aside>
+	              <h2>About</h2>
+			      <p>
+                    Just an ordinary telecom engineer, working for Online Charging System..
+			      </p>
+			    </aside>
+
+  	          <nav>
+	            <h2>Categories</h2>
+	            <ul>
+	                <li class="active"><a href="https://blog.theprasojos.id/category/4n6.html">4n6</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/homeserver.html">HomeServer</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/java.html">Java</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/renungan.html">Renungan</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/telco.html">Telco</a></li>
+	                <li ><a href="https://blog.theprasojos.id/category/unixlinux.html">Unix/Linux</a></li>
+	            </ul>
+	          </nav>
+
+	            <aside>
+	            <h2>Social</h2>
+			      <ul class="social">
+				    <li><a href="https://twitter.com/jprasojo">Twitter</a><i></i></li>
+				    <li><a href="https://www.linkedin.com/in/lintangprasojo">Linkedin</a><i></i></li>
+			      </ul>
+			    </aside>
+
+	            <aside>
+	              <h2>Blogroll</h2>
+	              <ul>
+	                  <li><a href="http://getpelican.com/">Pelican</a></li>
+	                  <li><a href="http://travel.theprasojos.id">My Travelling Logs</a></li>
+	                  <li><a href="https://vhynaulia.wordpress.com/">Blognya TePot</a></li>
+	                  <li><a href="http://theprasojos.wordpress.com">Theprasojos Family</a></li>
+	              </ul>
+	            </aside>
+	        </div>
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  Lintang JP - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-56589451-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+</body>
+</html>
